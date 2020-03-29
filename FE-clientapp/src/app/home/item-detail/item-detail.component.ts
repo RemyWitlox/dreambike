@@ -1,5 +1,5 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { Component, OnInit } from "@angular/core/core";
+import { ActivatedRoute } from "@angular/router/router";
 import { RouterExtensions } from "nativescript-angular/router";
 
 import { DataService, DataItem } from "../../shared/data.service";
@@ -15,7 +15,7 @@ export class ItemDetailComponent implements OnInit {
         private _data: DataService,
         private _route: ActivatedRoute,
         private _routerExtensions: RouterExtensions
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         const id = +this._route.snapshot.params.id;

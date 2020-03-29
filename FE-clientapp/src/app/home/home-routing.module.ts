@@ -1,5 +1,5 @@
-import { NgModule } from "@angular/core";
-import { Routes } from "@angular/router";
+import { NgModule } from "@angular/core/core";
+import { Routes } from "@angular/router/router";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 
 import { HomeComponent } from "./home.component";
@@ -14,4 +14,4 @@ const routes: Routes = [
     imports: [NativeScriptRouterModule.forChild(routes)],
     exports: [NativeScriptRouterModule]
 })
-export class HomeRoutingModule { }
+export class HomeRoutingModule {}
