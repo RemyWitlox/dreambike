@@ -1,14 +1,11 @@
 import { Observable } from "tns-core-modules/data/observable";
 
-export class HelloWorldModel extends Observable {
-
+export class MainView extends Observable {
     private _counter: number;
     private _message: string;
 
     constructor() {
         super();
-
-        // Initialize default values.
         this._counter = 42;
         this.updateMessage();
     }
@@ -31,9 +28,9 @@ export class HelloWorldModel extends Observable {
 
     private updateMessage() {
         if (this._counter <= 0) {
-            this.message = "Hoorraaay! You unlocked the NativeScript clicker achievement!";
+            this.message = "There are no more bikes to rent!";
         } else {
-            this.message = `${this._counter} taps left`;
+            this.message = `${this._counter} bikes left to rent`;
         }
     }
 }
