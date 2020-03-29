@@ -28,7 +28,7 @@ export class MainView extends Observable {
 
     private updateMessage() {
         if (this._counter <= 0) {
-            this.message = "There are no more bikes to rent!";
+            this.message = "There are no more bikes to rent!!";
         } else {
             this.message = `${this._counter} bikes left to rent`;
         }
