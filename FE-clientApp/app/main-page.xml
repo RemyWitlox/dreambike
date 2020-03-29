@@ -1,11 +1,11 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo">
-    <ActionBar title="DreamBike" ico="./assets/logo zonder text 2.ico"></ActionBar>
+    <ActionBar title="DreamBike" android.icon="~/assets/small.png" android.iconVisibility="always"></ActionBar>
     <ActivityIndicator busy="true"></ActivityIndicator>
     <StackLayout class="p-20">
         <Label text="Welcom to DreamBike" class="h1 text-center"/>
+        <Image src="~/assets/TxtRnd.png" width="150" class="img-rounded m-b-20"></Image>
         <Button text="Rent a Bike" tap="{{ onTap }}" class="-primary -rounded-lg" />
         <Label text="{{ message }}" class="h2 text-center" textWrap="true"/>
-        <Image src="./logo2.png" width="150" class="img-rounded m-b-20"></Image>
 
     </StackLayout>
 </Page>
