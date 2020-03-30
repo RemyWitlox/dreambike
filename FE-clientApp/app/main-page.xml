@@ -1,14 +1,19 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" style="background-color:silver">
     <ActionBar title="DreamBike" android.icon="~/assets/small.png" android.iconVisibility="always" style="background-color:black"></ActionBar>
     <ActivityIndicator busy="true"></ActivityIndicator>
-    <StackLayout class="p-20">
-        <Label text="Welcom to DreamBike" class="h1 text-center" />
-        <Image src="~/assets/TxtRnd.png" width="150" class="img-rounded m-b-20"></Image>
-        <TextField hint="Username" color="orangered" backgroundColor="lightyellow" />
-        <TextField hint="Enter text" color="orangered" backgroundColor="lightyellow" />
-        <Button text="Login" tap="{{ onTap }}" class="-primary -rounded-lg" />
-
-        <Button text="Rent a Bike" tap="{{ onTap }}" class="-primary -rounded-lg" />
-        <Label text="{{ message }}" class="h2 text-center" textWrap="true" />
+    <StackLayout>
+        <StackLayout class="p-20">
+            <Label text="Welcom to DreamBike" class="h1 text-center" />
+            <Image src="~/utils/TxtRnd.png" width="150" class="img-rounded m-b-20"></Image>
+        </StackLayout>
+        <StackLayout class="p-20">
+            <TextField hint="Username" color="orangered" backgroundColor="lightyellow" />
+            <TextField hint="Enter text" color="orangered" backgroundColor="lightyellow" />
+            <Button text="Login" tap="{{ onTap }}" class="-primary -rounded-lg" />
+        </StackLayout>
+        <StackLayout class="p-20">
+            <Button text="Rent a Bike" tap="{{ onTap }}" class="-primary -rounded-lg" />
+            <Label text="{{ message }}" class="h2 text-center" textWrap="true" />
+        </StackLayout>
     </StackLayout>
 </Page>
