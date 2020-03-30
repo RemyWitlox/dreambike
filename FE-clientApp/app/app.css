@@ -3,4 +3,6 @@
 
 button.-primary {
   font-size: 18;
+  border: 2px solid black;
+  border-color: black;
 }
