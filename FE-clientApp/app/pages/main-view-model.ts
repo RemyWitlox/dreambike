@@ -26,6 +26,10 @@ export class MainView extends Observable {
         this.updateMessage();
     }
 
+    onLogin() {
+        this._message = "You are loged in!";
+    }
+
     private updateMessage() {
         if (this._counter <= 0) {
             this.message = "There are no more bikes to rent!!";

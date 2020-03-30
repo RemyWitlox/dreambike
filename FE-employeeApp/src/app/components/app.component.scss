@@ -1,3 +1,5 @@
+$gold: rgb(215, 194, 120);
+
 mat-sidenav-container,
 mat-sidenav-content,
 mat-sidenav {
@@ -18,7 +20,7 @@ a:hover {
 }
 
 a:active {
-  color: rgb(215, 194, 120);
+  color: $gold;
 }
 
 .navigation-items {
