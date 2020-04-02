@@ -15,9 +15,10 @@ import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ContentComponent } from '../app/components/content/content.component';
+import { LoginDialog } from './dialogs/login-dialog';
 
 @NgModule({
-  declarations: [AppComponent, ContentComponent],
+  declarations: [AppComponent, ContentComponent, LoginDialog],
   imports: [
     BrowserModule,
     MaterialModule,
@@ -34,7 +35,8 @@ import { ContentComponent } from '../app/components/content/content.component';
     MatListModule,
     FlexLayoutModule
   ],
+  entryComponents: [LoginDialog],
   providers: [],
-  bootstrap: [AppComponent, ContentComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

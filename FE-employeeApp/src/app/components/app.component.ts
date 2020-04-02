@@ -9,17 +9,22 @@ import { LoginDialog } from '../dialogs/login-dialog';
 })
 export class AppComponent {
   constructor(public dialog: MatDialog) {}
-
+  loggedIn = false;
   title = 'Dreambike';
+
+  onLogout(): void {
+    this.loggedIn = false;
+  }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(LoginDialog, {
       panelClass: 'dialog',
       width: '350px',
-      height: '150px'
+      height: '300px'
     });
 
     dialogRef.afterClosed().subscribe(() => {
+      this.loggedIn = true;
       console.log('login is gesloten');
     });
   }
