@@ -1,5 +1,184 @@
 @import "~@angular/material/prebuilt-themes/dreambike.css";
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+$background-color: rgb(214, 218, 191);
+$background-color-dark: rgb(33, 34, 29);
+$background-color2: rgb(166, 170, 146);
+$gold: rgb(215, 194, 120);
+$backgroundHover-color: rgb(215, 194, 120);
+$base-color: rgb(32, 88, 17);
+$border-dark: rgba($base-color, 0.88);
+$border-radius: 0.5rem !default;
+$box-shadow: 0 0.5rem 1rem rgba(black, 0.15) !default;
 
 body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
   margin: 0;
+}
+
+body,
+html {
+  height: 100%;
+
+  .bg {
+    background-color: silver;
+    height: 100%;
+    margin: 0px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  mat-sidenav-container,
+  mat-sidenav-content,
+  mat-sidenav {
+    height: min-content;
+  }
+
+  mat-sidenav {
+    width: 250px;
+  }
+
+  /*Dialog styles; */
+  .dialog .mat-dialog-container {
+    background-color: rgb(214, 218, 191);
+  }
+
+  .dialog .mat-dialog-actions .mat-button {
+    -webkit-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    border: 2px solid #555555;
+    border-radius: 5px;
+    box-shadow: 0 1px #666;
+  }
+
+  .dialog .mat-dialog-actions .mat-button:hover {
+    background-color: $background-color-dark;
+    color: white;
+  }
+
+  .dialog .mat-dialog-actions .mat-button:active {
+    background-color: $background-color2;
+    box-shadow: 0 1px #666;
+    transform: translateY(2px);
+  }
+
+  .dialog .mat-dialog-actions .mat-button:focus {
+    background-color: rgba(117, 255, 79, 0.479);
+  }
+
+  /* Mat-button-toggle-group styles*/
+  .mat-button-toggle-group {
+    height: fit-content;
+    margin-bottom: 5px;
+    border-radius: $border-radius;
+    border: 1px solid $border-dark;
+  }
+
+  .mat-button-toggle-appearance-standard {
+    background-color: $background-color;
+    color: black;
+    display: block;
+    padding: 0px;
+    text-decoration: none;
+  }
+
+  .mat-button-toggle-appearance-standard :hover {
+    background-color: $backgroundHover-color;
+    color: white;
+  }
+
+  .mat-button-toggle-appearance-standard :focus {
+    background-color: $base-color;
+    color: white;
+  }
+
+  .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+    line-height: 20px;
+  }
+
+  /* Style for buttons: */
+  .button {
+    -webkit-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    border: 2px solid #555555;
+    border-radius: 5px;
+    box-shadow: 0 1px #666;
+  }
+
+  .button:hover {
+    background-color: $background-color-dark;
+    color: white;
+  }
+
+  .button:active {
+    background-color: $background-color2;
+    box-shadow: 0 1px #666;
+    transform: translateY(2px);
+  }
+
+  /* style for button for icons*/
+  .buttonIcon {
+    background-color: transparent;
+    margin-left: -10px;
+    margin-right: -10px;
+    border: 0px;
+  }
+
+  .buttonIcon:hover {
+    background-color: transparent;
+    border: 0px;
+  }
+
+  .buttonIcon:active {
+    background-color: transparent;
+    border: 0px;
+  }
+
+  /* All other styles: */
+  .content {
+    background-color: silver;
+    overflow: hidden !important;
+    float: left;
+    width: 100%;
+  }
+
+  .filterForm {
+    background-color: rgb(214, 218, 191);
+    max-height: max-content;
+    max-width: max-content;
+    padding-right: 15px;
+    border-radius: $border-radius;
+    border: 1px solid $border-dark;
+  }
+
+  .navigation-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  .icon {
+    display: inline-block;
+    height: 30px;
+    margin: 0 auto;
+    margin-right: 10px;
+    padding-right: 5px;
+    text-align: center;
+    vertical-align: middle;
+    width: 15%;
+  }
+
+  .label {
+    display: inline-block;
+    line-height: 30px;
+    margin: 0;
+    width: 85%;
+  }
+
+  /* No more default outline that chrome always uses */
+  *:focus {
+    outline: none;
+  }
 }

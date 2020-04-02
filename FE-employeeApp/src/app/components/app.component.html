@@ -39,7 +39,7 @@
       <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
         <ul fxLayout fxLayoutGap="20px" class="navigation-items">
           <li>
-            <a>
+            <a (click)="openDialog()">
               <mat-icon class="icon">input</mat-icon>
               <a class="label">Login</a>
             </a>
@@ -68,4 +68,4 @@
     <main></main>
   </mat-sidenav-content>
 </mat-sidenav-container>
-<router-outlet></router-outlet>
+<router-outlet class="content"></router-outlet>
