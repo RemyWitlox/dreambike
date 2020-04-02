@@ -3,7 +3,7 @@
     <ActivityIndicator busy="true"></ActivityIndicator>
     <StackLayout>
         <StackLayout class="p-20">
-            <Label text="Welcom to DreamBike" class="h1 text-center" />
+            <Label text="Welcome to DreamBike" class="h1 text-center" />
             <Image src="~/utils/TxtRnd.png" width="150" class="img-rounded m-b-20"></Image>
         </StackLayout>
         <StackLayout class="form">
