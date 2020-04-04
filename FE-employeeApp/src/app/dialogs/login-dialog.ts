@@ -5,7 +5,7 @@ import {
   FormControl,
   Validators,
   FormGroupDirective,
-  NgForm
+  NgForm,
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
@@ -20,16 +20,16 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 @Component({
   selector: 'login-dialog',
-  templateUrl: './loginDialog.component.html'
+  templateUrl: './loginDialog.component.html',
 })
 export class LoginDialog {
   matcher = new MyErrorStateMatcher();
   loginForm = new FormGroup({
     username: new FormControl('', [
       Validators.pattern('[0-9a-zA-Z]*'),
-      Validators.required
+      Validators.required,
     ]),
-    password: new FormControl('', Validators.required)
+    password: new FormControl('', Validators.required),
   });
 
   constructor(public dialogRef: MatDialogRef<LoginDialog>) {}
