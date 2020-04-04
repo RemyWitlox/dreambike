@@ -25,6 +25,8 @@ button.-primary {
   margin-bottom: 25;
 }
 .input-field .input {
+  color: orangered;
+  background-color: lightyellow;
   font-size: 18;
   placeholder-color: rgb(215, 194, 120);
 }

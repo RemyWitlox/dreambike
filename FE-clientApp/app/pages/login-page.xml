@@ -1,0 +1,20 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" style="background-color: silver;">
+  <ActionBar title="DreamBike" android.icon="~/utils/small.png" android.iconVisibility="always" class="actionbar"></ActionBar>
+  <ActivityIndicator busy="true"></ActivityIndicator>
+  <StackLayout>
+    <StackLayout class="p-20">
+      <label text="Welcome to DreamBike" class="h1 text-center"></label>
+      <image src="~/utils/TxtRnd.png" width="150" class="img-rounded m-b-20"></image>
+    </StackLayout>
+    <StackLayout class="form">
+      <StackLayout row="0" class="input-field">
+        <TextField id="username" class="input" autocorrect="false" autocapitalizationType="none" hint="Username" />
+      </StackLayout>
+      <StackLayout row="1" class="input-field">
+        <TextField id="password" class="input" autocorrect="false" autocapitalizationType="none" hint="Password" secure="true" />
+      </StackLayout>
+    </StackLayout>
+    <button text="{{ loginBtn }}" tap="{{ onLogin }}" class="-primary -rounded-lg"></button>
+    <label text="{{ message }}" class="h2 text-center" textWrap="true" />
+  </StackLayout>
+</Page>
