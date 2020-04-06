@@ -1,38 +1,24 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import {
-  FormGroup,
-  FormControl,
-  Validators,
-  FormGroupDirective,
-  NgForm,
-} from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
-
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(
-    control: FormControl | null,
-    form: FormGroupDirective | NgForm | null
-  ): boolean {
-    return !!(control && control.invalid && (control.dirty || control.touched));
-  }
-}
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { LoginService } from '../services/login.service';
+import { Login } from '../models/login';
 
 @Component({
   selector: 'login-dialog',
   templateUrl: './loginDialog.component.html',
 })
 export class LoginDialog {
-  matcher = new MyErrorStateMatcher();
+  login = new Login();
   loginForm = new FormGroup({
-    username: new FormControl('', [
-      Validators.pattern('[0-9a-zA-Z]*'),
-      Validators.required,
-    ]),
+    username: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
   });
 
-  constructor(public dialogRef: MatDialogRef<LoginDialog>) {}
+  constructor(
+    public dialogRef: MatDialogRef<LoginDialog>,
+    private loginService: LoginService
+  ) {}
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -40,8 +26,12 @@ export class LoginDialog {
 
   onConfirm(loginForm) {
     if (loginForm.value.username != '' || loginForm.value.password != '') {
-      console.log(loginForm);
+      console.log('Inlog niet leeg');
+      this.loginService
+        .login(this.login.password, this.login.username)
+        .subscribe((data) => {});
     } else {
+      console.log('Inlog wel leeg');
       return;
     }
     this.dialogRef.close();

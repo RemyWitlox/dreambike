@@ -2,7 +2,7 @@
   <p>
     Login
   </p>
-  <form formGroup="loginForm">
+  <form [formGroup]="loginForm">
     <mat-form-field>
       <input
         matInput
@@ -10,7 +10,6 @@
         placeholder="Username"
         formControlName="username"
         required
-        [errorStateMatcher]="matcher"
       />
       <mat-hint>What is your username?</mat-hint>
     </mat-form-field>
@@ -22,7 +21,6 @@
         placeholder="Password"
         formControlName="password"
         required
-        [errorStateMatcher]="matcher"
       />
       <mat-hint>What is your password?</mat-hint>
     </mat-form-field>

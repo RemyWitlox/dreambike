@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material-module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './router/app-routing.module';
 import { MatButtonModule } from '@angular/material/button';
@@ -16,6 +17,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ContentComponent } from '../app/components/content/content.component';
 import { LoginDialog } from './dialogs/login-dialog';
+import { CustomHttpInterceptorService } from './services/custom-http-interceptor.service';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [AppComponent, ContentComponent, LoginDialog],
@@ -27,16 +30,26 @@ import { LoginDialog } from './dialogs/login-dialog';
     HttpClientModule,
     MatButtonModule,
     MatPaginatorModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatMenuModule,
     MatCardModule,
     MatToolbarModule,
     MatIconModule,
     MatSidenavModule,
     MatListModule,
-    FlexLayoutModule
+    FlexLayoutModule,
   ],
+  exports: [FormsModule, ReactiveFormsModule],
   entryComponents: [LoginDialog],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    DatePipe,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CustomHttpInterceptorService,
+      multi: true,
+    },
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

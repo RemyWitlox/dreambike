@@ -5,7 +5,7 @@ import { LoginDialog } from '../dialogs/login-dialog';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   constructor(public dialog: MatDialog) {}
@@ -20,7 +20,7 @@ export class AppComponent {
     const dialogRef = this.dialog.open(LoginDialog, {
       panelClass: 'dialog',
       width: '350px',
-      height: '300px'
+      height: '300px',
     });
 
     dialogRef.afterClosed().subscribe(() => {
