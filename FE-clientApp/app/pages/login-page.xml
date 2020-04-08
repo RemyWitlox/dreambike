@@ -1,5 +1,7 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" style="background-color: silver;">
-  <ActionBar title="DreamBike" android.icon="~/utils/small.png" android.iconVisibility="always" class="actionbar"></ActionBar>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="onLoaded" navigatedTo="onNavigatedTo" style="background-color: silver;">
+  <Page.actionbar>
+    <ActionBar title="DreamBike" android.icon="~/utils/small.png" android.iconVisibility="always" class="actionbar"></ActionBar>
+  </Page.actionbar>
   <ActivityIndicator busy="true"></ActivityIndicator>
   <StackLayout>
     <StackLayout class="p-20">

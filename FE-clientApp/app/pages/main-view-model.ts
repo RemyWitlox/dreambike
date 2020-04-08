@@ -23,6 +23,7 @@ export class MainView extends Observable {
 
     onTap() {
         this._counter--;
+        console.log("tapped");
         this.updateMessage();
     }
 

@@ -1,4 +1,5 @@
 import { Observable } from "tns-core-modules/data/observable";
+import { navigate } from "./login-page";
 
 export class LoginView extends Observable {
     private _message: string;
@@ -40,6 +41,7 @@ export class LoginView extends Observable {
 
     onLogin() {
         this.updateView();
+        navigate();
     }
 
     private updateView() {
