@@ -1,5 +1,6 @@
 import { Observable } from "tns-core-modules/data/observable";
-import { navigate } from "./login-page";
+import { NavigationEntry, Frame } from "tns-core-modules/ui/frame/frame";
+import { AnimationCurve } from "tns-core-modules/ui/enums/enums";
 
 export class LoginView extends Observable {
     private _message: string;
@@ -41,7 +42,7 @@ export class LoginView extends Observable {
 
     onLogin() {
         this.updateView();
-        navigate();
+        this.navigate();
     }
 
     private updateView() {
@@ -54,5 +55,20 @@ export class LoginView extends Observable {
             this.loginBtn = "Login";
             this.message = "Please log in";
         }
+    }
+
+    navigate() {
+        console.log("Navigate");
+        const frame = Frame.getFrameById("root-frame");
+        const navigationEntry: NavigationEntry = {
+            moduleName: "pages/main-page",
+            animated: true,
+            transition: {
+                name: "slide",
+                duration: 380,
+                curve: AnimationCurve.easeIn,
+            },
+        };
+        frame.navigate(navigationEntry);
     }
 }

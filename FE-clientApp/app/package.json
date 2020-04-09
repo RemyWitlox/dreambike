@@ -3,5 +3,19 @@
   "android": {
     "v8Flags": "--expose_gc",
     "markingMode": "none"
+  },
+  "nativescript": {
+    "id": "org.nativescript.demo",
+    "tns-ios": {
+      "version": "^6.2.0"
+    },
+    "tns-android": {
+      "version": "^6.2.0"
+    }
+  },
+  "dependencies": {
+    "nativescript-google-maps-sdk": "^2.9.1",
+    "nativescript-permissions": "^1.2.3",
+    "tns-core-modules": "^6.5.1"
   }
 }

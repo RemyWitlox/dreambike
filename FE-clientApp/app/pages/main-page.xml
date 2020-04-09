@@ -1,4 +1,4 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="onLoaded" navigatedTo="onNavigatedTo" style="background-color:silver">
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" xmlns:maps="nativescript-google-maps-sdk" loaded="onLoaded" navigatedTo="onNavigatedTo" style="background-color:silver">
     <Page.actionBar>
         <ActionBar title="DreamBike" android.icon="~/utils/small.png" android.iconVisibility="always" class="actionbar"></ActionBar>
     </Page.actionBar>
@@ -8,5 +8,6 @@
             <Button text="Rent a Bike" tap="{{ onTap }}" class="-primary -rounded-lg" />
             <Label text="{{ message }}" class="h2 text-center" textWrap="true" />
         </StackLayout>
+        <!--<maps:MapView mapReady="{{ onMapReady($event) }}" iosOverflowSafeArea="true" />-->
     </StackLayout>
 </Page>
