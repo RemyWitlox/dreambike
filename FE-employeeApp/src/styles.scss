@@ -6,8 +6,6 @@ $background-color-dark: rgb(70, 70, 70);
 $background-color2: rgb(166, 170, 146);
 $gold: rgb(215, 194, 120);
 $backgroundHover-color: rgb(215, 194, 120);
-$base-color: rgb(32, 88, 17);
-$border-dark: rgba($base-color, 0.88);
 $border-radius: 0.5rem !default;
 $box-shadow: 0 0.5rem 1rem rgba(black, 0.15) !default;
 
@@ -23,20 +21,9 @@ html {
   .bg {
     background-color: silver;
     height: 100%;
-    margin: 0px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-  }
-
-  mat-sidenav-container,
-  mat-sidenav-content,
-  mat-sidenav {
-    height: min-content;
-  }
-
-  mat-sidenav {
-    width: 250px;
   }
 
   /*Dialog styles; */
@@ -74,7 +61,7 @@ html {
     height: fit-content;
     margin-bottom: 5px;
     border-radius: $border-radius;
-    border: 1px solid $border-dark;
+    border: 1px solid black;
   }
 
   .mat-button-toggle-appearance-standard {
@@ -91,7 +78,7 @@ html {
   }
 
   .mat-button-toggle-appearance-standard :focus {
-    background-color: $base-color;
+    background-color: green;
     color: white;
   }
 
@@ -137,12 +124,39 @@ html {
     border: 0px;
   }
 
+  /* Verticaal menu */
+  .vertical-menu {
+    background-color: black;
+    width: 200px;
+    margin-right: 10px;
+    float: left;
+  }
+
+  .vertical-menu a {
+    margin-left: 10px;
+    background-color: $background-color;
+    color: black;
+    display: block;
+    padding: 12px;
+    text-decoration: none;
+  }
+
+  .vertical-menu a:hover {
+    background-color: $backgroundHover-color;
+    color: black;
+  }
+
+  .vertical-menu a.active {
+    background-color: green;
+    color: white;
+  }
+
   /* All other styles: */
   .content {
-    background-color: silver;
     overflow: hidden !important;
     float: left;
-    width: 100%;
+    width: calc(100% - 230px);
+    background-color: silver;
   }
 
   .filterForm {
@@ -151,7 +165,7 @@ html {
     max-width: max-content;
     padding-right: 15px;
     border-radius: $border-radius;
-    border: 1px solid $border-dark;
+    border: 1px solid black;
   }
 
   .navigation-items {
