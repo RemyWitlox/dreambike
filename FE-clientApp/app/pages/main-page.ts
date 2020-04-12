@@ -37,7 +37,6 @@ export function enableLocationTap() {
             console.log("Error: " + (e.message || e));
         }
     );
-    console.log("already enabled");
 }
 
 export function buttonGetLocationTap() {
@@ -90,7 +89,6 @@ export function buttonStopTap() {
     while (watchId != null) {
         geolocation.clearWatch(watchId);
         console.log(watchId);
-
         watchId = watchIds.pop();
     }
 }
