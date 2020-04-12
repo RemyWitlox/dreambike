@@ -1,6 +1,16 @@
 import { Observable } from "tns-core-modules/data/observable";
+import { ObservableArray } from "tns-core-modules/data/observable-array";
 import { registerElement } from "nativescript-angular/element-registry";
 import { MapView, Marker, Position } from "nativescript-google-maps-sdk";
+import * as geolocation from "nativescript-geolocation";
+import { Accuracy } from "tns-core-modules/ui/enums";
+
+geolocation.enableLocationRequest();
+geolocation.getCurrentLocation({
+    desiredAccuracy: Accuracy.high,
+    maximumAge: 5000,
+    timeout: 20000,
+});
 
 registerElement(
     "MapView",
@@ -11,6 +21,7 @@ export class MainView extends Observable {
     private mapView: MapView;
     private _counter: number;
     private _message: string;
+    private _locations: ObservableArray<geolocation.Location>;
 
     constructor() {
         super();
@@ -29,6 +40,20 @@ export class MainView extends Observable {
         }
     }
 
+    get locations(): ObservableArray<geolocation.Location> {
+        if (!this._locations) {
+            this._locations = new ObservableArray<geolocation.Location>();
+        }
+        return this._locations;
+    }
+
+    set locations(value: ObservableArray<geolocation.Location>) {
+        if (this._locations !== value) {
+            this._locations = value;
+            this.notifyPropertyChange("locations", value);
+        }
+    }
+
     onTap() {
         this._counter--;
         console.log("tapped");
@@ -43,7 +68,7 @@ export class MainView extends Observable {
         }
     }
 
-    onMapReady(event) {
+    OnMapReady(event) {
         this.mapView = event.object;
 
         const NA_CENTER_LATITUDE = 39.8283459;

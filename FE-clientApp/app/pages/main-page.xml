@@ -8,6 +8,24 @@
             <Button text="Rent a Bike" tap="{{ onTap }}" class="-primary -rounded-lg" />
             <Label text="{{ message }}" class="h2 text-center" textWrap="true" />
         </StackLayout>
-        <!--<maps:MapView mapReady="{{ onMapReady($event) }}" iosOverflowSafeArea="true" />-->
+        <!--<maps:MapView mapReady="{{ onMapReady($event) }}" iosOverflowSafeArea="true" 
+            />-->
+        <Button text="Enable Location" col="0" textWrap="true" tap="enableLocationTap" />
+        <Button text="Get Current Location" col="1" textWrap="true" tap="buttonGetLocationTap" />
+        <Button text="Start Monitoring" col="2" textWrap="true" tap="buttonStartTap" />
+        <Button text="Stop Monitoring" col="3" textWrap="true" tap="buttonStopTap" />
+        <GridLayout rows="auto, auto, *, auto">
+            <ListView row="2" items="{{ locations }}">
+                <ListView.itemTemplate>
+                    <Label text="{{ $value,'latitude: ' + latitude + ', longitude: ' + longitude + ', altitude: ' + altitude }}" />
+                </ListView.itemTemplate>
+            </ListView>
+            <Button text="Clear" row="3" tap="buttonClearTap" />
+        </GridLayout>
+        <!--<GridLayout>
+            <ContentView>
+                <MapBox accessToken="sk.eyJ1Ijoiam1nd2l0bG94IiwiYSI6ImNrOHQwbjU1ZzAxbW0zbHNoYW5pMTJqb28ifQ.C-Cbw5Pb4FojdxCaiX64rw" mapStyle="traffic_day" latitude="51.547014" longitude="5.4842219" hideComapp="true" zoomLevel="10" mapReady="{{ OnMapReady($event) }}"></MapBox>
+            </ContentView>
+        </GridLayout>-->
     </StackLayout>
 </Page>
