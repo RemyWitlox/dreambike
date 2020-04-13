@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LoginService } from '../services/login.service';
@@ -26,12 +26,12 @@ export class LoginDialog {
 
   onConfirm(loginForm) {
     if (loginForm.value.username != '' || loginForm.value.password != '') {
-      console.log('Inlog niet leeg');
+      console.log('Form not empty');
       this.loginService
         .login(this.login.password, this.login.username)
         .subscribe((data) => {});
     } else {
-      console.log('Inlog wel leeg');
+      console.log('Form is empty');
       return;
     }
     this.dialogRef.close();

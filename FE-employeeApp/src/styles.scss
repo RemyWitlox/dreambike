@@ -3,7 +3,7 @@
 
 $background-color: silver;
 $background-color-dark: rgb(70, 70, 70);
-$background-color2: rgb(166, 170, 146);
+$background-color2: rgb(170, 169, 169);
 $gold: rgb(215, 194, 120);
 $backgroundHover-color: rgb(215, 194, 120);
 $border-radius: 0.5rem !default;
@@ -12,6 +12,7 @@ $box-shadow: 0 0.5rem 1rem rgba(black, 0.15) !default;
 body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   margin: 0;
+  padding: 0;
 }
 
 body,
@@ -21,141 +22,49 @@ html {
   .bg {
     background-color: silver;
     height: 100%;
+    width: 100%;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
   }
 
-  /*Dialog styles; */
-  .dialog .mat-dialog-container {
-    background-color: silver;
-  }
-
-  .dialog .mat-dialog-actions .mat-button {
-    -webkit-transition-duration: 0.2s;
-    transition-duration: 0.2s;
-    border: 2px solid #555555;
-    border-radius: 5px;
-    box-shadow: 0 1px #666;
-    background-color: black;
-    color: $gold;
-  }
-
-  .dialog .mat-dialog-actions .mat-button:hover {
-    background-color: black;
-    color: white !important;
-  }
-
-  .dialog .mat-dialog-actions .mat-button:active {
-    box-shadow: 0 1px #666;
-    transform: translateY(2px);
-    color: green;
-  }
-
-  .dialog .mat-dialog-actions .mat-button:focus {
-    color: green;
-  }
-
-  /* Mat-button-toggle-group styles*/
-  .mat-button-toggle-group {
-    height: fit-content;
-    margin-bottom: 5px;
-    border-radius: $border-radius;
-    border: 1px solid black;
-  }
-
-  .mat-button-toggle-appearance-standard {
-    background-color: $background-color;
+  /* Horizontal menu */
+  .horizontalMenu {
     color: black;
-    display: block;
-    padding: 0px;
-    text-decoration: none;
-  }
-
-  .mat-button-toggle-appearance-standard :hover {
-    background-color: $backgroundHover-color;
-    color: white;
-  }
-
-  .mat-button-toggle-appearance-standard :focus {
-    background-color: green;
-    color: white;
-  }
-
-  .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
-    line-height: 20px;
-  }
-
-  /* Style for buttons: */
-  .button {
-    -webkit-transition-duration: 0.2s;
-    transition-duration: 0.2s;
-    border: 2px solid #555555;
-    border-radius: 5px;
-    box-shadow: 0 1px #666;
-  }
-
-  .button:hover {
-    background-color: $background-color-dark;
-    color: white;
-  }
-
-  .button:active {
-    background-color: $background-color2;
-    box-shadow: 0 1px #666;
-    transform: translateY(2px);
-  }
-
-  /* style for button for icons*/
-  .buttonIcon {
-    background-color: transparent;
-    margin-left: -10px;
-    margin-right: -10px;
-    border: 0px;
-  }
-
-  .buttonIcon:hover {
-    background-color: transparent;
-    border: 0px;
-  }
-
-  .buttonIcon:active {
-    background-color: transparent;
-    border: 0px;
+    width: 100%;
   }
 
   /* Verticaal menu */
-  .vertical-menu {
-    background-color: black;
+  .verticalMenu {
+    background-color: $background-color2;
+    border-left: 15px solid black;
     width: 200px;
-    margin-right: 10px;
     float: left;
+    min-height: 100%;
   }
 
-  .vertical-menu a {
-    margin-left: 10px;
-    background-color: $background-color;
+  .verticalMenu a {
+    background-color: $background-color2;
     color: black;
     display: block;
     padding: 12px;
     text-decoration: none;
   }
 
-  .vertical-menu a:hover {
+  .verticalMenu a:hover {
     background-color: $backgroundHover-color;
     color: black;
   }
 
-  .vertical-menu a.active {
+  .verticalMenu a.active {
     background-color: green;
     color: white;
   }
 
   /* All other styles: */
   .content {
-    overflow: hidden !important;
-    float: left;
-    width: calc(100% - 230px);
+    position: absolute;
+    margin-left: 215px;
     background-color: silver;
   }
 
@@ -170,8 +79,8 @@ html {
 
   .navigation-items {
     list-style: none;
-    padding: 0;
     margin: 0;
+    margin-right: 0;
     cursor: pointer;
   }
 
