@@ -6,7 +6,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './router/app-routing.module';
 import { MatButtonModule } from '@angular/material/button';
-import { AppComponent } from './components/app.component';
+import { AppComponent } from './components/app/app.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -15,10 +15,14 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { HomeComponent } from './components/content/home.component';
+import { HomeComponent } from './components/home/home.component';
 import { LoginDialog } from './dialogs/login-dialog';
 import { CustomHttpInterceptorService } from './services/custom-http-interceptor.service';
 import { DatePipe } from '@angular/common';
+
+// used to create fake backend
+import { fakeBackendProvider } from '../app/_helpers';
+import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, LoginDialog],
@@ -49,6 +53,11 @@ import { DatePipe } from '@angular/common';
       useClass: CustomHttpInterceptorService,
       multi: true,
     },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+
+    // provider used to create fake backend
+    fakeBackendProvider,
   ],
   bootstrap: [AppComponent],
 })

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { LoginDialog } from '../dialogs/login-dialog';
+import { LoginDialog } from '../../dialogs/login-dialog';
 
 @Component({
   selector: 'app-root',

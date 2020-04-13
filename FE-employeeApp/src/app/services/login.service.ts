@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Login } from '../models/login';
+import { User } from '../models/user';
 import { Device } from '../models/device';
 
 @Injectable({
@@ -28,7 +28,7 @@ export class LoginService {
     const payload = { password, username, deviceInfo };
     console.log(payload);
     return Observable.create((observer) => {
-      this.http.post(this.loginUrl, payload).subscribe((data: Login) => {
+      this.http.post(this.loginUrl, payload).subscribe((data: User) => {
         observer.next({ accessToken: data.accessToken });
         const expiresAt = this.addSeconds(new Date(), data.expiryDuration);
         localStorage.setItem('accesstoken', data.accessToken);

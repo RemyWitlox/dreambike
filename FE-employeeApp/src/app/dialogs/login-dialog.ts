@@ -2,14 +2,14 @@ import { Component, Output } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LoginService } from '../services/login.service';
-import { Login } from '../models/login';
+import { User } from '../models/user';
 
 @Component({
   selector: 'login-dialog',
   templateUrl: './loginDialog.component.html',
 })
 export class LoginDialog {
-  login = new Login();
+  login = new User();
   loginForm = new FormGroup({
     username: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
