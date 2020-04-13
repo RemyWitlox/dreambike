@@ -24,8 +24,15 @@ const users: User[] = [
     id: 2,
     username: 'user',
     password: 'user',
-    name: 'Normal',
+    name: 'Just another User',
     role: Role.User,
+  },
+  {
+    id: 3,
+    username: 'management',
+    password: 'management',
+    name: 'Management Team',
+    role: Role.Management,
   },
 ];
 
