@@ -15,13 +15,13 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { ContentComponent } from '../app/components/content/content.component';
+import { HomeComponent } from './components/content/home.component';
 import { LoginDialog } from './dialogs/login-dialog';
 import { CustomHttpInterceptorService } from './services/custom-http-interceptor.service';
 import { DatePipe } from '@angular/common';
 
 @NgModule({
-  declarations: [AppComponent, ContentComponent, LoginDialog],
+  declarations: [AppComponent, HomeComponent, LoginDialog],
   imports: [
     BrowserModule,
     MaterialModule,
