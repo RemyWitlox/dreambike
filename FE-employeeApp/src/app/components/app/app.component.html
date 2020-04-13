@@ -18,7 +18,7 @@
       </div>
       <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
         <ul fxLayout fxLayoutGap="20px" class="navigation-items">
-          <li *ngIf="!loggedIn">
+          <li *ngIf="!currentUser">
             <a (click)="openDialog()">
               <mat-icon class="icon">input</mat-icon>
               <a class="label">Login</a>
@@ -36,7 +36,7 @@
               <a class="label">Dashboard</a>
             </a>
           </li>
-          <li *ngIf="loggedIn">
+          <li *ngIf="currentUser">
             <a (click)="onLogout()">
               <mat-icon class="icon">input</mat-icon>
               <a class="label">LogOut</a>
@@ -50,18 +50,20 @@
 <!-- Verticaal menu -->
 <div class="verticalMenu">
   <a routerLinkActive="active" routerLink="home">Home</a>
-  <a routerLinkActive="active" routerLink="docking" *ngIf="loggedIn"
+  <a routerLinkActive="active" routerLink="dockingStations" *ngIf="currentUser"
     >Docking Stations</a
   >
-  <a routerLinkActive="active" routerLink="locations" *ngIf="loggedIn"
-    >Locations</a
+  <a routerLinkActive="active" routerLink="bikes" *ngIf="currentUser">Bikes</a>
+  <a routerLinkActive="active" routerLink="repairs" *ngIf="currentUser"
+    >Repairs</a
   >
-  <a routerLinkActive="active" routerLink="bikes" *ngIf="loggedIn">Bikes</a>
-  <a routerLinkActive="active" routerLink="repairs" *ngIf="loggedIn">Repairs</a>
-  <a routerLinkActive="active" routerLink="management" *ngIf="loggedIn"
+  <a
+    routerLinkActive="active"
+    routerLink="analytics"
+    *ngIf="isAdmin || isManagement"
     >Analytics</a
   >
-  <a routerLinkActive="active" routerLink="settings" *ngIf="loggedIn"
+  <a routerLinkActive="active" routerLink="settings" *ngIf="isAdmin"
     >Settings</a
   >
 </div>

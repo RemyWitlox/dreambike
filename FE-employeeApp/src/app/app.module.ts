@@ -33,7 +33,7 @@ import { BikesComponent } from './components/bikes';
 import { DockingStationsComponent } from './components/docking-stations';
 
 // Dialogs:
-import { LoginDialog } from './dialogs';
+import { LoginDialog } from './dialogs/login-dialog';
 
 @NgModule({
   declarations: [
