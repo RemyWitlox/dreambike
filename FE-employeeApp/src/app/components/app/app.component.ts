@@ -34,19 +34,18 @@ export class AppComponent {
 
   onLogout(): void {
     this.authenticationService.logout();
-    this.router.navigate(['/home']);
+    this.router.navigate(['']);
     this.router.navigate(['/home']);
   }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(LoginDialog, {
       panelClass: 'dialog',
-      width: '350px',
-      height: '300px',
+      width: '300px',
+      height: '350px',
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      console.log('login is gesloten');
       this.router.navigate(['/home']);
     });
   }

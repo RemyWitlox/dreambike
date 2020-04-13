@@ -12,7 +12,6 @@ import { first } from 'rxjs/operators';
 })
 export class LoginDialog {
   login = new User();
-  loading = false;
   loginForm: FormGroup;
   returnUrl: string;
   submitted = false;
@@ -58,7 +57,6 @@ export class LoginDialog {
       console.log('Form is empty');
       return;
     } else {
-      this.loading = true;
       this.authenticationService
         .login(this.f.username.value, this.f.password.value)
         .pipe(first())
@@ -68,7 +66,6 @@ export class LoginDialog {
           },
           (error) => {
             this.error = error;
-            this.loading = false;
           }
         );
       this.dialogRef.close();

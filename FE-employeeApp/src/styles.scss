@@ -19,6 +19,7 @@ body,
 html {
   height: 100%;
 
+  /* Styling for background - class="bg" */
   .bg {
     background-color: silver;
     height: 100%;
@@ -28,13 +29,13 @@ html {
     background-size: cover;
   }
 
-  /* Horizontal menu */
+  /* Styling for horizontal menu - class="horizontalMenu" */
   .horizontalMenu {
     color: black;
     width: 100%;
   }
 
-  /* Verticaal menu */
+  /* Styling for vertical menu - class="verticalMenu" */
   .verticalMenu {
     background-color: $background-color2;
     border-left: 15px solid black;
@@ -61,11 +62,35 @@ html {
     color: white;
   }
 
+  /* Styling for all the buttons - class="button" */
+  .button {
+    -webkit-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    border: 2px solid #555555;
+    border-radius: 5px;
+    box-shadow: 0 1px #666;
+  }
+
+  .button:hover {
+    background-color: $background-color-dark;
+    color: white;
+  }
+
+  .button:active {
+    background-color: $background-color2;
+    box-shadow: 0 1px #666;
+    transform: translateY(2px);
+  }
+
   /* All other styles: */
   .content {
     position: absolute;
     margin-left: 215px;
     background-color: silver;
+  }
+
+  .divContent {
+    margin-left: 15px;
   }
 
   .filterForm {
