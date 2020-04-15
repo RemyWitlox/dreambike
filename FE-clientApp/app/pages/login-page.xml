@@ -6,7 +6,7 @@
   <StackLayout>
     <StackLayout class="p-20">
       <label text="Welcome to DreamBike" class="h1 text-center"></label>
-      <image src="~/utils/TxtRnd.png" width="150" class="img-rounded m-b-20"></image>
+      <image src="~/utils/txtrnd.png" width="150" class="img-rounded m-b-20"></image>
     </StackLayout>
     <StackLayout class="form">
       <StackLayout row="0" class="input-field">
