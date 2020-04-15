@@ -1,4 +1,10 @@
 {
+  "scripts": {
+    "postinstall": "tns platform add android",
+    "start": "tns run android --emulator",
+    "start-geny": "tns run android --emulator --geny=\"DEVICE_NAME_HERE\"",
+    "doctor": "tns doctor"
+  },
   "nativescript": {
     "id": "org.nativescript.FEclientApp",
     "tns-android": {
