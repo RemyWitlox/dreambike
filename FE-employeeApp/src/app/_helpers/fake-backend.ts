@@ -22,10 +22,10 @@ const users: User[] = [
   },
   {
     id: 2,
-    username: 'user',
-    password: 'user',
-    name: 'Just another User',
-    role: Role.User,
+    username: 'employee',
+    password: 'employee',
+    name: 'Just another Employee',
+    role: Role.Employee,
   },
   {
     id: 3,

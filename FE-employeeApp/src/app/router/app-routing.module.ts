@@ -16,19 +16,19 @@ const routes: Routes = [
     path: 'dockingStations',
     component: DockingStationsComponent,
     canActivate: [AuthGuard],
-    data: { roles: [Role.User, Role.Management, Role.Admin] },
+    data: { roles: [Role.Employee, Role.Management, Role.Admin] },
   },
   {
     path: 'bikes',
     component: BikesComponent,
     canActivate: [AuthGuard],
-    data: { roles: [Role.User, Role.Management, Role.Admin] },
+    data: { roles: [Role.Employee, Role.Management, Role.Admin] },
   },
   {
     path: 'repairs',
     component: RepairsComponent,
     canActivate: [AuthGuard],
-    data: { roles: [Role.User, Role.Management, Role.Admin] },
+    data: { roles: [Role.Employee, Role.Management, Role.Admin] },
   },
   {
     path: 'analytics',
