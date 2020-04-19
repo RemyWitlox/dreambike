@@ -1,0 +1,46 @@
+[
+    {
+        "merged": "C:\\Users\\Remy\\git\\dreambikeGitVS\\dreambike\\FE-clientApp\\platforms\\tempPlugin\\nativescript_google_maps_sdk\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4\\notify_panel_notification_icon_bg.png",
+        "source": "C:\\Users\\Remy\\.gradle\\caches\\transforms-2\\files-2.1\\246153fc0686d4ff78c8961ca91329b7\\core-1.0.0\\res\\drawable-mdpi-v4\\notify_panel_notification_icon_bg.png"
+    },
+    {
+        "merged": "C:\\Users\\Remy\\git\\dreambikeGitVS\\dreambike\\FE-clientApp\\platforms\\tempPlugin\\nativescript_google_maps_sdk\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4\\notification_bg_normal_pressed.9.png",
+        "source": "C:\\Users\\Remy\\.gradle\\caches\\transforms-2\\files-2.1\\246153fc0686d4ff78c8961ca91329b7\\core-1.0.0\\res\\drawable-mdpi-v4\\notification_bg_normal_pressed.9.png"
+    },
+    {
+        "merged": "C:\\Users\\Remy\\git\\dreambikeGitVS\\dreambike\\FE-clientApp\\platforms\\tempPlugin\\nativescript_google_maps_sdk\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4\\googleg_disabled_color_18.png",
+        "source": "C:\\Users\\Remy\\.gradle\\caches\\transforms-2\\files-2.1\\77c2fc448e2bd0738fd67dce062b1efd\\play-services-base-17.0.0\\res\\drawable-mdpi-v4\\googleg_disabled_color_18.png"
+    },
+    {
+        "merged": "C:\\Users\\Remy\\git\\dreambikeGitVS\\dreambike\\FE-clientApp\\platforms\\tempPlugin\\nativescript_google_maps_sdk\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4\\common_google_signin_btn_text_dark_normal_background.9.png",
+        "source": "C:\\Users\\Remy\\.gradle\\caches\\transforms-2\\files-2.1\\77c2fc448e2bd0738fd67dce062b1efd\\play-services-base-17.0.0\\res\\drawable-mdpi-v4\\common_google_signin_btn_text_dark_normal_background.9.png"
+    },
+    {
+        "merged": "C:\\Users\\Remy\\git\\dreambikeGitVS\\dreambike\\FE-clientApp\\platforms\\tempPlugin\\nativescript_google_maps_sdk\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4\\googleg_standard_color_18.png",
+        "source": "C:\\Users\\Remy\\.gradle\\caches\\transforms-2\\files-2.1\\77c2fc448e2bd0738fd67dce062b1efd\\play-services-base-17.0.0\\res\\drawable-mdpi-v4\\googleg_standard_color_18.png"
+    },
+    {
+        "merged": "C:\\Users\\Remy\\git\\dreambikeGitVS\\dreambike\\FE-clientApp\\platforms\\tempPlugin\\nativescript_google_maps_sdk\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4\\common_google_signin_btn_icon_dark_normal_background.9.png",
+        "source": "C:\\Users\\Remy\\.gradle\\caches\\transforms-2\\files-2.1\\77c2fc448e2bd0738fd67dce062b1efd\\play-services-base-17.0.0\\res\\drawable-mdpi-v4\\common_google_signin_btn_icon_dark_normal_background.9.png"
+    },
+    {
+        "merged": "C:\\Users\\Remy\\git\\dreambikeGitVS\\dreambike\\FE-clientApp\\platforms\\tempPlugin\\nativescript_google_maps_sdk\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4\\common_google_signin_btn_icon_light_normal_background.9.png",
+        "source": "C:\\Users\\Remy\\.gradle\\caches\\transforms-2\\files-2.1\\77c2fc448e2bd0738fd67dce062b1efd\\play-services-base-17.0.0\\res\\drawable-mdpi-v4\\common_google_signin_btn_icon_light_normal_background.9.png"
+    },
+    {
+        "merged": "C:\\Users\\Remy\\git\\dreambikeGitVS\\dreambike\\FE-clientApp\\platforms\\tempPlugin\\nativescript_google_maps_sdk\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4\\common_google_signin_btn_text_light_normal_background.9.png",
+        "source": "C:\\Users\\Remy\\.gradle\\caches\\transforms-2\\files-2.1\\77c2fc448e2bd0738fd67dce062b1efd\\play-services-base-17.0.0\\res\\drawable-mdpi-v4\\common_google_signin_btn_text_light_normal_background.9.png"
+    },
+    {
+        "merged": "C:\\Users\\Remy\\git\\dreambikeGitVS\\dreambike\\FE-clientApp\\platforms\\tempPlugin\\nativescript_google_maps_sdk\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4\\notification_bg_normal.9.png",
+        "source": "C:\\Users\\Remy\\.gradle\\caches\\transforms-2\\files-2.1\\246153fc0686d4ff78c8961ca91329b7\\core-1.0.0\\res\\drawable-mdpi-v4\\notification_bg_normal.9.png"
+    },
+    {
+        "merged": "C:\\Users\\Remy\\git\\dreambikeGitVS\\dreambike\\FE-clientApp\\platforms\\tempPlugin\\nativescript_google_maps_sdk\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4\\notification_bg_low_pressed.9.png",
+        "source": "C:\\Users\\Remy\\.gradle\\caches\\transforms-2\\files-2.1\\246153fc0686d4ff78c8961ca91329b7\\core-1.0.0\\res\\drawable-mdpi-v4\\notification_bg_low_pressed.9.png"
+    },
+    {
+        "merged": "C:\\Users\\Remy\\git\\dreambikeGitVS\\dreambike\\FE-clientApp\\platforms\\tempPlugin\\nativescript_google_maps_sdk\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4\\notification_bg_low_normal.9.png",
+        "source": "C:\\Users\\Remy\\.gradle\\caches\\transforms-2\\files-2.1\\246153fc0686d4ff78c8961ca91329b7\\core-1.0.0\\res\\drawable-mdpi-v4\\notification_bg_low_normal.9.png"
+    }
+]

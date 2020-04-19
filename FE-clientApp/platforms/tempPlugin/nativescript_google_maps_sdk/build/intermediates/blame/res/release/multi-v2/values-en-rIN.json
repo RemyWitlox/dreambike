@@ -1,0 +1,34 @@
+{
+    "logs": [
+        {
+            "outputFile": "C:\\Users\\Remy\\git\\dreambikeGitVS\\dreambike\\FE-clientApp\\platforms\\tempPlugin\\nativescript_google_maps_sdk\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-en-rIN\\values-en-rIN.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Remy\\.gradle\\caches\\transforms-2\\files-2.1\\246153fc0686d4ff78c8961ca91329b7\\core-1.0.0\\res\\values-en-rIN\\values-en-rIN.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "C:\\Users\\Remy\\git\\dreambikeGitVS\\dreambike\\FE-clientApp\\platforms\\tempPlugin\\nativescript_google_maps_sdk\\build\\intermediates\\res\\merged\\release\\values-en-rIN\\values-en-rIN.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Remy\\.gradle\\caches\\transforms-2\\files-2.1\\246153fc0686d4ff78c8961ca91329b7\\core-1.0.0\\res\\values-en-rIN\\values-en-rIN.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        }
+    ]
+}
