@@ -9,6 +9,13 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
+  // For login test:
+  url: string =
+    'http://localhost:8080/auth/realms/DreamBikeKeyCloak/protocol/openid-connect/';
+  authUrl: string = this.url + 'auth';
+  accesTokenUrl: string = this.url + 'token';
+
+  // Keep these attributes after test:
   loading = false;
   currentUser: User;
   userFromApi: User;
@@ -29,5 +36,10 @@ export class HomeComponent {
         this.loading = false;
         this.userFromApi = user;
       });
+  }
+
+  // function for login-test
+  login() {
+    console.log('login button');
   }
 }

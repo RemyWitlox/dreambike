@@ -8,7 +8,7 @@ import { Device } from '../models/device';
   providedIn: 'root',
 })
 export class LoginService {
-  refreshTokenUrl: string = 'http://localhost:9004/api/auth/refresh/';
+  refreshTokenUrl: string = 'http://localhost:8080/api/auth/refresh/';
   loginUrl: string = 'http://localhost:9004/api/auth/login/';
   logoutUrl: string = 'http://localhost:9004/api/user/logout/';
   meInfoUrl: string = 'http://localhost:9004/api/user/me';
