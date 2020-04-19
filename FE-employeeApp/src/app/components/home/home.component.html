@@ -1,0 +1,17 @@
+<div class="divContent">
+  <p *ngIf="!currentUser">
+    You are not logged in. Please log in to continue.
+  </p>
+  <div class="card-body" *ngIf="currentUser">
+    <p>
+      Your role is: <strong>{{ currentUser?.role }}</strong
+      >.
+    </p>
+    <p>This page can be accessed by <u>all authenticated users</u>.</p>
+    <p class="mb-1">Current user from secure api end point:</p>
+    <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
+    <ul *ngIf="userFromApi">
+      <li>{{ userFromApi?.name }}</li>
+    </ul>
+  </div>
+</div>

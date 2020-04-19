@@ -1,0 +1,5 @@
+{
+  "appId": "org.nativescript.FEclientApp",
+  "minSdkVersion": 14,
+  "targetSdkVersion": 24
+}

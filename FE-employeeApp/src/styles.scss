@@ -1,0 +1,134 @@
+@import "./assets/dreambike.css";
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+$background-color: silver;
+$background-color-dark: rgb(70, 70, 70);
+$background-color2: rgb(170, 169, 169);
+$gold: rgb(215, 194, 120);
+$backgroundHover-color: rgb(215, 194, 120);
+$border-radius: 0.5rem !default;
+$box-shadow: 0 0.5rem 1rem rgba(black, 0.15) !default;
+
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+body,
+html {
+  height: 100%;
+
+  /* Styling for background - class="bg" */
+  .bg {
+    background-color: silver;
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  /* Styling for horizontal menu - class="horizontalMenu" */
+  .horizontalMenu {
+    color: black;
+    width: 100%;
+  }
+
+  /* Styling for vertical menu - class="verticalMenu" */
+  .verticalMenu {
+    background-color: $background-color2;
+    border-left: 15px solid black;
+    width: 200px;
+    float: left;
+    min-height: 100%;
+  }
+
+  .verticalMenu a {
+    background-color: $background-color2;
+    color: black;
+    display: block;
+    padding: 12px;
+    text-decoration: none;
+  }
+
+  .verticalMenu a:hover {
+    background-color: $backgroundHover-color;
+    color: black;
+  }
+
+  .verticalMenu a.active {
+    background-color: green;
+    color: white;
+  }
+
+  /* Styling for all the buttons - class="button" */
+  .button {
+    -webkit-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    border: 2px solid #555555;
+    border-radius: 5px;
+    box-shadow: 0 1px #666;
+  }
+
+  .button:hover {
+    background-color: $background-color-dark;
+    color: white;
+  }
+
+  .button:active {
+    background-color: $background-color2;
+    box-shadow: 0 1px #666;
+    transform: translateY(2px);
+  }
+
+  /* All other styles: */
+  .content {
+    position: absolute;
+    margin-left: 215px;
+    background-color: silver;
+  }
+
+  .divContent {
+    margin-left: 15px;
+  }
+
+  .filterForm {
+    background-color: $gold;
+    max-height: max-content;
+    max-width: max-content;
+    padding-right: 15px;
+    border-radius: $border-radius;
+    border: 1px solid black;
+  }
+
+  .navigation-items {
+    list-style: none;
+    margin: 0;
+    margin-right: 0;
+    cursor: pointer;
+  }
+
+  .icon {
+    display: inline-block;
+    height: 30px;
+    margin: 0 auto;
+    margin-right: 10px;
+    padding-right: 5px;
+    text-align: center;
+    vertical-align: middle;
+    width: 15%;
+  }
+
+  .label {
+    display: inline-block;
+    line-height: 30px;
+    margin: 0;
+    width: 85%;
+  }
+
+  /* No more default outline that chrome always uses */
+  *:focus {
+    outline: none;
+  }
+}

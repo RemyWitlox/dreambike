@@ -1,0 +1,72 @@
+<mat-sidenav-container class="horizontalMenu">
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <div fxHide.gt-xs>
+        <button mat-icon-button>
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
+      <div>
+        <img
+          style="height: 50px;"
+          alt="DreambikeLogo"
+          src="assets/logo zonder text 2.png"
+        />
+        <span class="label" style="padding-left: 15px;">
+          DreamBike Employee Application
+        </span>
+      </div>
+      <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
+        <ul fxLayout fxLayoutGap="20px" class="navigation-items">
+          <li *ngIf="!currentUser">
+            <a (click)="openDialog()">
+              <mat-icon class="icon">input</mat-icon>
+              <a class="label">Login</a>
+            </a>
+          </li>
+          <li>
+            <a>
+              <mat-icon class="icon">home</mat-icon>
+              <a class="label">Home</a>
+            </a>
+          </li>
+          <li>
+            <a>
+              <mat-icon class="icon">dashboard</mat-icon>
+              <a class="label">Dashboard</a>
+            </a>
+          </li>
+          <li *ngIf="currentUser">
+            <a (click)="onLogout()">
+              <mat-icon class="icon">input</mat-icon>
+              <a class="label">LogOut</a>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </mat-toolbar>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+<!-- Verticaal menu -->
+<div class="verticalMenu">
+  <a routerLinkActive="active" routerLink="home">Home</a>
+  <a routerLinkActive="active" routerLink="dockingStations" *ngIf="currentUser"
+    >Docking Stations</a
+  >
+  <a routerLinkActive="active" routerLink="bikes" *ngIf="currentUser">Bikes</a>
+  <a routerLinkActive="active" routerLink="repairs" *ngIf="currentUser"
+    >Repairs</a
+  >
+  <a
+    routerLinkActive="active"
+    routerLink="analytics"
+    *ngIf="isAdmin || isManagement"
+    >Analytics</a
+  >
+  <a routerLinkActive="active" routerLink="settings" *ngIf="isAdmin"
+    >Settings</a
+  >
+</div>
+<div class="content">
+  <router-outlet></router-outlet>
+</div>
