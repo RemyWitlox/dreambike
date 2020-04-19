@@ -1,9 +1,13 @@
 import { Component } from '@angular/core';
 import { User } from '../../models';
-import { UserService, AuthenticationService } from '../../services';
+import {
+  UserService,
+  AuthenticationService,
+  LoginService,
+} from '../../services';
 import { first } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { ReceiveUser } from 'src/app/models/receiveUser';
+import * as jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'home',
@@ -11,52 +15,49 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  // For login test:
-  url: string =
-    'http://localhost:8080/auth/realms/DreamBikeKeyCloak/protocol/openid-connect/';
-  authUrl: string = this.url + 'auth';
-  accesTokenUrl: string = this.url + 'token';
-
-  // Keep these attributes after test:
   loading = false;
   currentUser: User;
   userFromApi: User;
+  receivedUser: ReceiveUser;
+  token: string;
+  decoded: ReceiveUser;
+  decodedName: any;
 
   constructor(
     private userService: UserService,
     private authenticationService: AuthenticationService,
-    private http: HttpClient
+    private loginService: LoginService
   ) {
     this.currentUser = this.authenticationService.currentUserValue;
   }
 
   ngOnInit() {
     this.loading = true;
-    this.userService
-      .getById(this.currentUser?.id)
-      .pipe(first())
-      .subscribe((user) => {
-        this.loading = false;
-        this.userFromApi = user;
-      });
+    if (!this.currentUser) {
+      console.log('There is no user logged in');
+      return;
+    } else {
+      this.userService
+        .getById(this.currentUser?.id)
+        .pipe(first())
+        .subscribe((user) => {
+          this.loading = false;
+          this.userFromApi = user;
+        });
+    }
   }
 
-  // function for login-test
-  login(): Observable<any> {
-    const username: string = "Remy";
-    const password: string = "Schaap1407!";
-    const payload = { username, password};
-    return Observable.create(observer => {
-      this.http.post(this.authUrl, payload).subscribe((data: User) => {
-          console.log(data);
-          observer.next({accessToken: data.accessToken});
-          localStorage.setItem("accesstoken", data.accessToken);
-          localStorage.setItem("refreshtoken", data.refreshToken);
-          console.log(data);
-          const test = localStorage.getItem("accesstoken");
-          console.log(test);
-          console.log(localStorage.getItem("accesstoken"));
-          observer.complete();
-      })
+  login() {
+    this.loginService.getLogin().subscribe((data) => {
+      this.receivedUser = data;
+      console.log('receivedUser: ' + JSON.stringify(this.receivedUser));
+      this.token = this.receivedUser.access_token + '/// jwt token';
+      console.log('token: ' + this.token);
+      this.decoded = jwt_decode(this.token);
+      console.log('decoded: ' + JSON.stringify(this.decoded));
+      this.decodedName = this.decoded['name'];
+      console.log('decodedName: ' + this.decodedName);
+      this.receivedUser.role = this.decoded['resource_access'];
+    });
   }
 }

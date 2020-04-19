@@ -2,27 +2,34 @@ import { Component, Output } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { User } from '../models/user';
+import { ReceiveUser } from '../models/receiveUser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthenticationService } from '../services';
+import { AuthenticationService, LoginService } from '../services';
 import { first } from 'rxjs/operators';
+import * as jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'login-dialog',
   templateUrl: './loginDialog.component.html',
 })
 export class LoginDialog {
+  receivedUser: ReceiveUser;
   login = new User();
   loginForm: FormGroup;
   returnUrl: string;
   submitted = false;
   error = '';
+  token: string;
+  decoded: any;
+  decodedName: string;
 
   constructor(
     public dialogRef: MatDialogRef<LoginDialog>,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private loginService: LoginService
   ) {
     // redirect to home if already logged in
     if (this.authenticationService.currentUserValue) {
@@ -68,6 +75,17 @@ export class LoginDialog {
             this.error = error;
           }
         );
+
+      this.loginService.getLogin().subscribe((data) => {
+        this.receivedUser = data;
+        console.log('receivedUser: ' + this.receivedUser);
+        this.token = this.receivedUser.access_token + '/// jwt token';
+        console.log('token: ' + this.token);
+        this.decoded = jwt_decode(this.token);
+        console.log('decoded: ' + this.decoded);
+        this.decodedName = this.decoded['name'];
+        console.log('decodedName: ' + this.decodedName);
+      });
       this.dialogRef.close();
     }
   }

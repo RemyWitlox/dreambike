@@ -13,7 +13,17 @@
     <ul *ngIf="userFromApi">
       <li>{{ userFromApi?.name }}</li>
     </ul>
-
-    <button mat-button class="button" (click)="login()">Login</button>
+    <button mat-button class="button" (click)="login()">
+      Log in to backEnd
+    </button>
+    <p>
+      You are now logged in as: <strong>{{ decoded?.name }}</strong
+      >.
+    </p>
+    <p>
+      Your Roles are:
+      <strong>{{ receivedUser?.role?.loginapp?.roles | json }}</strong
+      >.
+    </p>
   </div>
 </div>
