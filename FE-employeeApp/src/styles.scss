@@ -33,6 +33,14 @@ html {
   .horizontalMenu {
     color: black;
     width: 100%;
+    min-width: 805px;
+  }
+
+  .navigation-items {
+    list-style: none;
+    margin: 0;
+    margin-right: 0;
+    cursor: pointer;
   }
 
   /* Styling for vertical menu - class="verticalMenu" */
@@ -103,13 +111,6 @@ html {
     padding-right: 15px;
     border-radius: $border-radius;
     border: 1px solid black;
-  }
-
-  .navigation-items {
-    list-style: none;
-    margin: 0;
-    margin-right: 0;
-    cursor: pointer;
   }
 
   .icon {
