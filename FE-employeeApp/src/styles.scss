@@ -38,10 +38,13 @@ html {
   /* Styling for vertical menu - class="verticalMenu" */
   .verticalMenu {
     background-color: $background-color2;
+    position: absolute;
+    top: 64px;
+    bottom: 0;
     border-left: 15px solid black;
     width: 200px;
     float: left;
-    min-height: 100%;
+    height: calc(100%-64px);
   }
 
   .verticalMenu a {
