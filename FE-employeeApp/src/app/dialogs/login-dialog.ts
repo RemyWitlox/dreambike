@@ -45,7 +45,7 @@ export class LoginDialog {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  onNoClick(): void {
+  onCancel(): void {
     this.dialogRef.close();
   }
 
