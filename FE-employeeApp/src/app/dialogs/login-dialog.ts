@@ -27,8 +27,7 @@ export class LoginDialog {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService,
-    private loginService: LoginService
+    private authenticationService: AuthenticationService
   ) {
     // redirect to home if already logged in
     if (this.authenticationService.currentUserValue) {
@@ -59,10 +58,8 @@ export class LoginDialog {
     this.submitted = true;
     this.error = '';
 
-    // stop here if form is invalid
     if (this.loginForm.invalid) {
-      console.log('Form is empty');
-      this.error = 'Your username or password is incorrect.';
+      this.error = 'Please enter your username and password.';
       return;
     } else {
       this.authenticationService
@@ -79,6 +76,7 @@ export class LoginDialog {
           }
         );
 
+      // If inserted data is not known in db thus not set in localStorage:
       if (!JSON.parse(localStorage.getItem('currentUser'))) {
         this.error = 'Your username or password is incorrect.';
         return;
