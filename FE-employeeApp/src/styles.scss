@@ -3,11 +3,13 @@
 
 $background-color: silver;
 $background-color-dark: rgb(70, 70, 70);
-$background-color2: rgb(170, 169, 169);
+$background-color-light: rgb(170, 169, 169);
 $gold: rgb(215, 194, 120);
 $backgroundHover-color: rgb(215, 194, 120);
+$border: 2px solid #555555;
 $border-radius: 0.5rem !default;
-$box-shadow: 0 0.5rem 1rem rgba(black, 0.15) !default;
+$box-shadow: 0 1px #666;
+$alert: rgb(153, 1, 1);
 
 body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -45,7 +47,7 @@ html {
 
   /* Styling for vertical menu - class="verticalMenu" */
   .verticalMenu {
-    background-color: $background-color2;
+    background-color: $background-color-light;
     position: absolute;
     top: 64px;
     bottom: 0;
@@ -56,7 +58,7 @@ html {
   }
 
   .verticalMenu a {
-    background-color: $background-color2;
+    background-color: $background-color-light;
     color: black;
     display: block;
     padding: 12px;
@@ -77,9 +79,9 @@ html {
   .button {
     -webkit-transition-duration: 0.2s;
     transition-duration: 0.2s;
-    border: 2px solid #555555;
+    border: $border;
     border-radius: 5px;
-    box-shadow: 0 1px #666;
+    box-shadow: $box-shadow;
   }
 
   .button:hover {
@@ -88,8 +90,8 @@ html {
   }
 
   .button:active {
-    background-color: $background-color2;
-    box-shadow: 0 1px #666;
+    background-color: $background-color-light;
+    box-shadow: $box-shadow;
     transform: translateY(2px);
   }
 
@@ -97,20 +99,11 @@ html {
   .content {
     position: absolute;
     margin-left: 215px;
-    background-color: silver;
+    background-color: $background-color;
   }
 
   .divContent {
     margin-left: 15px;
-  }
-
-  .filterForm {
-    background-color: $gold;
-    max-height: max-content;
-    max-width: max-content;
-    padding-right: 15px;
-    border-radius: $border-radius;
-    border: 1px solid black;
   }
 
   .icon {
@@ -129,6 +122,11 @@ html {
     line-height: 30px;
     margin: 0;
     width: 85%;
+  }
+
+  .alert {
+    font-size: small;
+    color: $alert;
   }
 
   /* No more default outline that chrome always uses */

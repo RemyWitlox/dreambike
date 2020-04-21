@@ -1,4 +1,4 @@
-import { Component, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { User } from '../models/user';
@@ -6,7 +6,6 @@ import { ReceiveUser } from '../models/receiveUser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService, LoginService } from '../services';
 import { first } from 'rxjs/operators';
-import * as jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'login-dialog',
@@ -24,7 +23,7 @@ export class LoginDialog {
   decodedName: string;
 
   constructor(
-    public dialogRef: MatDialogRef<LoginDialog>,
+    private dialogRef: MatDialogRef<LoginDialog>,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
@@ -58,10 +57,12 @@ export class LoginDialog {
 
   onConfirm() {
     this.submitted = true;
+    this.error = '';
 
     // stop here if form is invalid
     if (this.loginForm.invalid) {
       console.log('Form is empty');
+      this.error = 'Your username or password is incorrect.';
       return;
     } else {
       this.authenticationService
@@ -70,23 +71,18 @@ export class LoginDialog {
         .subscribe(
           (data) => {
             this.router.navigate([this.returnUrl]);
+            this.dialogRef.close();
           },
           (error) => {
-            this.error = error;
+            this.error = 'Your username or password is incorrect.';
+            return;
           }
         );
 
-      this.loginService.getLogin().subscribe((data) => {
-        this.receivedUser = data;
-        console.log('receivedUser: ' + this.receivedUser);
-        this.token = this.receivedUser.access_token + '/// jwt token';
-        console.log('token: ' + this.token);
-        this.decoded = jwt_decode(this.token);
-        console.log('decoded: ' + this.decoded);
-        this.decodedName = this.decoded['name'];
-        console.log('decodedName: ' + this.decodedName);
-      });
-      this.dialogRef.close();
+      if (!JSON.parse(localStorage.getItem('currentUser'))) {
+        this.error = 'Your username or password is incorrect.';
+        return;
+      }
     }
   }
 }
