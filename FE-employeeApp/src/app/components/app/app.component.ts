@@ -34,7 +34,9 @@ export class AppComponent {
 
   onLogout(): void {
     this.authenticationService.logout();
-    wait(250);
+    wait(10);
+    this.router.navigate(['/']);
+    wait(10);
     this.router.navigate(['home']);
   }
 

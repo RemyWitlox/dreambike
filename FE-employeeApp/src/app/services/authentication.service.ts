@@ -8,7 +8,7 @@ import { User } from '../models';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-  private currentUserSubject: BehaviorSubject<User>;
+  public currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
   constructor(private http: HttpClient) {
@@ -24,7 +24,7 @@ export class AuthenticationService {
 
   login(username: string, password: string) {
     return this.http
-      .post<any>('${environment.apiUrl}/users/authenticate', {
+      .post<any>(`${environment.apiUrl}/users/authenticate`, {
         username,
         password,
       })
