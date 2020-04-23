@@ -4,7 +4,10 @@
 
 export const environment = {
   production: false,
+  // for fake backend:
   apiUrl: 'http://localhost:4000',
+  // for Real backend:
+  // apiUrl: 'http://localhost:2020',
 };
 
 /*
