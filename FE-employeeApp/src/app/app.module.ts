@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material-module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppRoutingModule } from './router/app-routing.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
@@ -24,6 +23,7 @@ import { CustomHttpInterceptorService } from './services';
 
 // Components:
 import { AppComponent } from './components/app';
+import { AppRoutingModule } from './router/app-routing.module';
 import { HomeComponent } from './components/home';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { SettingsComponent } from './components/settings';
