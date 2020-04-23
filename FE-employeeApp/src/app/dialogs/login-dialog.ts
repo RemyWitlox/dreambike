@@ -59,7 +59,7 @@ export class LoginDialog {
     this.error = '';
 
     if (this.loginForm.invalid) {
-      this.error = 'Please enter your username and password.';
+      this.error = 'Please enter your username and password. INVALID';
       return;
     } else {
       this.authenticationService
@@ -71,16 +71,10 @@ export class LoginDialog {
             this.dialogRef.close();
           },
           (error) => {
-            this.error = 'Your username or password is incorrect.';
+            this.error = 'Your username or password is incorrect. ERROR';
             return;
           }
         );
-
-      // If inserted data is not known in db thus not set in localStorage:
-      if (!JSON.parse(localStorage.getItem('currentUser'))) {
-        this.error = 'Your username or password is incorrect.';
-        return;
-      }
     }
   }
 }

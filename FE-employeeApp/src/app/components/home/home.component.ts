@@ -34,7 +34,6 @@ export class HomeComponent {
   ngOnInit() {
     this.loading = true;
     if (!this.currentUser) {
-      console.log('There is no user logged in');
       return;
     } else {
       this.userService

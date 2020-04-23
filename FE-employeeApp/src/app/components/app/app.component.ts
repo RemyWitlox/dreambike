@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginDialog } from '../../dialogs/login-dialog';
 import { User, Role } from 'src/app/models';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services';
 
 @Component({
@@ -34,10 +34,7 @@ export class AppComponent {
 
   onLogout(): void {
     this.authenticationService.logout();
-    wait(10);
-    this.router.navigate(['/']);
-    wait(10);
-    this.router.navigate(['home']);
+    this.router.navigate(['']);
   }
 
   openDialog(): void {
@@ -50,13 +47,5 @@ export class AppComponent {
     dialogRef.afterClosed().subscribe(() => {
       this.router.navigate(['home']);
     });
-  }
-}
-
-function wait(ms) {
-  var start = new Date().getTime();
-  var end = start;
-  while (end < start + ms) {
-    end = new Date().getTime();
   }
 }
