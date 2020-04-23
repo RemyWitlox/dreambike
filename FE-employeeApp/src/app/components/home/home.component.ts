@@ -53,7 +53,10 @@ export class HomeComponent {
       this.token = this.receivedUser.access_token + '/// jwt token';
       console.log('token: ' + this.token);
       this.decoded = jwt_decode(this.token);
-      console.log('decoded: ' + JSON.stringify(this.decoded));
+      console.log(
+        'decoded: ' +
+          JSON.stringify(jwt_decode(data['access_token'] + '/// jwt token'))
+      );
       this.decodedName = this.decoded['name'];
       console.log('decodedName: ' + this.decodedName);
       this.receivedUser.role = this.decoded['resource_access'];

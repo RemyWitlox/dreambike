@@ -3,7 +3,6 @@ import { Role } from './role';
 export class ReceiveUser {
   name: string;
   username: string;
-  password: string;
   role: Role;
   access_token?: string;
   refresh_token?: string;

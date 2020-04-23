@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../models/user';
 import { SendUser } from '../models/sendUser';
+import { ReceiveUser } from '../models/receiveUser';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class LoginService {
   username: string = 'Remy';
   password: string = 'Schaap1407!';
   sendUser: SendUser = { username: this.username, password: this.password };
-  receiveUser: User;
+
 
   constructor(private http: HttpClient) {}
 
@@ -22,4 +23,13 @@ export class LoginService {
       params: { username: 'Remy', password: 'Schaap1407!' },
     });
   }
+
+  authenticate(username: string, password: string): Observable<ReceiveUser> {
+    return this.http
+    .get<any>(this.url, {
+      params: { username: username, password: password },
+    })
+  }
+
+  getUserById(id: number) {}
 }

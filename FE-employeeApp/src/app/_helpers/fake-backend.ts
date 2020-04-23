@@ -34,6 +34,13 @@ const users: User[] = [
     name: 'Management Team',
     role: Role.Management,
   },
+  {
+    id: 4,
+    username: 'remy',
+    password: 'Schaap1407!',
+    name: 'Remy Witlox',
+    role: Role.Admin,
+  },
 ];
 
 @Injectable()

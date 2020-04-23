@@ -54,15 +54,20 @@ export class LoginDialog {
     return this.loginForm.controls;
   }
 
-  onConfirm() {
+  async onConfirm() {
     this.submitted = true;
     this.error = '';
 
     if (this.loginForm.invalid) {
-      this.error = 'Please enter your username and password. INVALID';
+      this.error = 'Please enter your username and password.';
       return;
     } else {
-      this.authenticationService
+      await this.authenticationService.loginBackend(
+        this.f.username.value,
+        this.f.password.value
+      );
+      await console.log(JSON.stringify(localStorage));
+      await this.authenticationService
         .login(this.f.username.value, this.f.password.value)
         .pipe(first())
         .subscribe(
@@ -71,7 +76,7 @@ export class LoginDialog {
             this.dialogRef.close();
           },
           (error) => {
-            this.error = 'Your username or password is incorrect. ERROR';
+            this.error = 'Your username or password is incorrect.';
             return;
           }
         );
