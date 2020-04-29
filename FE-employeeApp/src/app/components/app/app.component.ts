@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginDialog } from '../../dialogs/login-dialog';
-import { User, Role } from 'src/app/models';
+import { Role } from 'src/app/models';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services';
+import { ReceiveUser } from 'src/app/models/receiveUser';
 
 @Component({
   selector: 'app-root',
@@ -11,25 +12,31 @@ import { AuthenticationService } from 'src/app/services';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  loading = false;
   title = 'Dreambike';
-  currentUser: User;
+  currentBackendUser: ReceiveUser;
 
   constructor(
     private dialog: MatDialog,
     private router: Router,
     private authenticationService: AuthenticationService
   ) {
-    this.authenticationService.currentUser.subscribe(
-      (x) => (this.currentUser = x)
+    this.authenticationService.currentBackendUser.subscribe(
+      (x) => (this.currentBackendUser = x)
     );
   }
 
   get isAdmin() {
-    return this.currentUser && this.currentUser.role === Role.Admin;
+    return (
+      this.currentBackendUser && this.currentBackendUser.role[0] === Role.Admin
+    );
   }
 
   get isManagement() {
-    return this.currentUser && this.currentUser.role === Role.Management;
+    return (
+      this.currentBackendUser &&
+      this.currentBackendUser.role[0] === Role.Management
+    );
   }
 
   onLogout(): void {
@@ -38,6 +45,7 @@ export class AppComponent {
   }
 
   openDialog(): void {
+    this.loading = true;
     const dialogRef = this.dialog.open(LoginDialog, {
       panelClass: 'dialog',
       width: '300px',
@@ -45,6 +53,7 @@ export class AppComponent {
     });
 
     dialogRef.afterClosed().subscribe(() => {
+      this.loading = false;
       this.router.navigate(['home']);
     });
   }

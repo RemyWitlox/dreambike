@@ -15,20 +15,18 @@ export class LoginService {
   password: string = 'Schaap1407!';
   sendUser: SendUser = { username: this.username, password: this.password };
 
-
   constructor(private http: HttpClient) {}
 
   getLogin(): Observable<User> {
     return this.http.get<User>(this.url, {
-      params: { username: 'Remy', password: 'Schaap1407!' },
+      params: { username: 'Remy', password: '123' },
     });
   }
 
   authenticate(username: string, password: string): Observable<ReceiveUser> {
-    return this.http
-    .get<any>(this.url, {
+    return this.http.get<any>(this.url, {
       params: { username: username, password: password },
-    })
+    });
   }
 
   getUserById(id: number) {}

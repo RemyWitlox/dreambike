@@ -15,11 +15,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { DatePipe } from '@angular/common';
 
-// used to create fake backend
-import { fakeBackendProvider } from '../app/_helpers';
-// Real backend:
-//import { LoginService } from '../app/services';
-
 // Services;
 import { CustomHttpInterceptorService } from './services';
 
@@ -77,9 +72,6 @@ import { LoginDialog } from './dialogs/login-dialog';
     },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-
-    // provider used to create fake backend
-    fakeBackendProvider,
   ],
   bootstrap: [AppComponent],
 })

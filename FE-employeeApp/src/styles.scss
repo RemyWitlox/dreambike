@@ -129,6 +129,32 @@ html {
     color: $alert;
   }
 
+  .mat-grid-tile .mat-grid-tile-footer {
+    display: grid;
+  }
+
+  .btnToggle {
+    border: 0px;
+  }
+
+  .btnbtn {
+    font-size: 15px;
+    line-height: 15px;
+    margin: 10px;
+    background-color: $background-color;
+  }
+
+  .btnimg {
+    width: 150px;
+    height: 150px;
+    display: block;
+    margin-bottom: 3px !important;
+  }
+
+  .btnimg:hover {
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.24), 0 2px 3px 0 rgba(0, 0, 0, 0.19);
+  }
+
   /* No more default outline that chrome always uses */
   *:focus {
     outline: none;

@@ -4,7 +4,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { User } from '../models/user';
 import { ReceiveUser } from '../models/receiveUser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthenticationService, LoginService } from '../services';
+import { AuthenticationService } from '../services';
 import { first } from 'rxjs/operators';
 
 @Component({
@@ -30,7 +30,7 @@ export class LoginDialog {
     private authenticationService: AuthenticationService
   ) {
     // redirect to home if already logged in
-    if (this.authenticationService.currentUserValue) {
+    if (this.authenticationService.currentBackendUserValue) {
       this.router.navigate(['/']);
     }
   }
@@ -62,13 +62,8 @@ export class LoginDialog {
       this.error = 'Please enter your username and password.';
       return;
     } else {
-      await this.authenticationService.loginBackend(
-        this.f.username.value,
-        this.f.password.value
-      );
-      await console.log(JSON.stringify(localStorage));
       await this.authenticationService
-        .login(this.f.username.value, this.f.password.value)
+        .loginBackend(this.f.username.value, this.f.password.value)
         .pipe(first())
         .subscribe(
           (data) => {
@@ -77,7 +72,6 @@ export class LoginDialog {
           },
           (error) => {
             this.error = 'Your username or password is incorrect.';
-            return;
           }
         );
     }

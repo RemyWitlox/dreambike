@@ -14,7 +14,7 @@
         </div>
         <div fxFlex fxLayout fxLayoutAlign="flex-end">
           <ul fxLayout fxLayoutGap="20px" class="navigation-items">
-            <li *ngIf="!currentUser">
+            <li *ngIf="!currentBackendUser">
               <a (click)="openDialog()">
                 <mat-icon class="icon">input</mat-icon>
                 <a class="label">Login</a>
@@ -32,7 +32,7 @@
                 <a class="label">Dashboard</a>
               </a>
             </li>
-            <li *ngIf="currentUser">
+            <li *ngIf="currentBackendUser">
               <a (click)="onLogout()">
                 <mat-icon class="icon">input</mat-icon>
                 <a class="label">LogOut</a>
@@ -49,13 +49,13 @@
     <a
       routerLinkActive="active"
       routerLink="dockingStations"
-      *ngIf="currentUser"
+      *ngIf="currentBackendUser"
       >Docking Stations</a
     >
-    <a routerLinkActive="active" routerLink="bikes" *ngIf="currentUser"
+    <a routerLinkActive="active" routerLink="bikes" *ngIf="currentBackendUser"
       >Bikes</a
     >
-    <a routerLinkActive="active" routerLink="repairs" *ngIf="currentUser"
+    <a routerLinkActive="active" routerLink="repairs" *ngIf="currentBackendUser"
       >Repairs</a
     >
     <a
@@ -69,6 +69,6 @@
     >
   </div>
   <div class="content">
-    <router-outlet></router-outlet>
+    <router-outlet *ngIf="!loading"></router-outlet>
   </div>
 </div>

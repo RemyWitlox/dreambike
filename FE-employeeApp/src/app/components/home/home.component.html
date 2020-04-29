@@ -1,29 +1,36 @@
 <div class="divContent">
-  <p *ngIf="!currentUser">
+  <p *ngIf="!currentBackendUser">
     You are not logged in. Please log in to continue.
   </p>
-  <div class="card-body" *ngIf="currentUser">
+  <div *ngIf="currentBackendUser">
+    <h1>Welcome {{ currentBackendUser?.name }},</h1>
     <p>
-      Your role is: <strong>{{ currentUser?.role }}</strong
-      >.
+      Your current role is
+      <strong>{{
+        currentBackendUser ? (currentBackendUser?.role)[0] : "No roles"
+      }}</strong
+      >. Now let's get started!
     </p>
-    <p>This page can be accessed by <u>all authenticated users</u>.</p>
-    <p class="mb-1">Current user from secure api end point:</p>
-    <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
-    <ul *ngIf="userFromApi">
-      <li>{{ userFromApi?.name }}</li>
-    </ul>
-    <button mat-button class="button" (click)="login()">
-      Log in to backEnd
-    </button>
-    <p>
-      You are now logged in as: <strong>{{ decoded?.name }}</strong
-      >.
-    </p>
-    <p>
-      Your Roles are:
-      <strong>{{ receivedUser?.role?.loginapp?.roles | json }}</strong
-      >.
-    </p>
+    <div>
+      <mat-button-toggle-group class="btnToggle">
+        <mat-button-toggle class="btnbtn">
+          <img src="../../../assets/docking.png" class="btnimg" />Docking
+          Stations</mat-button-toggle
+        >
+        <mat-button-toggle class="btnbtn">
+          <img
+            src="../../../assets/bike.png"
+            class="btnimg"
+          />Bikes</mat-button-toggle
+        >
+
+        <mat-button-toggle class="btnbtn">
+          <img
+            src="../../../assets/repair.png"
+            class="btnimg"
+          />Repairs</mat-button-toggle
+        >
+      </mat-button-toggle-group>
+    </div>
   </div>
 </div>
