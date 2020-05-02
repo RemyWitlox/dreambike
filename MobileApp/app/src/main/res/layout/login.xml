@@ -22,7 +22,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:contentDescription="@string/login"
-    android:text="TextView"
+    android:text="@string/login"
     tools:text="@string/login" />
 
 </RelativeLayout>
