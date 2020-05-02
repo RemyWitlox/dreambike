@@ -1,0 +1,2 @@
+rootProject.name='FE-ClientApp'
+include ':app'
