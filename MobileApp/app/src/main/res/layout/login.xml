@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent">
+    <StackLayout>
+        <StackLayout class="p-20">
+            <label text="Welcome to DreamBike" class="h1 text-center"></label>
+            <image src="~/utils/txtrnd.png" width="150" class="img-rounded m-b-20"></image>
+        </StackLayout>
+        <StackLayout class="form">
+            <StackLayout row="0" class="input-field">
+                <TextField id="username" class="input" autocorrect="false" autocapitalizationType="none" hint="Username" />
+            </StackLayout>
+            <StackLayout row="1" class="input-field">
+                <TextField id="password" class="input" autocorrect="false" autocapitalizationType="none" hint="Password" secure="true" />
+            </StackLayout>
+        </StackLayout>
+        <button text="{{ loginBtn }}" tap="{{ onLogin }}" class="-primary -rounded-lg"></button>
+        <label text="{{ message }}" class="h2 text-center" textWrap="true" />
+    </StackLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
