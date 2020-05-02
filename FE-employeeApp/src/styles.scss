@@ -6,7 +6,7 @@ $background-color-dark: rgb(70, 70, 70);
 $background-color-light: rgb(170, 169, 169);
 $gold: rgb(215, 194, 120);
 $backgroundHover-color: rgb(215, 194, 120);
-$border: 2px solid #555555;
+$border: 2px solid $background-color-dark;
 $border-radius: 0.5rem !default;
 $box-shadow: 0 1px #666;
 $alert: rgb(153, 1, 1);
