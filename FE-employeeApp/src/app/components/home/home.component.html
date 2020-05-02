@@ -11,26 +11,45 @@
       }}</strong
       >. Now let's get started!
     </p>
-    <div>
-      <mat-button-toggle-group class="btnToggle">
-        <mat-button-toggle class="btnbtn">
-          <img src="../../../assets/docking.png" class="btnimg" />Docking
-          Stations</mat-button-toggle
-        >
-        <mat-button-toggle class="btnbtn">
-          <img
-            src="../../../assets/bike.png"
-            class="btnimg"
-          />Bikes</mat-button-toggle
-        >
-
-        <mat-button-toggle class="btnbtn">
-          <img
-            src="../../../assets/repair.png"
-            class="btnimg"
-          />Repairs</mat-button-toggle
-        >
-      </mat-button-toggle-group>
+    <div style="width: 600px;">
+      <mat-grid-list cols="3" rowHeight="1:1" style="position: static;">
+        <mat-grid-tile>
+          <mat-card>
+            <button class="btnImg" (click)="goDocking()">
+              <img src="../../../assets/docking.png" class="img" />
+            </button>
+            <mat-card-content>
+              <p>
+                Docking Stations
+              </p>
+            </mat-card-content>
+          </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-card>
+            <button class="btnImg" (click)="goBikes()">
+              <img src="../../../assets/bike.png" class="img" />
+            </button>
+            <mat-card-content>
+              <p>
+                Bikes
+              </p>
+            </mat-card-content></mat-card
+          >
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-card>
+            <button class="btnImg" (click)="goRepairs()">
+              <img src="../../../assets/repair.png" class="img" />
+            </button>
+            <mat-card-content>
+              <p>
+                Repairs
+              </p>
+            </mat-card-content></mat-card
+          >
+        </mat-grid-tile>
+      </mat-grid-list>
     </div>
   </div>
 </div>

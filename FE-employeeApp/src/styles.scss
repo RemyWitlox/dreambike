@@ -10,6 +10,7 @@ $border: 2px solid #555555;
 $border-radius: 0.5rem !default;
 $box-shadow: 0 1px #666;
 $alert: rgb(153, 1, 1);
+$active: green;
 
 body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -23,7 +24,7 @@ html {
 
   /* Styling for background - class="bg" */
   .bg {
-    background-color: silver;
+    background-color: $background-color;
     height: 100%;
     width: 100%;
     background-position: center;
@@ -71,7 +72,7 @@ html {
   }
 
   .verticalMenu a.active {
-    background-color: green;
+    background-color: $active;
     color: white;
   }
 
@@ -90,9 +91,35 @@ html {
   }
 
   .button:active {
-    background-color: $background-color-light;
+    background-color: $active;
     box-shadow: $box-shadow;
     transform: translateY(2px);
+  }
+
+  .btnImg {
+    border-radius: 8px;
+    background-color: $background-color;
+    width: 150px;
+    height: 150px;
+    display: block;
+    margin-top: 3px !important;
+  }
+
+  .btnImg:hover {
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.24), 0 2px 3px 0 rgba(0, 0, 0, 0.19);
+    background-color: $background-color-light;
+  }
+
+  .btnImg:active {
+    background-color: $active;
+    box-shadow: $box-shadow;
+    transform: translateY(2px);
+  }
+
+  .img {
+    width: 150px;
+    height: 150px;
+    margin-left: -5px;
   }
 
   /* All other styles: */
@@ -133,26 +160,21 @@ html {
     display: grid;
   }
 
-  .btnToggle {
-    border: 0px;
-  }
-
-  .btnbtn {
+  .mat-card {
     font-size: 15px;
-    line-height: 15px;
+    line-height: 10px;
     margin: 10px;
+    border-radius: 8px;
     background-color: $background-color;
   }
 
-  .btnimg {
-    width: 150px;
-    height: 150px;
-    display: block;
-    margin-bottom: 3px !important;
+  .mat-card:hover {
+    background-color: $background-color !important;
   }
 
-  .btnimg:hover {
-    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.24), 0 2px 3px 0 rgba(0, 0, 0, 0.19);
+  .mat-card-content {
+    margin-top: 5px;
+    text-align: center;
   }
 
   /* No more default outline that chrome always uses */

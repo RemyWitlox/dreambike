@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthenticationService } from '../../services';
 import { ReceiveUser } from 'src/app/models/receiveUser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'home',
@@ -12,7 +13,10 @@ export class HomeComponent {
   currentBackendUser: ReceiveUser;
   userFromApi: ReceiveUser;
 
-  constructor(private authenticationService: AuthenticationService) {
+  constructor(
+    private authenticationService: AuthenticationService,
+    private router: Router
+  ) {
     this.currentBackendUser = this.authenticationService.currentBackendUserValue;
   }
 
@@ -24,5 +28,17 @@ export class HomeComponent {
       this.loading = false;
       this.userFromApi = this.currentBackendUser;
     }
+  }
+
+  goDocking() {
+    this.router.navigate(['/dockingStations']);
+  }
+
+  goBikes() {
+    this.router.navigate(['/bikes']);
+  }
+
+  goRepairs() {
+    this.router.navigate(['/repairs']);
   }
 }
