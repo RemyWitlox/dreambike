@@ -5,6 +5,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:background="@color/colorGray1"
+  android:orientation="vertical"
   tools:context=".ui.login.LoginFragment">
 
   <ImageView
@@ -82,7 +83,7 @@
     android:id="@+id/register"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Register Here."
+    android:text="Register here."
     android:textColor="@color/colorGray3"
     android:textColorLink="@color/colorBlack"
     android:layout_alignParentBottom="true"

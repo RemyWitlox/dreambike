@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
-  app:startDestination="@+id/navigation_login">
+  app:startDestination="@+id/navigation_home">
   <fragment
     android:id="@+id/navigation_home"
     android:name="com.example.fe_clientapp.ui.home.HomeFragment"
@@ -18,9 +18,4 @@
     android:name="com.example.fe_clientapp.ui.notifications.NotificationsFragment"
     android:label="@string/title_notifications"
     tools:layout="@layout/fragment_notifications" />
-  <fragment
-    android:id="@+id/navigation_login"
-    android:name="com.example.fe_clientapp.ui.login.LoginFragment"
-    android:label="@string/title_login"
-    tools:layout="@layout/login" />
 </navigation>
