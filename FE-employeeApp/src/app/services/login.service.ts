@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from '../models/user';
 import { SendUser } from '../models/sendUser';
 import { ReceiveUser } from '../models/receiveUser';
 
@@ -17,10 +16,8 @@ export class LoginService {
 
   constructor(private http: HttpClient) {}
 
-  getLogin(): Observable<User> {
-    return this.http.get<User>(this.url, {
-      params: { username: 'Remy', password: '123' },
-    });
+  testConnection(): Observable<boolean> {
+    return this.http.get<boolean>('http://Localhost:2020/api/connect');
   }
 
   authenticate(username: string, password: string): Observable<ReceiveUser> {
