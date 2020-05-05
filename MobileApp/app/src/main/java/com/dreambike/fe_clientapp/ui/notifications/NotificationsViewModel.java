@@ -1,4 +1,4 @@
-package com.example.fe_clientapp.ui.notifications;
+package com.dreambike.fe_clientapp.ui.notifications;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

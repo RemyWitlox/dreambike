@@ -1,4 +1,4 @@
-package com.example.fe_clientapp.ui.dashboard;
+package com.dreambike.fe_clientapp.ui.dashboard;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

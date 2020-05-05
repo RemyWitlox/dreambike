@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.example.fe_clientapp">
+  package="com.dreambike.fe_clientapp">
   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
   <uses-permission android:name="android.permission.INTERNET"/>
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -18,7 +18,7 @@
       android:name=".MapsActivity"
       android:label="@string/title_activity_maps">
       <intent-filter>
-        <action android:name="com.example.fe_clientapp.ui.MapsActivity" />
+        <action android:name="com.dreambike.fe_clientapp.ui.MapsActivity" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </activity>
@@ -34,7 +34,7 @@
       android:name=".MainActivity"
       android:label="@string/app_name">
       <intent-filter>
-        <action android:name="com.example.fe_clientapp.ui.MainActivity" />
+        <action android:name="com.dreambike.fe_clientapp.ui.MainActivity" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </activity>

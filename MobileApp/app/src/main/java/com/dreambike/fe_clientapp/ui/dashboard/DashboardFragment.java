@@ -1,4 +1,4 @@
-package com.example.fe_clientapp.ui.dashboard;
+package com.dreambike.fe_clientapp.ui.dashboard;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.fe_clientapp.R;
+import com.dreambike.fe_clientapp.R;
 
 public class DashboardFragment extends Fragment {
 

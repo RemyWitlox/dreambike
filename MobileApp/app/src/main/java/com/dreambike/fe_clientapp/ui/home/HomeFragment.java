@@ -1,4 +1,4 @@
-package com.example.fe_clientapp.ui.home;
+package com.dreambike.fe_clientapp.ui.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.fe_clientapp.R;
+import com.dreambike.fe_clientapp.R;
 
 public class HomeFragment extends Fragment {
 

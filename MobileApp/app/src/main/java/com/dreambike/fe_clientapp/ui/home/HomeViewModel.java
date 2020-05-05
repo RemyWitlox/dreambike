@@ -1,4 +1,4 @@
-package com.example.fe_clientapp.ui.home;
+package com.dreambike.fe_clientapp.ui.home;
 
 import androidx.lifecycle.ViewModel;
 

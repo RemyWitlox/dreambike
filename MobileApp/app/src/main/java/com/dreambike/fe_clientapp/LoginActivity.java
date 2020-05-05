@@ -1,4 +1,4 @@
-package com.example.fe_clientapp;
+package com.dreambike.fe_clientapp;
 
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
