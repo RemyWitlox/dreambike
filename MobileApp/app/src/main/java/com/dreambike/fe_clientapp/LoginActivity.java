@@ -5,29 +5,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class Login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
   private Button loginBtn;
   private TextView infoTxt;
   private EditText username;
   private EditText password;
-  private SearchView searchView;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.login);
+    setContentView(R.layout.activity_login);
 
     infoTxt = (TextView) findViewById(R.id.infoTxt);
     username = (EditText) findViewById(R.id.username);
     password = (EditText) findViewById(R.id.password);
-    searchView = (SearchView) findViewById(R.id.searchView);
-    // get the query string currently in the text field
-    CharSequence query = searchView.getQuery();
 
     loginBtn = (Button) findViewById(R.id.loginBtn);
     loginBtn.setOnClickListener(new View.OnClickListener() {
