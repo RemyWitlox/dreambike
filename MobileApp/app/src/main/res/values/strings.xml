@@ -9,5 +9,4 @@
   <string name="username">Username</string>
   <string name="password">Password</string>
   <string name="title_activity_maps">Map</string>
-  <string name="url">http://localhost:4000</string>
 </resources>

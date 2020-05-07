@@ -1,6 +1,8 @@
-package com.dreambike.fe_clientapp.server;
+package com.dreambike.fe_clientapp.services;
 
-import com.oreilly.servlet.Base64Encoder;
+import android.util.Log;
+
+import com.oreilly.servlet.multipart.Base64Encoder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,6 +60,7 @@ public class ApiAuthClient {
 
   public ApiAuthClient setBaseUrl(String baseUrl) {
     this.baseUrl = baseUrl;
+    Log.e("baseUrl", this.baseUrl);
     if (!baseUrl.substring(baseUrl.length() -1).equals("/")){
       this.baseUrl += "/";
     }
@@ -71,6 +74,7 @@ public class ApiAuthClient {
    */
   public ApiAuthClient setUrlResource(String urlResource){
     this.urlResource = urlResource;
+    Log.e("urlResource", this.urlResource);
     return this;
   }
 
@@ -82,6 +86,7 @@ public class ApiAuthClient {
    */
   public final ApiAuthClient setUrlPath(String urlPath) {
     this.urlPath = urlPath;
+    Log.e("urlPath", this.urlPath);
     return this;
   }
 
@@ -92,6 +97,7 @@ public class ApiAuthClient {
    */
   public ApiAuthClient setHttpMethod(String httpMethod) {
     this.httpMethod = httpMethod;
+    Log.e("httpMethod", this.httpMethod);
     return this;
   }
 
@@ -100,6 +106,7 @@ public class ApiAuthClient {
    * @return String
    */
   public String getLastResponse() {
+    Log.e("lastResponse", this.lastResponse);
     return lastResponse;
   }
 
@@ -108,6 +115,7 @@ public class ApiAuthClient {
    * @return Map&lt;String, List&lt;String&gt;&gt;
    */
   public Map<String, List<String>> getHeaderFields() {
+    Log.e("headerFields", this.headerFields.toString());
     return headerFields;
   }
 
@@ -117,6 +125,7 @@ public class ApiAuthClient {
    * @return this
    */
   public ApiAuthClient setParameters(HashMap<String, String> parameters) {
+    Log.e("parameters", this.parameters.toString());
     this.parameters = parameters;
     return this;
   }
@@ -129,6 +138,7 @@ public class ApiAuthClient {
    */
   public ApiAuthClient setParameter(String key, String value) {
     this.parameters.put(key, value);
+    Log.e("parameters", this.parameters.toString());
     return this;
   }
 
@@ -213,6 +223,7 @@ public class ApiAuthClient {
       it.remove(); // avoids a ConcurrentModificationException
       count++;
     }
+    Log.e("stringBuffer", stringBuffer.toString());
     return stringBuffer.toString();
   }
 
@@ -238,13 +249,13 @@ public class ApiAuthClient {
 
       URL url = new URL(urlString.toString());
 
-      String encoding = Base64Encoder.encode(username + ":" + password);
-
       HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+      Log.e("connection", connection.toString());
       connection.setRequestMethod(httpMethod);
-      connection.setRequestProperty("Authorization", "Basic " + encoding);
+      Log.e("httpMethod", httpMethod);
       connection.setRequestProperty("Accept", "application/json");
       connection.setRequestProperty("Content-Type", "text/plain");
+      Log.e("request properties", connection.getRequestProperties().toString());
 
       // Make the network connection and retrieve the output from the server.
       if (httpMethod.equals("POST") || httpMethod.equals("PUT")) {

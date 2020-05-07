@@ -2,12 +2,12 @@
 // All rights reserved.  Use of this class is limited.
 // Please see the LICENSE for more information.
 
-package com.oreilly.servlet;
+package com.oreilly.servlet.multipart;
 
 import java.io.*;
 
-/** 
- * A class to encode Base64 streams and strings.  
+/**
+ * A class to encode Base64 streams and strings.
  * See RFC 1521 section 5.2 for details of the Base64 algorithm.
  * <p>
  * This class can be used for encoding strings:
@@ -99,7 +99,7 @@ public class Base64Encoder extends FilterOutputStream {
   }
 
   /**
-   * Writes the given byte array to the output stream in an 
+   * Writes the given byte array to the output stream in an
    * encoded form.
    *
    * @param buf the data to be written
@@ -161,10 +161,10 @@ public class Base64Encoder extends FilterOutputStream {
    * @return the encoded form of the unencoded string
    */
   public static String encode(byte[] bytes) {
-    ByteArrayOutputStream out = 
+    ByteArrayOutputStream out =
       new ByteArrayOutputStream((int) (bytes.length * 1.37));
     Base64Encoder encodedOut = new Base64Encoder(out);
-    
+
     try {
       encodedOut.write(bytes);
       encodedOut.close();

@@ -10,4 +10,5 @@
   <color name="colorGray3">#464646</color>
   <color name="colorAlert">#990101</color>
   <color name="colorActive">#008000</color>
+  <color name="dimBackgroundColor">#40000000</color>
 </resources>
