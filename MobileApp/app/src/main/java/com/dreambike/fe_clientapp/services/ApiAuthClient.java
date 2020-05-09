@@ -212,6 +212,7 @@ public class ApiAuthClient {
     // Cycle through the parameters.
     StringBuilder stringBuffer = new StringBuilder();
     Iterator it = parameters.entrySet().iterator();
+    Log.e("it", it.toString());
     int count = 0;
     while (it.hasNext()) {
       Map.Entry pair = (Map.Entry) it.next();
@@ -236,7 +237,7 @@ public class ApiAuthClient {
     StringBuilder outputStringBuilder = new StringBuilder();
 
     try {
-      StringBuilder urlString = new StringBuilder(baseUrl + urlResource);
+      StringBuilder urlString = new StringBuilder(baseUrl + "?username=" +this.username +"&password=" + this.password);
 
       if (!urlPath.equals("")) {
         urlString.append("/" + urlPath);
@@ -250,12 +251,10 @@ public class ApiAuthClient {
       URL url = new URL(urlString.toString());
 
       HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-      Log.e("connection", connection.toString());
       connection.setRequestMethod(httpMethod);
       Log.e("httpMethod", httpMethod);
       connection.setRequestProperty("Accept", "application/json");
       connection.setRequestProperty("Content-Type", "text/plain");
-      Log.e("request properties", connection.getRequestProperties().toString());
 
       // Make the network connection and retrieve the output from the server.
       if (httpMethod.equals("POST") || httpMethod.equals("PUT")) {
@@ -280,14 +279,13 @@ public class ApiAuthClient {
       }
       else {
         InputStream content = (InputStream) connection.getInputStream();
-
         headerFields = connection.getHeaderFields();
-
-        //connection.
         BufferedReader in = new BufferedReader(new InputStreamReader(content));
 
+        // response from the call:
         while ((line = in.readLine()) != null) {
           outputStringBuilder.append(line);
+          Log.e("line", line);
         }
       }
     } catch (Exception e) {

@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_login);
 
-    baseUrl = "http://192.168.1.110:2020/api/test";
+    baseUrl = "http://192.168.1.110:2020/api/login";
 
     infoTxt = (TextView) findViewById(R.id.infoTxt);
     usernameTxt = (EditText) findViewById(R.id.username);
@@ -110,16 +110,16 @@ public class LoginActivity extends AppCompatActivity {
         // Hide the progress bar.
         findViewById(R.id.loadingPanel).setVisibility(View.GONE);
         Log.e("log: ", "Hide progress.");
-        openMain();
 
-      // Login Success
-      if (isValidCredentials.equals("true")) {
-        Log.e("log: ", "open main.");
-        openMain();
-      }
-      // Login Failure
-      else {
+      // Login succeeded?
+      if (isValidCredentials.isEmpty()) {
+        infoTxt.setText("Username/Password incorrect, please try again.");
         Toast.makeText(getApplicationContext(), "Login Failed", Toast.LENGTH_LONG).show();
+      }
+      else {
+        Log.e("log: ", "open main.");
+        Toast.makeText(getApplicationContext(), "Welcome " + username, Toast.LENGTH_LONG).show();
+        openMain();
       }
     }
   }
