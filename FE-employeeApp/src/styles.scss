@@ -3,11 +3,14 @@
 
 $background-color: silver;
 $background-color-dark: rgb(70, 70, 70);
-$background-color2: rgb(170, 169, 169);
+$background-color-light: rgb(170, 169, 169);
 $gold: rgb(215, 194, 120);
 $backgroundHover-color: rgb(215, 194, 120);
+$border: 2px solid $background-color-dark;
 $border-radius: 0.5rem !default;
-$box-shadow: 0 0.5rem 1rem rgba(black, 0.15) !default;
+$box-shadow: 0 1px #666;
+$alert: rgb(153, 1, 1);
+$active: green;
 
 body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -21,7 +24,7 @@ html {
 
   /* Styling for background - class="bg" */
   .bg {
-    background-color: silver;
+    background-color: $background-color;
     height: 100%;
     width: 100%;
     background-position: center;
@@ -33,19 +36,30 @@ html {
   .horizontalMenu {
     color: black;
     width: 100%;
+    min-width: 805px;
+  }
+
+  .navigation-items {
+    list-style: none;
+    margin: 0;
+    margin-right: 0;
+    cursor: pointer;
   }
 
   /* Styling for vertical menu - class="verticalMenu" */
   .verticalMenu {
-    background-color: $background-color2;
+    background-color: $background-color-light;
+    position: absolute;
+    top: 64px;
+    bottom: 0;
     border-left: 15px solid black;
     width: 200px;
     float: left;
-    min-height: 100%;
+    height: calc(100%-64px);
   }
 
   .verticalMenu a {
-    background-color: $background-color2;
+    background-color: $background-color-light;
     color: black;
     display: block;
     padding: 12px;
@@ -58,7 +72,7 @@ html {
   }
 
   .verticalMenu a.active {
-    background-color: green;
+    background-color: $active;
     color: white;
   }
 
@@ -66,9 +80,9 @@ html {
   .button {
     -webkit-transition-duration: 0.2s;
     transition-duration: 0.2s;
-    border: 2px solid #555555;
+    border: $border;
     border-radius: 5px;
-    box-shadow: 0 1px #666;
+    box-shadow: $box-shadow;
   }
 
   .button:hover {
@@ -77,36 +91,46 @@ html {
   }
 
   .button:active {
-    background-color: $background-color2;
-    box-shadow: 0 1px #666;
+    background-color: $active;
+    box-shadow: $box-shadow;
     transform: translateY(2px);
+  }
+
+  .btnImg {
+    border-radius: 8px;
+    background-color: $background-color;
+    width: 150px;
+    height: 150px;
+    display: block;
+    margin-top: 3px !important;
+  }
+
+  .btnImg:hover {
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.24), 0 2px 3px 0 rgba(0, 0, 0, 0.19);
+    background-color: $background-color-light;
+  }
+
+  .btnImg:active {
+    background-color: $active;
+    box-shadow: $box-shadow;
+    transform: translateY(2px);
+  }
+
+  .img {
+    width: 150px;
+    height: 150px;
+    margin-left: -5px;
   }
 
   /* All other styles: */
   .content {
     position: absolute;
     margin-left: 215px;
-    background-color: silver;
+    background-color: $background-color;
   }
 
   .divContent {
     margin-left: 15px;
-  }
-
-  .filterForm {
-    background-color: $gold;
-    max-height: max-content;
-    max-width: max-content;
-    padding-right: 15px;
-    border-radius: $border-radius;
-    border: 1px solid black;
-  }
-
-  .navigation-items {
-    list-style: none;
-    margin: 0;
-    margin-right: 0;
-    cursor: pointer;
   }
 
   .icon {
@@ -125,6 +149,32 @@ html {
     line-height: 30px;
     margin: 0;
     width: 85%;
+  }
+
+  .alert {
+    font-size: small;
+    color: $alert;
+  }
+
+  .mat-grid-tile .mat-grid-tile-footer {
+    display: grid;
+  }
+
+  .mat-card {
+    font-size: 15px;
+    line-height: 10px;
+    margin: 10px;
+    border-radius: 8px;
+    background-color: $background-color;
+  }
+
+  .mat-card:hover {
+    background-color: $background-color !important;
+  }
+
+  .mat-card-content {
+    margin-top: 5px;
+    text-align: center;
   }
 
   /* No more default outline that chrome always uses */

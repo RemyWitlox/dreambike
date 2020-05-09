@@ -1,17 +1,55 @@
 <div class="divContent">
-  <p *ngIf="!currentUser">
+  <p *ngIf="!currentBackendUser">
     You are not logged in. Please log in to continue.
   </p>
-  <div class="card-body" *ngIf="currentUser">
+  <div *ngIf="currentBackendUser">
+    <h1>Welcome {{ currentBackendUser?.name }},</h1>
     <p>
-      Your role is: <strong>{{ currentUser?.role }}</strong
-      >.
+      Your current role is
+      <strong>{{
+        currentBackendUser ? (currentBackendUser?.role)[0] : "No roles"
+      }}</strong
+      >. Now let's get started!
     </p>
-    <p>This page can be accessed by <u>all authenticated users</u>.</p>
-    <p class="mb-1">Current user from secure api end point:</p>
-    <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
-    <ul *ngIf="userFromApi">
-      <li>{{ userFromApi?.name }}</li>
-    </ul>
+    <div style="width: 600px;">
+      <mat-grid-list cols="3" rowHeight="1:1" style="position: static;">
+        <mat-grid-tile>
+          <mat-card>
+            <button class="btnImg" (click)="goDocking()">
+              <img src="../../../assets/docking.png" class="img" />
+            </button>
+            <mat-card-content>
+              <p>
+                Docking Stations
+              </p>
+            </mat-card-content>
+          </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-card>
+            <button class="btnImg" (click)="goBikes()">
+              <img src="../../../assets/bike.png" class="img" />
+            </button>
+            <mat-card-content>
+              <p>
+                Bikes
+              </p>
+            </mat-card-content></mat-card
+          >
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-card>
+            <button class="btnImg" (click)="goRepairs()">
+              <img src="../../../assets/repair.png" class="img" />
+            </button>
+            <mat-card-content>
+              <p>
+                Repairs
+              </p>
+            </mat-card-content></mat-card
+          >
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
   </div>
 </div>

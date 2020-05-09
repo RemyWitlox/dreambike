@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { User } from '../../models';
-import { UserService, AuthenticationService } from '../../services';
-import { first } from 'rxjs/operators';
+import { AuthenticationService } from '../../services';
+import { ReceiveUser } from 'src/app/models/receiveUser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'home',
@@ -10,24 +10,35 @@ import { first } from 'rxjs/operators';
 })
 export class HomeComponent {
   loading = false;
-  currentUser: User;
-  userFromApi: User;
+  currentBackendUser: ReceiveUser;
+  userFromApi: ReceiveUser;
 
   constructor(
-    private userService: UserService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private router: Router
   ) {
-    this.currentUser = this.authenticationService.currentUserValue;
+    this.currentBackendUser = this.authenticationService.currentBackendUserValue;
   }
 
   ngOnInit() {
     this.loading = true;
-    this.userService
-      .getById(this.currentUser?.id)
-      .pipe(first())
-      .subscribe((user) => {
-        this.loading = false;
-        this.userFromApi = user;
-      });
+    if (!this.currentBackendUser) {
+      return;
+    } else {
+      this.loading = false;
+      this.userFromApi = this.currentBackendUser;
+    }
+  }
+
+  goDocking() {
+    this.router.navigate(['/dockingStations']);
+  }
+
+  goBikes() {
+    this.router.navigate(['/bikes']);
+  }
+
+  goRepairs() {
+    this.router.navigate(['/repairs']);
   }
 }

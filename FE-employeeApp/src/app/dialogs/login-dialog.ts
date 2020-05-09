@@ -1,7 +1,8 @@
-import { Component, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { User } from '../models/user';
+import { ReceiveUser } from '../models/receiveUser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../services';
 import { first } from 'rxjs/operators';
@@ -11,21 +12,25 @@ import { first } from 'rxjs/operators';
   templateUrl: './loginDialog.component.html',
 })
 export class LoginDialog {
+  receivedUser: ReceiveUser;
   login = new User();
   loginForm: FormGroup;
   returnUrl: string;
   submitted = false;
   error = '';
+  token: string;
+  decoded: any;
+  decodedName: string;
 
   constructor(
-    public dialogRef: MatDialogRef<LoginDialog>,
+    private dialogRef: MatDialogRef<LoginDialog>,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService
   ) {
     // redirect to home if already logged in
-    if (this.authenticationService.currentUserValue) {
+    if (this.authenticationService.currentBackendUserValue) {
       this.router.navigate(['/']);
     }
   }
@@ -40,7 +45,7 @@ export class LoginDialog {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  onNoClick(): void {
+  onCancel(): void {
     this.dialogRef.close();
   }
 
@@ -49,26 +54,26 @@ export class LoginDialog {
     return this.loginForm.controls;
   }
 
-  onConfirm() {
+  async onConfirm() {
     this.submitted = true;
+    this.error = '';
 
-    // stop here if form is invalid
     if (this.loginForm.invalid) {
-      console.log('Form is empty');
+      this.error = 'Please enter your username and password.';
       return;
     } else {
-      this.authenticationService
-        .login(this.f.username.value, this.f.password.value)
+      await this.authenticationService
+        .loginBackend(this.f.username.value, this.f.password.value)
         .pipe(first())
         .subscribe(
           (data) => {
             this.router.navigate([this.returnUrl]);
+            this.dialogRef.close();
           },
           (error) => {
-            this.error = error;
+            this.error = 'Your username or password is incorrect.';
           }
         );
-      this.dialogRef.close();
     }
   }
 }

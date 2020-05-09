@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+  <color name="colorPrimary">#000000</color>
+  <color name="colorPrimaryDark">#464646</color>
+  <color name="colorAccent">#464646</color>
+  <color name="colorGold">#D7C278</color>
+  <color name="colorBlack">#000000</color>
+  <color name="colorGray1">#C0C0C0</color>
+  <color name="colorGray2">#AAA9A9</color>
+  <color name="colorGray3">#464646</color>
+  <color name="colorAlert">#990101</color>
+  <color name="colorActive">#008000</color>
+  <color name="dimBackgroundColor">#40000000</color>
+</resources>
