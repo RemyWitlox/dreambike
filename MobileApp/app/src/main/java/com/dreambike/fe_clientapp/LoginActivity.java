@@ -1,12 +1,16 @@
 package com.dreambike.fe_clientapp;
 
+import android.content.Context;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.EditText;
@@ -19,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
   private TextView infoTxt;
   private EditText usernameTxt;
   private EditText passwordTxt;
+  private TextView registerTxt;
   private String username;
   private String password;
   private String baseUrl;
@@ -35,11 +40,15 @@ public class LoginActivity extends AppCompatActivity {
     usernameTxt = (EditText) findViewById(R.id.username);
     passwordTxt = (EditText) findViewById(R.id.password);
     loginBtn = (Button) findViewById(R.id.loginBtn);
+    registerTxt = (TextView) findViewById(R.id.registerTxt);
+    textToLink(registerTxt, "https://www.google.com", "Register here.");
 
     loginBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         Log.e("log: ", "The button is clicked!");
+        v.clearFocus();
+        hideKeyboardFrom(v);
         if (usernameTxt.getText().toString().isEmpty() || passwordTxt.getText().toString().isEmpty()){
           infoTxt.setText("Please enter your username and password.");
         } else {
@@ -61,6 +70,18 @@ public class LoginActivity extends AppCompatActivity {
         }
       }
     });
+  }
+
+  public void textToLink(TextView textview, String url, String show){
+    textview.setClickable(true);
+    textview.setMovementMethod(LinkMovementMethod.getInstance());
+    String text = "<a href='"+ url + "'>"+ show + "</a>";
+    textview.setText(Html.fromHtml(text));
+  }
+
+  public void hideKeyboardFrom(View view) {
+    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
   }
 
   /**

@@ -4,7 +4,8 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context=".LoginActivity">
+  tools:context=".LoginActivity"
+  android:windowSoftInputMode="stateAlwaysHidden">
 
   <RelativeLayout
     android:id="@+id/loadingPanel"
@@ -123,8 +124,8 @@
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
       android:layout_centerHorizontal="true"
-      android:layout_marginBottom="65dp"
-      android:text="Register here."
+      android:layout_marginBottom="15dp"
+      android:linksClickable="true"
       android:textColor="@color/colorGray3"
       android:textColorLink="@color/colorBlack" />
   </RelativeLayout>
