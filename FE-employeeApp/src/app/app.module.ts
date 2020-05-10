@@ -62,7 +62,7 @@ import { LoginDialog } from './dialogs/login-dialog';
     MatListModule,
     FlexLayoutModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCDZ_4jeBJ3m0oUNhf-RH_hAxC9BgHF2fk',
+      apiKey: 'AIzaSyCU6a9rxjrf7jWAP1Vjg39fAF3SRi4XuSk',
       libraries: ['places'],
     }),
   ],
