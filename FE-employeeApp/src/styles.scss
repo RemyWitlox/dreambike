@@ -76,6 +76,60 @@ html {
     color: white;
   }
 
+  /* Styling for google map */
+  agm-map {
+    height: 75vh;
+    width: 75vh;
+    display: block;
+    margin: 15px;
+    border: 1px solid black;
+    position: relative;
+  }
+
+  /* Styling for tabels with scroll - class="table-scroll" */
+  .table-scroll thead {
+    background-color: $background-color-dark;
+    color: $backgroundHover-color;
+    display: block;
+    position: relative;
+  }
+
+  .table-scroll tbody {
+    /* Position */
+    display: block;
+    position: relative;
+    overflow-y: scroll;
+    /* Decoration */
+    background-color: $background-color;
+    border-top: 1px solid $border;
+  }
+
+  .table-scroll tr {
+    display: flex;
+    padding: 3px;
+    cursor: default;
+  }
+
+  .table-scroll td,
+  .table-scroll th {
+    flex-basis: 100%;
+    vertical-align: middle;
+    padding: -1px;
+  }
+
+  /* Other options */
+  .table-scroll tbody tr:nth-child(2n) {
+    background-color: $background-color-light;
+  }
+
+  .table-scroll thead tr {
+    margin-right: 20px;
+  }
+
+  .body-half-screen {
+    max-height: 75vh;
+  }
+
   /* Styling for all the buttons - class="button" */
   .button {
     -webkit-transition-duration: 0.2s;
@@ -126,11 +180,15 @@ html {
   .content {
     position: absolute;
     margin-left: 215px;
+    width: 100vh;
     background-color: $background-color;
   }
 
   .divContent {
+    overflow: hidden !important;
+    float: left;
     margin-left: 15px;
+    margin-right: 15px;
   }
 
   .icon {

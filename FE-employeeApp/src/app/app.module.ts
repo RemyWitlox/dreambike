@@ -14,6 +14,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { DatePipe } from '@angular/common';
+import { AgmCoreModule } from '@agm/core';
 
 // Services;
 import { CustomHttpInterceptorService } from './services';
@@ -60,6 +61,9 @@ import { LoginDialog } from './dialogs/login-dialog';
     MatSidenavModule,
     MatListModule,
     FlexLayoutModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCuQbEEFkXVuuvZPoVf9nlpahMEY-ly390',
+    }),
   ],
   exports: [FormsModule, ReactiveFormsModule],
   entryComponents: [LoginDialog],

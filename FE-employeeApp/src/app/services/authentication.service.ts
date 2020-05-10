@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import * as jwt_decode from 'jwt-decode';
 
 import { LoginService } from './login.service';
-import { ReceiveUser } from '../models/receiveUser';
+import { ReceiveUser } from '../models';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
