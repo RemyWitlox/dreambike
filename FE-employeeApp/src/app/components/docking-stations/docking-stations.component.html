@@ -1,5 +1,23 @@
-<div class="divContent">
-  <div style="float: left; min-height: 75vh; min-width: 75vh;">
+<form style="margin-left: 10px;" [formGroup]="searchForm">
+  <mat-form-field>
+    <mat-label>Focus on a city:</mat-label>
+    <span matPrefix><mat-icon>search</mat-icon></span>
+    <input
+      matInput
+      (keydown.enter)="$event.preventDefault()"
+      type="text"
+      formControlName="city"
+      matInput
+      placeholder="New York"
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="off"
+      #search
+    />
+  </mat-form-field>
+</form>
+<div class="wrapper">
+  <div class="first">
     <agm-map
       [latitude]="lat"
       [longitude]="lng"
@@ -8,37 +26,51 @@
       [zoomControl]="false"
     >
       <agm-marker
-        *ngFor="let ds of dockingStations; let i = index"
-        (markerClick)="clickedMarker(ds.label, i)"
+        *ngFor="let ds of dockingStations"
+        (markerClick)="clickedMarker(ds.name, ds.id)"
         [latitude]="ds.lat"
         [longitude]="ds.lng"
-        [label]="ds.label"
-        [markerDraggable]="ds.draggable"
+        [label]="getLabel(ds.bikes)"
+        [markerDraggable]="false"
       >
         <agm-info-window>
-          <strong>{{ ds.name }}</strong>
+          <strong>{{ ds.name }} {{ ds.bikes }}/{{ ds.capacity }}</strong>
         </agm-info-window>
       </agm-marker>
     </agm-map>
   </div>
-  <div style="float: right;">
-    <table
-      matSort
-      (matSortChange)="sortData($event)"
-      class="table-scroll small-first-col"
-    >
-      <thead>
-        <tr>
-          <th mat-sort-header="name">Name</th>
-          <th mat-sort-header="label">Label</th>
-        </tr>
-      </thead>
-      <tbody class="body-half-screen">
-        <tr *ngFor="let ds of sortedData">
-          <td>{{ ds.name }}</td>
-          <td>{{ ds.label }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <table matSort (matSortChange)="sortData($event)" class="table-scroll second">
+    <thead>
+      <tr>
+        <th mat-sort-header="dockingId">Id</th>
+        <th style="width: 100% !important;" mat-sort-header="name">Name</th>
+        <th mat-sort-header="bikes">
+          Bikes
+        </th>
+        <th mat-sort-header="capacity">
+          Capacity
+        </th>
+        <th>Active</th>
+      </tr>
+    </thead>
+    <tbody class="body-half-screen">
+      <tr *ngFor="let ds of sortedData">
+        <td>{{ ds.dockingId }}</td>
+        <td style="width: 100% !important;">{{ ds.name }}</td>
+        <td>{{ ds.bikes }}</td>
+        <td>{{ ds.capacity }}</td>
+        <td style="max-width: 16px;">
+          <mat-checkbox
+            id="{{ ds.id }}"
+            [checked]="ds.active"
+            [(ngModel)]="ds.active"
+            (change)="changeActive(ds)"
+          ></mat-checkbox>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5>Address: {{ address }}</h5>
+  <div>Latitude: {{ lat }}</div>
+  <div>Longitude: {{ lng }}</div>
 </div>
