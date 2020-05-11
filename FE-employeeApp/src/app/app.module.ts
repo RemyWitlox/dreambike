@@ -14,6 +14,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { DatePipe } from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgmCoreModule } from '@agm/core';
 
 // Services;
@@ -46,6 +47,7 @@ import { LoginDialog } from './dialogs/login-dialog';
   ],
   imports: [
     BrowserModule,
+    NgbModule,
     MaterialModule,
     AppRoutingModule,
     BrowserAnimationsModule,

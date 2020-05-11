@@ -1,0 +1,8 @@
+.ngb-typeahead-window {
+  z-index: 1000;
+}
+
+::ng-deep .dropdown-menu {
+  width: 350px;
+  z-index: 1000;
+}

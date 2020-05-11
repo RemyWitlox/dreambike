@@ -1,24 +1,25 @@
-import {
-  Component,
-  OnInit,
-  NgZone,
-  ElementRef,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { DockingStation } from '../../models';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { MapsAPILoader, MouseEvent } from '@agm/core';
-import { google } from 'google-maps';
+import { FormControl, FormGroup } from '@angular/forms';
+import { NgbTypeaheadConfig } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  filter,
+} from 'rxjs/operators';
 
 @Component({
   selector: 'app-docking-stations',
   templateUrl: './docking-stations.component.html',
   styleUrls: ['./docking-stations.component.scss'],
+  providers: [NgbTypeaheadConfig],
 })
 export class DockingStationsComponent implements OnInit {
   searchForm = new FormGroup({
-    city: new FormControl('', [Validators.required]),
+    city: new FormControl(''),
   });
   sortedData: DockingStation[];
 
@@ -28,48 +29,44 @@ export class DockingStationsComponent implements OnInit {
   lng: number = 5.477672;
   // google maps zoom level
   zoom: number;
-  private geoCoder;
+  public model: DockingStation;
 
-  @ViewChild('search')
-  public searchElementRef: ElementRef;
-
-  constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {
+  constructor() {
     this.sortedData = this.dockingStations.slice();
   }
 
+  formatter = (ds: DockingStation) => ds.name;
+
+  search = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      filter((term) => term.length >= 2),
+      map((term) =>
+        this.dockingStations
+          .filter((state) => new RegExp(term, 'mi').test(state.name))
+          .slice(0, 10)
+      )
+    );
+
+  clear() {
+    this.model = new DockingStation();
+    console.log('bla');
+  }
+
+  selectedItem(location) {
+    this.setLocation(location.item.lat, location.item.lng);
+  }
+
   ngOnInit() {
-    //load Places Autocomplete
-    this.mapsAPILoader.load().then(() => {
-      this.setCurrentLocation();
-      this.geoCoder = new google.maps.Geocoder();
-
-      let autocomplete = new google.maps.places.Autocomplete(
-        this.searchElementRef.nativeElement
-      );
-      autocomplete.addListener('place_changed', () => {
-        this.ngZone.run(() => {
-          //get the place result
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
-          //verify result
-          if (place.geometry === undefined || place.geometry === null) {
-            return;
-          }
-
-          //set latitude, longitude and zoom
-          this.lat = place.geometry.location.lat();
-          this.lng = place.geometry.location.lng();
-          this.zoom = 12;
-        });
-      });
-    });
+    this.setLocation(51.44083, 5.47778);
+    this.zoom = 12;
   }
 
   // Get Current Location Coordinates
-  private setCurrentLocation() {
-    this.lat = 51.44083;
-    this.lng = 5.47778;
-    this.zoom = 12;
+  setLocation(lat: number, lng: number) {
+    this.lat = lat;
+    this.lng = lng;
   }
 
   clickedMarker(name: string, id: number) {
@@ -81,34 +78,7 @@ export class DockingStationsComponent implements OnInit {
     return result;
   }
 
-  markerDragEnd($event: MouseEvent) {
-    console.log($event);
-    this.lat = $event.coords.lat;
-    this.lng = $event.coords.lng;
-    this.getAddress(this.lat, this.lng);
-  }
-
-  getAddress(latitude, longitude) {
-    this.geoCoder.geocode(
-      { location: { lat: latitude, lng: longitude } },
-      (results, status) => {
-        console.log(results);
-        console.log(status);
-        if (status === 'OK') {
-          if (results[0]) {
-            this.zoom = 12;
-            this.address = results[0].formatted_address;
-          } else {
-            window.alert('No results found');
-          }
-        } else {
-          window.alert('Geocoder failed due to: ' + status);
-        }
-      }
-    );
-  }
-
-  changeActive(ds) {
+  setActive(ds) {
     // TODO : set change to backend
     // TODO : subscribe new dockingStations.
     if ((ds.active = false)) {

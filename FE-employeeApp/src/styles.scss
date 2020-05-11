@@ -135,8 +135,8 @@ html {
     max-height: 75%;
   }
 
-  /* Styling for all the buttons - class="button" */
-  .button {
+  /* Styling for all the buttons - class="btn" */
+  .btn {
     -webkit-transition-duration: 0.2s;
     transition-duration: 0.2s;
     border: $border;
@@ -144,12 +144,12 @@ html {
     box-shadow: $box-shadow;
   }
 
-  .button:hover {
+  .btn:hover {
     background-color: $background-color-dark;
     color: white;
   }
 
-  .button:active {
+  .btn:active {
     background-color: $active;
     box-shadow: $box-shadow;
     transform: translateY(2px);
@@ -196,6 +196,36 @@ html {
     display: block;
     border: 1px solid black;
     position: relative;
+  }
+
+  .input-container {
+    display: -ms-flexbox; /* IE10 */
+    display: flex;
+    width: 50%;
+    margin-left: 10px;
+  }
+
+  .form-control {
+    width: 400px;
+    height: 25px;
+    contain: none;
+    align-self: start;
+    background-color: inherit;
+    border: 1px solid black;
+    box-shadow: $box-shadow;
+    padding-left: 2px;
+  }
+
+  .form-control:focus {
+    width: 400px;
+    height: 25px;
+    contain: none;
+    align-self: start;
+    background-color: rgba($active, 0.4);
+    outline: none;
+    border: 1px solid black;
+    box-shadow: $box-shadow;
+    padding-left: 2px;
   }
 
   .wrapper {
