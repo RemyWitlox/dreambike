@@ -160,7 +160,7 @@ export class DockingStationsComponent implements OnInit {
     },
     {
       dockingId: 2,
-      lat: 41.441851,
+      lat: 51.441851,
       lng: 5.468059,
       name: 'Stadion Eindhoven',
       bikes: 86,
