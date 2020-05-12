@@ -1,78 +1,165 @@
-<div class="input-container">
-  <mat-icon style="text-align: center;">search</mat-icon>
-  <input
-    matInput
-    id="typeahead-config"
-    type="text"
-    class="form-control"
-    (selectItem)="selectedItem($event)"
-    [(ngModel)]="model"
-    [ngbTypeahead]="search"
-    [inputFormatter]="formatter"
-    [resultFormatter]="formatter"
-    [editable]="false"
-    [focusFirst]="true"
-    placement="bottom-left"
-    placeholder="Focus map on Docking Station:"
-    onfocus="this.value=''"
-  />
-</div>
-<hr />
-<div class="wrapper">
-  <div class="first">
-    <agm-map
-      [latitude]="lat"
-      [longitude]="lng"
-      [zoom]="zoom"
-      [disableDefaultUI]="false"
-      [zoomControl]="false"
-    >
-      <agm-marker
-        *ngFor="let ds of dockingStations"
-        (markerClick)="clickedMarker(ds.name, ds.id)"
-        [latitude]="ds.lat"
-        [longitude]="ds.lng"
-        [label]="getLabel(ds.bikes)"
-        [markerDraggable]="false"
-      >
-        <agm-info-window>
-          <strong>{{ ds.name }} {{ ds.bikes }}/{{ ds.capacity }}</strong>
-        </agm-info-window>
-      </agm-marker>
-    </agm-map>
-  </div>
-  <table matSort (matSortChange)="sortData($event)" class="table-scroll second">
-    <thead>
-      <tr>
-        <th mat-sort-header="dockingId">Id</th>
-        <th style="width: 100% !important;" mat-sort-header="name">Name</th>
-        <th mat-sort-header="bikes">
-          Bikes
-        </th>
-        <th mat-sort-header="capacity">
-          Capacity
-        </th>
-        <th>Active</th>
-      </tr>
-    </thead>
-    <tbody class="body-half-screen">
-      <tr *ngFor="let ds of sortedData">
-        <td>{{ ds.dockingId }}</td>
-        <td style="width: 100% !important;">{{ ds.name }}</td>
-        <td>{{ ds.bikes }}</td>
-        <td>{{ ds.capacity }}</td>
-        <td style="max-width: 16px;">
-          <mat-checkbox
-            id="{{ ds.id }}"
-            [checked]="ds.active"
-            [(ngModel)]="ds.active"
-            (change)="setActive(ds)"
-          ></mat-checkbox>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <h5>Address: {{ address }}</h5>
-  <div>Latitude: {{ lat }}</div>
-  <div>Longitude: {{ lng }}</div>
+<div class="divContent">
+  <mat-tab-group>
+    <mat-tab label="Map"
+      ><div class="input-container">
+        <mat-icon style="text-align: center;">search</mat-icon>
+        <input
+          matInput
+          id="typeahead-config"
+          type="text"
+          class="form-control"
+          (selectItem)="selectedItem($event)"
+          [(ngModel)]="model"
+          [ngbTypeahead]="search"
+          [inputFormatter]="formatter"
+          [resultFormatter]="formatter"
+          [editable]="false"
+          [focusFirst]="true"
+          placement="bottom-left"
+          placeholder="Focus map on Docking Station:"
+          onfocus="this.value=''"
+        />
+      </div>
+      <hr />
+      <div class="wrapper">
+        <div class="first">
+          <agm-map
+            [latitude]="lat"
+            [longitude]="lng"
+            [zoom]="zoom"
+            [disableDefaultUI]="false"
+            [zoomControl]="false"
+          >
+            <agm-marker
+              *ngFor="let ds of dockingStations"
+              (markerClick)="clickedMarker(ds.name, ds.id)"
+              [latitude]="ds.lat"
+              [longitude]="ds.lng"
+              [label]="getLabel(ds.bikes)"
+              [markerDraggable]="false"
+            >
+              <agm-info-window>
+                <strong>{{ ds.name }} {{ ds.bikes }}/{{ ds.capacity }}</strong>
+              </agm-info-window>
+            </agm-marker>
+          </agm-map>
+        </div>
+        <table
+          id="tableSmall"
+          matSort
+          (matSortChange)="sortData($event)"
+          class="table-scroll second"
+        >
+          <thead>
+            <tr>
+              <th style="width: 100% !important;" mat-sort-header="name">
+                Name
+              </th>
+              <th style="min-width: 15px;" mat-sort-header="bikes">
+                B
+              </th>
+              <th style="min-width: 40px;" mat-sort-header="capacity">
+                / C
+              </th>
+              <th style="min-width: 19px;"></th>
+            </tr>
+          </thead>
+          <tbody class="body-half-screen">
+            <tr *ngFor="let ds of sortedData">
+              <td style="width: 100% !important;">{{ ds.name }}</td>
+              <td>{{ ds.bikes }}</td>
+              <td>/{{ ds.capacity }}</td>
+              <td style="max-width: 16px;">
+                <mat-checkbox
+                  id="{{ ds.id }}"
+                  [checked]="ds.active"
+                  [(ngModel)]="ds.active"
+                  (change)="setActive(ds)"
+                ></mat-checkbox>
+              </td>
+            </tr>
+            <tr class="emptyLine"></tr>
+          </tbody>
+        </table>
+      </div>
+    </mat-tab>
+    <mat-tab label="Table">
+      <mat-button-toggle-group name="dsBtns">
+        <mat-button-toggle class="btn" style="height: 30px;" (click)="newDs()"
+          ><mat-icon style="margin-top: -2px; margin-left: -5px;">add</mat-icon
+          >New Docking Station</mat-button-toggle
+        >
+      </mat-button-toggle-group>
+      <hr />
+      <div id="maintable">
+        <table
+          id="tableBig"
+          matSort
+          (matSortChange)="sortData($event)"
+          class="table-scroll small-first-col"
+        >
+          <thead class="thead">
+            <tr>
+              <th style="min-width: 25px;"></th>
+              <th style="min-width: 300px;" mat-sort-header="name">Name</th>
+              <th style="min-width: 25px;"></th>
+              <th mat-sort-header="active">Active</th>
+              <th mat-sort-header="bikes">Bikes</th>
+              <th mat-sort-header="space">Space</th>
+              <th mat-sort-header="capacity">Capacity</th>
+              <th mat-sort-header="lat">Latitude</th>
+              <th mat-sort-header="lng">Longitude</th>
+            </tr>
+          </thead>
+          <tbody class="body-half-screen">
+            <tr
+              *ngFor="let ds of sortedData"
+              style="max-height: 25px;"
+              [class.selected]="ds === selectedDs"
+              [ngClass]="{ active: ds == selectedDs }"
+              (click)="onSelect(ds)"
+            >
+              <td style="margin-top: -5px; min-width: 25px;">
+                <button class="buttonIcon" (click)="onEdit(ds)">
+                  <mat-icon area-hidden="true" class="icon">edit</mat-icon>
+                </button>
+              </td>
+              <td style="min-width: 300px;">
+                {{ ds.name }}
+              </td>
+              <td style="min-width: 25px;">
+                <button
+                  *ngIf="ds.active"
+                  class="buttonIcon"
+                  (click)="onDelete(ds)"
+                >
+                  <mat-icon class="icon">remove</mat-icon>
+                </button>
+                <button
+                  *ngIf="!ds.active"
+                  class="buttonIcon"
+                  (click)="onDelete(ds)"
+                >
+                  <mat-icon class="icon">add</mat-icon>
+                </button>
+              </td>
+              <td>
+                {{ ds.active ? "Active" : "x" }}
+              </td>
+              <td>
+                {{ ds.bikes }}
+              </td>
+              <td>
+                {{ ds.capacity - ds.bikes }}
+              </td>
+              <td>{{ ds.capacity }}</td>
+              <td>{{ ds.lat }}</td>
+              <td>{{ ds.lng }}</td>
+            </tr>
+            <tr class="emptyLine"></tr>
+          </tbody>
+        </table>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
 </div>

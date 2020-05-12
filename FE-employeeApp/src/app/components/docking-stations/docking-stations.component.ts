@@ -29,6 +29,7 @@ export class DockingStationsComponent implements OnInit {
   lng: number = 5.477672;
   // google maps zoom level
   zoom: number;
+  selectedDs: DockingStation;
   public model: DockingStation;
 
   constructor() {
@@ -92,6 +93,27 @@ export class DockingStationsComponent implements OnInit {
       );
       this.dockingStations[index].active = false;
     }
+  }
+
+  onDelete(ds) {
+    console.log('delete: ' + ds.name);
+  }
+
+  onEdit(ds) {
+    console.log('edit: ' + ds.name);
+  }
+
+  newDs() {
+    console.log('new ds');
+  }
+
+  onSelect(ds) {
+    if (this.selectedDs === ds) {
+      this.selectedDs = new DockingStation();
+      return;
+    }
+    this.selectedDs = ds;
+    console.log('selected: ' + ds.name);
   }
 
   sortData(sort: Sort) {

@@ -1,3 +1,6 @@
+$backgroundHover-color: rgb(215, 194, 120);
+$active: green;
+
 .ngb-typeahead-window {
   z-index: 1000;
 }
@@ -5,4 +8,16 @@
 ::ng-deep .dropdown-menu {
   width: 350px;
   z-index: 1000;
+}
+
+#maintable {
+  .table-scroll tbody tr:hover {
+    background-color: $backgroundHover-color;
+    cursor: pointer;
+  }
+
+  .table-scroll tbody tr.active {
+    background-color: $active;
+    color: white;
+  }
 }

@@ -78,11 +78,6 @@ html {
     color: white;
   }
 
-  .table-scroll {
-    table-layout: auto !important;
-    height: inherit !important;
-  }
-
   .mat-checkbox-layout {
     vertical-align: top;
     margin-top: 2px;
@@ -93,22 +88,55 @@ html {
     width: 0px;
   }
 
+  /* button voor icons*/
+  .buttonIcon {
+    background-color: transparent;
+    margin-left: -10px;
+    margin-right: -10px;
+    border: 0px;
+  }
+
+  .buttonIcon:hover {
+    background-color: transparent;
+    border: 0px;
+  }
+
+  .buttonIcon:active {
+    background-color: transparent;
+    border: 0px;
+  }
+
   /* Styling for tabels with scroll - class="table-scroll" */
+  .mat-cell,
+  .mat-header-cell {
+    overflow: hidden;
+    word-wrap: break-word;
+  }
+
+  .table-scroll {
+    width: 100%;
+    margin: 20px auto;
+    table-layout: auto;
+    empty-cells: show;
+    border-collapse: separate;
+
+    /* Decoration */
+    border-spacing: 0;
+    border: 1px solid black;
+  }
+
   .table-scroll thead {
-    width: auto !important;
+    display: table-header-group;
+    vertical-align: middle;
     background-color: black;
     color: $backgroundHover-color;
-    display: block;
-    position: relative;
-    text-emphasis: none;
     border-left: 3px solid black;
   }
 
   .table-scroll tbody {
-    width: auto !important;
     /* Position */
-    display: block;
-    position: relative;
+    display: table-row-group;
+    vertical-align: middle;
     overflow-y: scroll;
     /* Decoration */
     background-color: $background-color;
@@ -116,19 +144,48 @@ html {
   }
 
   .table-scroll tr {
-    width: auto !important;
+    display: table-row;
+    vertical-align: inherit;
+    padding: 3px;
     cursor: default;
   }
 
+  .table-scroll td {
+    display: table-cell;
+    vertical-align: inherit;
+  }
+
   .table-scroll tr th {
-    width: auto !important;
+    display: table-cell;
+    vertical-align: inherit;
+    text-align: -internal-center;
+
     flex-basis: 100%;
-    padding-left: 2px;
+    vertical-align: middle;
+    padding: -1px;
+  }
+
+  .table-scroll thead tr {
+    margin-right: 0px;
   }
 
   /* Other options */
   .table-scroll tbody tr:nth-child(2n) {
     background-color: $background-color-light;
+  }
+
+  .table-scroll thead tr {
+    margin-right: 20px;
+  }
+
+  .emptyLine {
+    min-height: 15px;
+  }
+
+  .emptyLine :hover {
+    min-height: 15px;
+    background-color: $background-color-light !important;
+    cursor: auto !important;
   }
 
   .body-half-screen {
@@ -145,11 +202,11 @@ html {
   }
 
   .btn:hover {
-    background-color: $background-color-dark;
-    color: white;
+    background-color: $backgroundHover-color;
   }
 
   .btn:active {
+    color: white;
     background-color: $active;
     box-shadow: $box-shadow;
     transform: translateY(2px);
@@ -181,15 +238,6 @@ html {
     margin-left: -5px;
   }
 
-  /* All other styles: */
-  .content {
-    position: absolute;
-    margin-top: 10px;
-    margin-left: 215px;
-    width: calc(100vh+215px);
-    background-color: $background-color;
-  }
-
   /* Styling for google map */
   agm-map {
     height: 100%;
@@ -201,8 +249,8 @@ html {
   .input-container {
     display: -ms-flexbox; /* IE10 */
     display: flex;
-    width: 50%;
-    margin-left: 10px;
+    width: 100%;
+    margin-top: 10px;
   }
 
   .form-control {
@@ -230,15 +278,14 @@ html {
 
   .wrapper {
     /* Height and width fallback for older browsers. */
-    height: calc(100% -154px);
-    width: calc(100% - 235px);
+    height: calc(100% -196px);
+    width: calc(100% - 245px);
 
     /* Set the height to match that of the viewport. */
-    height: calc(100vh - 154px);
+    height: calc(100vh - 196px);
 
     /* Set the width to match that of the viewport. */
-    width: calc(100vw - 235px);
-    margin-left: 10px;
+    width: calc(100vw - 245px);
     overflow: hidden; /* will contain if #first is longer than #second */
   }
 
@@ -255,12 +302,27 @@ html {
     overflow: hidden; /* if you don't want #second to wrap below #first */
   }
 
+  /* All other styles: */
+  .content {
+    position: absolute;
+    margin-left: 215px;
+    width: calc(100vh+215px);
+    background-color: $background-color;
+  }
+
+  /* mat- icon kleiner dan normaal: */
+  .mat-icon {
+    transform: scale(0.75);
+  }
+
   .divContent {
     overflow: hidden !important;
-    float: left;
-    width: 100vh;
-    margin-left: 15px;
-    margin-right: 15px;
+    width: calc(100% - 235px);
+    width: calc(100vw - 235px);
+  }
+
+  .mat-tab-body-wrapper {
+    margin-left: 10px;
   }
 
   .icon {
@@ -290,6 +352,7 @@ html {
     display: grid;
   }
 
+  // buttons on home page:
   .mat-card {
     font-size: 15px;
     line-height: 10px;
@@ -311,4 +374,53 @@ html {
   *:focus {
     outline: none;
   }
+
+  // toggle buttons:
+  .mat-button-toggle-group {
+    margin-top: 10px;
+  }
+
+  .mat-button-toggle-button {
+    max-height: 28px;
+  }
+
+  .mat-button-toggle-label-content {
+    line-height: 28px !important;
+  }
+}
+
+.mat.tab.label :hover {
+  color: black;
+  background-color: $backgroundHover-color;
+}
+
+.mat-tab-label-container {
+  max-height: 28px;
+}
+
+.mat-tab-labels {
+  max-height: 28px;
+}
+
+.mat-tab-label {
+  max-height: 28px;
+  border-right: 1px solid black;
+}
+
+.mat-tab-label.mat-tab-label-active {
+  color: white;
+  background-color: $active;
+}
+
+::ng-deep .mat-tooltip {
+  white-space: pre-line !important;
+  max-width: 30px !important;
+}
+
+::ng-deep.mat-tab-label,
+::ng-deep.mat-tab-label-active {
+  max-height: 28px !important;
+  padding: 3px !important;
+  margin: 3px !important;
+  font-size: 14px;
 }
