@@ -1,4 +1,4 @@
-<div class="divContent">
+<div>
   <mat-tab-group>
     <mat-tab label="Map"
       ><div class="input-container">
@@ -7,7 +7,7 @@
           matInput
           id="typeahead-config"
           type="text"
-          class="form-control"
+          class="searchInput"
           (selectItem)="selectedItem($event)"
           [(ngModel)]="model"
           [ngbTypeahead]="search"
@@ -78,7 +78,7 @@
                 ></mat-checkbox>
               </td>
             </tr>
-            <tr class="emptyLine"></tr>
+            <tr></tr>
           </tbody>
         </table>
       </div>
@@ -156,7 +156,7 @@
               <td>{{ ds.lat }}</td>
               <td>{{ ds.lng }}</td>
             </tr>
-            <tr class="emptyLine"></tr>
+            <tr></tr>
           </tbody>
         </table>
       </div>

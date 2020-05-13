@@ -1,5 +1,13 @@
-$backgroundHover-color: rgb(215, 194, 120);
-$active: green;
+$bg: silver;
+$bg-dark: rgb(70, 70, 70);
+$bg-light: rgb(170, 169, 169);
+
+$hover: rgb(215, 194, 120);
+$border: 2px solid $bg-dark;
+$border-radius: 0.5rem !default;
+$box-shadow: 0 1px #666;
+$alert: rgb(153, 1, 1);
+$active: rgb(4, 139, 154);
 
 .ngb-typeahead-window {
   z-index: 1000;
@@ -12,7 +20,7 @@ $active: green;
 
 #maintable {
   .table-scroll tbody tr:hover {
-    background-color: $backgroundHover-color;
+    background-color: $hover;
     cursor: pointer;
   }
 
@@ -20,4 +28,66 @@ $active: green;
     background-color: $active;
     color: white;
   }
+}
+
+.searchInput {
+  width: 400px;
+  height: 25px;
+  contain: none;
+  align-self: start;
+  background-color: inherit;
+  border: 1px solid black;
+  box-shadow: $box-shadow;
+  padding-left: 2px;
+}
+
+.searchInput:focus {
+  width: 400px;
+  height: 25px;
+  contain: none;
+  align-self: start;
+  background-color: rgba($active, 0.4);
+  outline: none;
+  border: 1px solid black;
+  box-shadow: $box-shadow;
+  padding-left: 2px;
+}
+
+/* Styling for google map */
+agm-map {
+  height: 100%;
+  display: block;
+  border: 1px solid black;
+  position: relative;
+}
+
+.input-container {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.wrapper {
+  /* Height and width fallback for older browsers. */
+  height: calc(100% -196px);
+  width: calc(100% - 245px);
+
+  /* Set the height/width to match that of the viewport. */
+  height: calc(100vh - 196px);
+  width: calc(100vw - 245px);
+  overflow: hidden; /* will contain if #first is longer than #second */
+}
+
+.first {
+  width: calc(100% - 580px);
+  width: calc(100vw - 580px);
+  height: calc(100% - 154px);
+  height: calc(100vh - 154px);
+  float: left;
+}
+
+.second {
+  width: 315px;
+  overflow: hidden; /* if you don't want #second to wrap below #first */
 }

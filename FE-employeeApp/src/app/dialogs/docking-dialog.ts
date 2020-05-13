@@ -6,17 +6,17 @@ import { AuthenticationService } from '../services';
 import { first } from 'rxjs/operators';
 
 @Component({
-  selector: 'login-dialog',
+  selector: 'docking-dialog',
   templateUrl: './loginDialog.component.html',
 })
-export class LoginDialog {
+export class DockingDialog {
   loginForm: FormGroup;
   returnUrl: string;
   submitted = false;
   error = '';
 
   constructor(
-    private dialogRef: MatDialogRef<LoginDialog>,
+    private dialogRef: MatDialogRef<DockingDialog>,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,

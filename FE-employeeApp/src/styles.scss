@@ -1,16 +1,15 @@
 @import "./assets/dreambike.css";
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
-$background-color: silver;
-$background-color-dark: rgb(70, 70, 70);
-$background-color-light: rgb(170, 169, 169);
-$gold: rgb(215, 194, 120);
-$backgroundHover-color: rgb(215, 194, 120);
-$border: 2px solid $background-color-dark;
+$bg: silver;
+$bg-dark: rgb(70, 70, 70);
+$bg-light: rgb(170, 169, 169);
+$hover: rgb(215, 194, 120);
+$border: 2px solid $bg-dark;
 $border-radius: 0.5rem !default;
 $box-shadow: 0 1px #666;
 $alert: rgb(153, 1, 1);
-$active: green;
+$active: rgb(10, 126, 29);
 
 body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -26,56 +25,12 @@ html {
 
   /* Styling for background - class="bg" */
   .bg {
-    background-color: $background-color;
+    background-color: $bg;
     height: 100%;
     width: 100%;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-  }
-
-  /* Styling for horizontal menu - class="horizontalMenu" */
-  .horizontalMenu {
-    color: black;
-    width: 100%;
-    min-width: 805px;
-  }
-
-  .navigation-items {
-    list-style: none;
-    margin: 0;
-    margin-right: 0;
-    cursor: pointer;
-  }
-
-  /* Styling for vertical menu - class="verticalMenu" */
-  .verticalMenu {
-    background-color: $background-color-light;
-    position: absolute;
-    top: 64px;
-    bottom: 0;
-    border-left: 15px solid black;
-    width: 200px;
-    float: left;
-    height: calc(100%-64px);
-  }
-
-  .verticalMenu a {
-    background-color: $background-color-light;
-    color: black;
-    display: block;
-    padding: 12px;
-    text-decoration: none;
-  }
-
-  .verticalMenu a:hover {
-    background-color: $backgroundHover-color;
-    color: black;
-  }
-
-  .verticalMenu a.active {
-    background-color: $active;
-    color: white;
   }
 
   .mat-checkbox-layout {
@@ -129,7 +84,7 @@ html {
     display: table-header-group;
     vertical-align: middle;
     background-color: black;
-    color: $backgroundHover-color;
+    color: $hover;
     border-left: 3px solid black;
   }
 
@@ -139,7 +94,7 @@ html {
     vertical-align: middle;
     overflow-y: scroll;
     /* Decoration */
-    background-color: $background-color;
+    background-color: $bg;
     border-left: 3px solid black;
   }
 
@@ -171,21 +126,11 @@ html {
 
   /* Other options */
   .table-scroll tbody tr:nth-child(2n) {
-    background-color: $background-color-light;
+    background-color: $bg-light;
   }
 
   .table-scroll thead tr {
     margin-right: 20px;
-  }
-
-  .emptyLine {
-    min-height: 15px;
-  }
-
-  .emptyLine :hover {
-    min-height: 15px;
-    background-color: $background-color-light !important;
-    cursor: auto !important;
   }
 
   .body-half-screen {
@@ -202,31 +147,11 @@ html {
   }
 
   .btn:hover {
-    background-color: $backgroundHover-color;
+    background-color: $hover;
   }
 
   .btn:active {
     color: white;
-    background-color: $active;
-    box-shadow: $box-shadow;
-    transform: translateY(2px);
-  }
-
-  .btnImg {
-    border-radius: 8px;
-    background-color: $background-color;
-    width: 150px;
-    height: 150px;
-    display: block;
-    margin-top: 3px !important;
-  }
-
-  .btnImg:hover {
-    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.24), 0 2px 3px 0 rgba(0, 0, 0, 0.19);
-    background-color: $background-color-light;
-  }
-
-  .btnImg:active {
     background-color: $active;
     box-shadow: $box-shadow;
     transform: translateY(2px);
@@ -238,91 +163,9 @@ html {
     margin-left: -5px;
   }
 
-  /* Styling for google map */
-  agm-map {
-    height: 100%;
-    display: block;
-    border: 1px solid black;
-    position: relative;
-  }
-
-  .input-container {
-    display: -ms-flexbox; /* IE10 */
-    display: flex;
-    width: 100%;
-    margin-top: 10px;
-  }
-
-  .form-control {
-    width: 400px;
-    height: 25px;
-    contain: none;
-    align-self: start;
-    background-color: inherit;
-    border: 1px solid black;
-    box-shadow: $box-shadow;
-    padding-left: 2px;
-  }
-
-  .form-control:focus {
-    width: 400px;
-    height: 25px;
-    contain: none;
-    align-self: start;
-    background-color: rgba($active, 0.4);
-    outline: none;
-    border: 1px solid black;
-    box-shadow: $box-shadow;
-    padding-left: 2px;
-  }
-
-  .wrapper {
-    /* Height and width fallback for older browsers. */
-    height: calc(100% -196px);
-    width: calc(100% - 245px);
-
-    /* Set the height to match that of the viewport. */
-    height: calc(100vh - 196px);
-
-    /* Set the width to match that of the viewport. */
-    width: calc(100vw - 245px);
-    overflow: hidden; /* will contain if #first is longer than #second */
-  }
-
-  .first {
-    width: calc(100% - 580px);
-    width: calc(100vw - 580px);
-    height: calc(100% - 154px);
-    height: calc(100vh - 154px);
-    float: left;
-  }
-
-  .second {
-    width: 315px;
-    overflow: hidden; /* if you don't want #second to wrap below #first */
-  }
-
-  /* All other styles: */
-  .content {
-    position: absolute;
-    margin-left: 215px;
-    width: calc(100vh+215px);
-    background-color: $background-color;
-  }
-
   /* mat- icon kleiner dan normaal: */
   .mat-icon {
     transform: scale(0.75);
-  }
-
-  .divContent {
-    overflow: hidden !important;
-    width: calc(100% - 235px);
-    width: calc(100vw - 235px);
-  }
-
-  .mat-tab-body-wrapper {
-    margin-left: 10px;
   }
 
   .icon {
@@ -334,13 +177,6 @@ html {
     text-align: center;
     vertical-align: middle;
     width: 15%;
-  }
-
-  .label {
-    display: inline-block;
-    line-height: 30px;
-    margin: 0;
-    width: 85%;
   }
 
   .alert {
@@ -358,11 +194,7 @@ html {
     line-height: 10px;
     margin: 10px;
     border-radius: 8px;
-    background-color: $background-color;
-  }
-
-  .mat-card:hover {
-    background-color: $background-color !important;
+    background-color: $bg;
   }
 
   .mat-card-content {
@@ -373,6 +205,11 @@ html {
   /* No more default outline that chrome always uses */
   *:focus {
     outline: none;
+  }
+
+  /* Margin right side of the menu */
+  .contentMargin {
+    margin-left: 10px;
   }
 
   // toggle buttons:
@@ -389,9 +226,13 @@ html {
   }
 }
 
+.mat-tab-body-wrapper {
+  margin-left: 10px;
+}
+
 .mat.tab.label :hover {
   color: black;
-  background-color: $backgroundHover-color;
+  background-color: $hover;
 }
 
 .mat-tab-label-container {
