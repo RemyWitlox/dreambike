@@ -65,7 +65,6 @@ import { LoginDialog } from './dialogs/login-dialog';
     FlexLayoutModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCU6a9rxjrf7jWAP1Vjg39fAF3SRi4XuSk',
-      libraries: ['places'],
     }),
   ],
   exports: [FormsModule, ReactiveFormsModule],

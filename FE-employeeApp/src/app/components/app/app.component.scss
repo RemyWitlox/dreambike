@@ -1,7 +1,6 @@
 $bg: silver;
 $bg-dark: rgb(70, 70, 70);
 $bg-light: rgb(170, 169, 169);
-
 $hover: rgb(215, 194, 120);
 $border: 2px solid $bg-dark;
 $border-radius: 0.5rem !default;
@@ -79,12 +78,11 @@ span {
 .content {
   position: absolute;
   margin-left: 215px;
-  overflow: hidden !important;
   /* Height and width fallback for older browsers. */
-  height: calc(100% -196px);
+  height: calc(100% -64px);
   width: calc(100% - 235px);
 
   /* Set the height/width to match that of the viewport. */
-  height: calc(100vh - 196px);
+  height: calc(100vh - 64px);
   width: calc(100vw - 235px);
 }

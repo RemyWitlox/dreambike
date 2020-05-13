@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { SendUser } from '../models';
 import { ReceiveUser } from '../models';
 
 @Injectable({
@@ -10,9 +9,6 @@ import { ReceiveUser } from '../models';
 export class LoginService {
   // For login test:
   url: string = 'http://Localhost:2020/api/login';
-  username: string = 'Remy';
-  password: string = 'Schaap1407!';
-  sendUser: SendUser = { username: this.username, password: this.password };
 
   constructor(private http: HttpClient) {}
 

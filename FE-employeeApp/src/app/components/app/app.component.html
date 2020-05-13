@@ -73,12 +73,9 @@
       >Settings</a
     >
   </div>
-  <div class="content" *ngIf="loading">
+  <div *ngIf="loading">
     <p style="margin-left: 230px;">Loading,... Please wait.</p>
-    <mat-progress-bar
-      mode="indeterminate"
-      style="margin: 25px;"
-    ></mat-progress-bar>
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   </div>
   <div class="content" *ngIf="!loading">
     <router-outlet *ngIf="connected"></router-outlet>

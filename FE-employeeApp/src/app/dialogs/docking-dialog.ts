@@ -7,10 +7,10 @@ import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'docking-dialog',
-  templateUrl: './loginDialog.component.html',
+  templateUrl: './dockingDialog.component.html',
 })
 export class DockingDialog {
-  loginForm: FormGroup;
+  dockingForm: FormGroup;
   returnUrl: string;
   submitted = false;
   error = '';
@@ -29,7 +29,7 @@ export class DockingDialog {
   }
 
   ngOnInit() {
-    this.loginForm = this.formBuilder.group({
+    this.dockingForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
     });
@@ -44,14 +44,14 @@ export class DockingDialog {
 
   // convenience getter for easy access to form fields
   get f() {
-    return this.loginForm.controls;
+    return this.dockingForm.controls;
   }
 
   async onConfirm() {
     this.submitted = true;
     this.error = '';
 
-    if (this.loginForm.invalid) {
+    if (this.dockingForm.invalid) {
       this.error = 'Please enter your username and password.';
       return;
     } else {

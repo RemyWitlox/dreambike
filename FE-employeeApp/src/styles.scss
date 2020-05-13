@@ -69,8 +69,8 @@ html {
   }
 
   .table-scroll {
+    min-width: calc(max+180px);
     width: 100%;
-    margin: 20px auto;
     table-layout: auto;
     empty-cells: show;
     border-collapse: separate;
@@ -81,8 +81,7 @@ html {
   }
 
   .table-scroll thead {
-    display: table-header-group;
-    vertical-align: middle;
+    display: block;
     background-color: black;
     color: $hover;
     border-left: 3px solid black;
@@ -90,8 +89,8 @@ html {
 
   .table-scroll tbody {
     /* Position */
-    display: table-row-group;
-    vertical-align: middle;
+    max-height: 500px;
+    display: block;
     overflow-y: scroll;
     /* Decoration */
     background-color: $bg;
@@ -99,8 +98,7 @@ html {
   }
 
   .table-scroll tr {
-    display: table-row;
-    vertical-align: inherit;
+    display: block;
     padding: 3px;
     cursor: default;
   }
@@ -131,10 +129,6 @@ html {
 
   .table-scroll thead tr {
     margin-right: 20px;
-  }
-
-  .body-half-screen {
-    max-height: 75%;
   }
 
   /* Styling for all the buttons - class="btn" */

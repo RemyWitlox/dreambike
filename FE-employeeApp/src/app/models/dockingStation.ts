@@ -1,10 +1,10 @@
 export class DockingStation {
   dockingId: number;
-  label?: string;
+  name: string;
+  city?: string;
+  bikes: number;
+  capacity: number;
+  active: boolean;
   lat: number;
   lng: number;
-  name?: string;
-  capacity: number;
-  bikes: number;
-  active: boolean;
 }

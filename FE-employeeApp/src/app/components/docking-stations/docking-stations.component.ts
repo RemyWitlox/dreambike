@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  NgZone,
+} from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { DockingStation } from '../../models';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -10,12 +15,14 @@ import {
   map,
   filter,
 } from 'rxjs/operators';
+import dockingJson from '../../../assets/MOCK_DATA.json';
 
 @Component({
   selector: 'app-docking-stations',
   templateUrl: './docking-stations.component.html',
   styleUrls: ['./docking-stations.component.scss'],
   providers: [NgbTypeaheadConfig],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DockingStationsComponent implements OnInit {
   searchForm = new FormGroup({
@@ -68,15 +75,11 @@ export class DockingStationsComponent implements OnInit {
   setLocation(lat: number, lng: number) {
     this.lat = lat;
     this.lng = lng;
+    this.zoom = 12;
   }
 
   clickedMarker(name: string, id: number) {
     console.log(`clicked the marker: ${name || id}`);
-  }
-
-  getLabel(available: number) {
-    let result = available.toString();
-    return result;
   }
 
   setActive(ds) {
@@ -140,80 +143,7 @@ export class DockingStationsComponent implements OnInit {
     });
   }
 
-  dockingStations: DockingStation[] = [
-    {
-      dockingId: 1,
-      lat: 51.441262,
-      lng: 5.477672,
-      name: 'Centrum Eindhoven',
-      bikes: 124,
-      capacity: 260,
-      active: true,
-    },
-    {
-      dockingId: 2,
-      lat: 51.441851,
-      lng: 5.468059,
-      name: 'Stadion Eindhoven',
-      bikes: 86,
-      capacity: 215,
-      active: true,
-    },
-    {
-      dockingId: 3,
-      lat: 51.448966,
-      lng: 5.45733,
-      name: 'Strijp-S Eindhoven',
-      bikes: 37,
-      capacity: 297,
-      active: true,
-    },
-    {
-      dockingId: 4,
-      lat: 51.440791,
-      lng: 5.500513,
-      name: 'Tongelre Eindhoven',
-      bikes: 87,
-      capacity: 105,
-      active: true,
-    },
-    {
-      dockingId: 5,
-      lat: 51.417809,
-      lng: 5.450364,
-      name: 'Gestel  Eindhoven',
-      bikes: 137,
-      capacity: 184,
-      active: true,
-    },
-    {
-      dockingId: 6,
-      lat: 51.420344,
-      lng: 5.496238,
-      name: 'Stratum  Eindhoven',
-      bikes: 18,
-      capacity: 394,
-      active: true,
-    },
-    {
-      dockingId: 7,
-      lat: 51.461553,
-      lng: 5.472903,
-      name: 'Woensel Zuid Eindhoven',
-      bikes: 72,
-      capacity: 143,
-      active: true,
-    },
-    {
-      dockingId: 8,
-      lat: 51.482542,
-      lng: 5.481652,
-      name: 'Woensel Noord Eindhoven',
-      bikes: 37,
-      capacity: 104,
-      active: true,
-    },
-  ];
+  dockingStations: DockingStation[] = dockingJson;
 }
 
 function compare(a: number | string, b: number | string, isAsc: boolean) {

@@ -1,5 +1,4 @@
 ﻿import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as jwt_decode from 'jwt-decode';
@@ -15,7 +14,7 @@ export class AuthenticationService {
   public currentBackendUserSubject: BehaviorSubject<ReceiveUser>;
   public currentBackendUser: Observable<ReceiveUser>;
 
-  constructor(private http: HttpClient, private loginService: LoginService) {
+  constructor(private loginService: LoginService) {
     this.currentBackendUserSubject = new BehaviorSubject<ReceiveUser>(
       JSON.parse(localStorage.getItem('currentBackendUser'))
     );

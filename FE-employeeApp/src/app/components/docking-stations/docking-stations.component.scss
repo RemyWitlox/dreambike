@@ -1,13 +1,12 @@
 $bg: silver;
 $bg-dark: rgb(70, 70, 70);
 $bg-light: rgb(170, 169, 169);
-
 $hover: rgb(215, 194, 120);
 $border: 2px solid $bg-dark;
 $border-radius: 0.5rem !default;
 $box-shadow: 0 1px #666;
 $alert: rgb(153, 1, 1);
-$active: rgb(4, 139, 154);
+$active: rgb(10, 126, 29);
 
 .ngb-typeahead-window {
   z-index: 1000;
@@ -19,14 +18,44 @@ $active: rgb(4, 139, 154);
 }
 
 #maintable {
-  .table-scroll tbody tr:hover {
+  max-height: 740px !important;
+  /* Position */
+  display: block;
+  overflow-y: scroll;
+
+  table {
+    width: 100%;
+    /* Decoration */
+    border-spacing: 0;
+    border: 1px solid black;
+    border-left: 3px solid black;
+  }
+
+  thead {
+    background-color: black;
+    color: $hover;
+    border-left: 3px solid black;
+  }
+
+  tbody {
+    max-height: 740px !important;
+    /* Decoration */
+    background-color: $bg;
+    border-left: 3px solid black;
+  }
+
+  tbody tr:hover {
     background-color: $hover;
     cursor: pointer;
   }
 
-  .table-scroll tbody tr.active {
+  tbody tr.active {
     background-color: $active;
     color: white;
+  }
+
+  tbody tr:nth-child(2n) {
+    background-color: $bg-light;
   }
 }
 
@@ -61,7 +90,7 @@ agm-map {
   position: relative;
 }
 
-.input-container {
+.inputContainer {
   display: -ms-flexbox; /* IE10 */
   display: flex;
   width: 100%;
@@ -70,24 +99,21 @@ agm-map {
 
 .wrapper {
   /* Height and width fallback for older browsers. */
-  height: calc(100% -196px);
-  width: calc(100% - 245px);
-
-  /* Set the height/width to match that of the viewport. */
-  height: calc(100vh - 196px);
-  width: calc(100vw - 245px);
-  overflow: hidden; /* will contain if #first is longer than #second */
+  height: calc(100% - 184px);
+  height: calc(100vh - 184px);
+  width: inherit;
+  overflow: hidden;
 }
 
 .first {
+  height: calc(100% - 184px);
+  height: calc(100vh - 184px);
   width: calc(100% - 580px);
   width: calc(100vw - 580px);
-  height: calc(100% - 154px);
-  height: calc(100vh - 154px);
   float: left;
 }
 
 .second {
   width: 315px;
-  overflow: hidden; /* if you don't want #second to wrap below #first */
+  overflow: hidden;
 }
