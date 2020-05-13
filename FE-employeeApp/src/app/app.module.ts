@@ -32,13 +32,17 @@ import { BikesComponent } from './components/bikes';
 import { DockingStationsComponent } from './components/docking-stations';
 
 // Dialogs:
-import { LoginDialog } from './dialogs/login-dialog';
+import { LoginDialog } from './dialogs';
+import { DockingDialog } from './dialogs';
+import { DeleteDialog } from './dialogs';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginDialog,
+    DeleteDialog,
+    DockingDialog,
     SettingsComponent,
     AnalyticsComponent,
     RepairsComponent,
@@ -68,7 +72,7 @@ import { LoginDialog } from './dialogs/login-dialog';
     }),
   ],
   exports: [FormsModule, ReactiveFormsModule],
-  entryComponents: [LoginDialog],
+  entryComponents: [LoginDialog, DockingDialog, DeleteDialog],
   providers: [
     DatePipe,
     {

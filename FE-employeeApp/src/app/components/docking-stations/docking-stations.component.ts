@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  NgZone,
-} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { DockingStation } from '../../models';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -16,6 +11,9 @@ import {
   filter,
 } from 'rxjs/operators';
 import dockingJson from '../../../assets/MOCK_DATA.json';
+import { DockingDialog } from 'src/app/dialogs/docking-dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-docking-stations',
@@ -39,7 +37,7 @@ export class DockingStationsComponent implements OnInit {
   selectedDs: DockingStation;
   public model: DockingStation;
 
-  constructor() {
+  constructor(private dialog: MatDialog, private router: Router) {
     this.sortedData = this.dockingStations.slice();
   }
 
@@ -106,8 +104,17 @@ export class DockingStationsComponent implements OnInit {
     console.log('edit: ' + ds.name);
   }
 
-  newDs() {
+  newDs(): void {
     console.log('new ds');
+    const dialogRef = this.dialog.open(DockingDialog, {
+      panelClass: 'dialog',
+      width: '300px',
+      height: '500px',
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.router.navigate(['dockingStations']);
+    });
   }
 
   onSelect(ds) {

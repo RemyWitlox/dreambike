@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthenticationService } from '../services';
-import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'docking-dialog',
@@ -17,25 +14,41 @@ export class DockingDialog {
 
   constructor(
     private dialogRef: MatDialogRef<DockingDialog>,
-    private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
-    private authenticationService: AuthenticationService
-  ) {
-    // redirect to home if already logged in
-    if (this.authenticationService.currentBackendUserValue) {
-      this.router.navigate(['/']);
-    }
-  }
+    private formBuilder: FormBuilder
+  ) {}
 
   ngOnInit() {
     this.dockingForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
+      name: ['', Validators.required],
+      bikes: [
+        null,
+        [Validators.required, Validators.min(0), Validators.max(999999)],
+      ],
+      capacity: [
+        null,
+        [Validators.required, Validators.min(1), Validators.max(999999)],
+      ],
+      lat: [
+        null,
+        [
+          Validators.required,
+          Validators.maxLength(32),
+          Validators.min(-90),
+          Validators.max(90),
+          Validators.pattern(/\-?\d*\.?\d{1,2}/),
+        ],
+      ],
+      lng: [
+        null,
+        [
+          Validators.required,
+          Validators.maxLength(32),
+          Validators.min(-180),
+          Validators.max(180),
+          Validators.pattern(/\-?\d*\.?\d{1,2}/),
+        ],
+      ],
     });
-
-    // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   onCancel(): void {
@@ -52,21 +65,10 @@ export class DockingDialog {
     this.error = '';
 
     if (this.dockingForm.invalid) {
-      this.error = 'Please enter your username and password.';
+      this.error = 'Form is not complete.';
       return;
     } else {
-      await this.authenticationService
-        .loginBackend(this.f.username.value, this.f.password.value)
-        .pipe(first())
-        .subscribe(
-          (data) => {
-            this.router.navigate([this.returnUrl]);
-            this.dialogRef.close();
-          },
-          (error) => {
-            this.error = 'Your username or password is incorrect.';
-          }
-        );
+      console.log('do stuff');
     }
   }
 }
