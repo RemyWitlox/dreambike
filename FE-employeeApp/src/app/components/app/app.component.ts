@@ -45,11 +45,6 @@ export class AppComponent implements OnInit {
     );
   }
 
-  getLocalStorage() {
-    console.log('currentUser: ', localStorage.getItem('currentBackendUser'));
-    console.log('access_token: ', localStorage.getItem('access_token'));
-  }
-
   onLogout(): void {
     this.authenticationService.logout();
     this.router.navigate(['']);

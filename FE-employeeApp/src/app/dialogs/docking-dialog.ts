@@ -68,7 +68,7 @@ export class DockingDialog {
       this.error = 'Form is not complete.';
       return;
     } else {
-      console.log('do stuff');
+      //TODO: send to backend
       this.dialogRef.close();
     }
   }

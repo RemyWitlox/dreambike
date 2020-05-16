@@ -10,7 +10,6 @@ import {
   map,
   filter,
 } from 'rxjs/operators';
-import dockingJson from '../../../assets/MOCK_DATA.json';
 import { DockingDialog } from 'src/app/dialogs/docking-dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -37,28 +36,27 @@ export class DockingStationsComponent implements OnInit {
   // google maps zoom level
   zoom: number;
   selectedDs: DockingStation;
-  public model: DockingStation;
 
   constructor(
     private dialog: MatDialog,
     private dockingService: DockingService,
     private router: Router
   ) {
-    // this.dockingService.getDockingStations().subscribe((ds) => {
-    //   console.log('dockings: ', ds);
+    this.getDockingStations();
+  }
 
-    //   this.dockingStations = ds;
-    //   this.sortedData = this.dockingStations.sort((a, b) => {
-    //     return compare(a.dockingId, b.dockingId, true);
-    //   });
-    // });
-    console.log(localStorage);
+  ngOnInit() {
+    this.setLocation(51.44083, 5.47778);
+    this.zoom = 12;
   }
 
   getDockingStations(): void {
     this.dockingService.getDockingStations().subscribe(
       (ds) => {
-        console.log('dockings: ', ds);
+        this.dockingStations = ds;
+        this.sortedData = this.dockingStations.sort((a, b) => {
+          return compare(a.dockingId, b.dockingId, true);
+        });
       },
       (err) => {
         console.log(err);
@@ -80,18 +78,8 @@ export class DockingStationsComponent implements OnInit {
       )
     );
 
-  clear() {
-    this.model = new DockingStation();
-    console.log('bla');
-  }
-
   selectedItem(location) {
     this.setLocation(location.item.lat, location.item.lng);
-  }
-
-  ngOnInit() {
-    this.setLocation(51.44083, 5.47778);
-    this.zoom = 12;
   }
 
   // Get Current Location Coordinates
@@ -130,7 +118,6 @@ export class DockingStationsComponent implements OnInit {
   }
 
   newDs(): void {
-    console.log('new ds');
     const dialogRef = this.dialog.open(DockingDialog, {
       panelClass: 'dialog',
       width: '300px',
@@ -148,7 +135,6 @@ export class DockingStationsComponent implements OnInit {
       return;
     }
     this.selectedDs = ds;
-    console.log('selected: ' + ds.name);
   }
 
   sortData(sort: Sort) {
