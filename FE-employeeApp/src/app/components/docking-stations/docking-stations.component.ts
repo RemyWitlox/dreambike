@@ -14,6 +14,7 @@ import dockingJson from '../../../assets/MOCK_DATA.json';
 import { DockingDialog } from 'src/app/dialogs/docking-dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { DockingService } from 'src/app/services/docking.service';
 
 @Component({
   selector: 'app-docking-stations',
@@ -23,6 +24,7 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DockingStationsComponent implements OnInit {
+  dockingStations: DockingStation[];
   searchForm = new FormGroup({
     city: new FormControl(''),
   });
@@ -37,9 +39,31 @@ export class DockingStationsComponent implements OnInit {
   selectedDs: DockingStation;
   public model: DockingStation;
 
-  constructor(private dialog: MatDialog, private router: Router) {
-    this.sortedData = this.dockingStations.slice();
+  constructor(
+    private dialog: MatDialog,
+    private dockingService: DockingService,
+    private router: Router
+  ) {
+    // this.dockingService.getDockingStations().subscribe((ds) => {
+    //   console.log('dockings: ', ds);
+
+    //   this.dockingStations = ds;
+    //   this.sortedData = this.dockingStations.sort((a, b) => {
+    //     return compare(a.dockingId, b.dockingId, true);
+    //   });
+    // });
     console.log(localStorage);
+  }
+
+  getDockingStations(): void {
+    this.dockingService.getDockingStations().subscribe(
+      (ds) => {
+        console.log('dockings: ', ds);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   formatter = (ds: DockingStation) => ds.name;
@@ -152,8 +176,6 @@ export class DockingStationsComponent implements OnInit {
       }
     });
   }
-
-  dockingStations: DockingStation[] = dockingJson;
 }
 
 function compare(a: number | string, b: number | string, isAsc: boolean) {

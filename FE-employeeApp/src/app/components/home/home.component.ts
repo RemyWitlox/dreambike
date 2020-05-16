@@ -41,4 +41,9 @@ export class HomeComponent {
   goRepairs() {
     this.router.navigate(['/repairs']);
   }
+
+  getLocalStorage() {
+    console.log('currentUser: ', localStorage.getItem('currentBackendUser'));
+    console.log('access_token: ', localStorage.getItem('access_token'));
+  }
 }

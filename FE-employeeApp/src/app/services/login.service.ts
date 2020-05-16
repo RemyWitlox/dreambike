@@ -21,6 +21,4 @@ export class LoginService {
       params: { username: username, password: password },
     });
   }
-
-  getUserById(id: number) {}
 }

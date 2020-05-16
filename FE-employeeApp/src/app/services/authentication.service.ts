@@ -29,6 +29,7 @@ export class AuthenticationService {
     let decoded: any;
     return this.loginService.authenticate(username, password).pipe(
       map((user) => {
+        console.log(user);
         this.token = user.access_token;
         decoded = jwt_decode(this.token + '/// jwt token');
         this.receiveUser = {
@@ -42,6 +43,10 @@ export class AuthenticationService {
           JSON.stringify(this.receiveUser)
         );
         this.currentBackendUserSubject.next(this.receiveUser);
+        localStorage.setItem(
+          'access_token',
+          JSON.stringify(this.receiveUser.access_token)
+        );
         return user;
       })
     );
@@ -50,6 +55,7 @@ export class AuthenticationService {
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('currentBackendUser');
+    localStorage.removeItem('access_token');
     this.currentBackendUserSubject.next(null);
   }
 }

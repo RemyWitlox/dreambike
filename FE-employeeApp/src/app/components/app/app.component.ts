@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { LoginDialog } from '../../dialogs/login-dialog';
 import { Role } from 'src/app/models';
 import { Router } from '@angular/router';
-import { AuthenticationService, LoginService } from 'src/app/services';
+import { AuthenticationService } from 'src/app/services';
 import { ReceiveUser } from 'src/app/models';
 
 @Component({
@@ -20,8 +20,7 @@ export class AppComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private router: Router,
-    private authenticationService: AuthenticationService,
-    private loginService: LoginService
+    private authenticationService: AuthenticationService
   ) {
     this.authenticationService.currentBackendUser.subscribe(
       (x) => (this.currentBackendUser = x)
@@ -44,6 +43,11 @@ export class AppComponent implements OnInit {
       this.currentBackendUser &&
       this.currentBackendUser.role[0] === Role.Management
     );
+  }
+
+  getLocalStorage() {
+    console.log('currentUser: ', localStorage.getItem('currentBackendUser'));
+    console.log('access_token: ', localStorage.getItem('access_token'));
   }
 
   onLogout(): void {
