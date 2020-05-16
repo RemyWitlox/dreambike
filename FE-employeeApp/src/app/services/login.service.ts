@@ -8,12 +8,12 @@ import { ReceiveUser } from '../models';
 })
 export class LoginService {
   // For login test:
-  url: string = 'http://Localhost:2020/api/login';
+  url: string = 'http://Localhost:2020/login';
 
   constructor(private http: HttpClient) {}
 
   testConnection(): Observable<boolean> {
-    return this.http.get<boolean>('http://Localhost:2020/api/connect');
+    return this.http.get<boolean>('http://Localhost:2020/connect');
   }
 
   authenticate(username: string, password: string): Observable<ReceiveUser> {

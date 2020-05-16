@@ -29,18 +29,8 @@ export class AppComponent implements OnInit {
   }
 
   async ngOnInit() {
-    // this.loading = false;
-    // this.connected = true;
-    this.loading = true;
-    this.connected = false;
-    await this.loginService.testConnection().subscribe(
-      (x) => ((this.connected = x), (this.loading = false)),
-      (err) => (
-        console.log('HTTP error', err),
-        (this.connected = false),
-        (this.loading = false)
-      )
-    );
+    this.loading = false;
+    this.connected = true;
   }
 
   get isAdmin() {

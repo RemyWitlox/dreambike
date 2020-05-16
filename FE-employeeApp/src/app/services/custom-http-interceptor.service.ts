@@ -16,17 +16,24 @@ export class CustomHttpInterceptorService implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    let myheaders = new HttpHeaders();
-    myheaders = myheaders.append('Content-Type', 'application/json');
-    myheaders = myheaders.append(
-      'Authorization',
-      'Bearer ' + localStorage.getItem('accesstoken')
-    );
-    for (const key of req.headers.keys()) {
-      myheaders[key] = req.headers.getAll[key];
-    }
+    if (localStorage.getItem('accestoken')) {
+      console.log('if werkt');
 
-    return next.handle(req.clone({ headers: myheaders }));
+      let myheaders = new HttpHeaders();
+      myheaders = myheaders.append('Content-Type', 'application/json');
+      myheaders = myheaders.append(
+        'Authorization',
+        'Bearer ' + localStorage.getItem('accesstoken')
+      );
+      for (const key of req.headers.keys()) {
+        myheaders[key] = req.headers.getAll[key];
+      }
+
+      return next.handle(req.clone({ headers: myheaders }));
+    } else {
+      console.log('if werkt niet. ');
+      return next.handle(req.clone());
+    }
   }
 
   constructor() {}
