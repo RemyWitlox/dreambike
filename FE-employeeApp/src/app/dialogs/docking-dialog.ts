@@ -69,6 +69,7 @@ export class DockingDialog {
       return;
     } else {
       console.log('do stuff');
+      this.dialogRef.close();
     }
   }
 }

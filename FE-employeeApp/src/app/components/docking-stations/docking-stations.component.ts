@@ -39,6 +39,7 @@ export class DockingStationsComponent implements OnInit {
 
   constructor(private dialog: MatDialog, private router: Router) {
     this.sortedData = this.dockingStations.slice();
+    console.log(localStorage);
   }
 
   formatter = (ds: DockingStation) => ds.name;
@@ -140,6 +141,8 @@ export class DockingStationsComponent implements OnInit {
           return compare(a.name, b.name, isAsc);
         case 'dockingId':
           return compare(a.dockingId, b.dockingId, isAsc);
+        case 'active':
+          return compare(a.active.toString(), b.active.toString(), isAsc);
         case 'capacity':
           return compare(a.capacity, b.capacity, isAsc);
         case 'bikes':
