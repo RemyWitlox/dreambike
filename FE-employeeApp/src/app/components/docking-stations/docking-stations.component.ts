@@ -4,12 +4,7 @@ import { DockingStation } from '../../models';
 import { FormControl, FormGroup } from '@angular/forms';
 import { NgbTypeaheadConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  map,
-  filter,
-} from 'rxjs/operators';
+import { debounceTime, map } from 'rxjs/operators';
 import { DockingDialog } from 'src/app/dialogs/docking-dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialog } from '../../dialogs';
@@ -154,9 +149,10 @@ export class DockingStationsComponent implements OnInit {
     if (this.selectedDs === ds) {
       this.selectedDs = new DockingStation();
       return;
+    } else {
+      this.selectedDs = ds;
+      this.setLocation(ds.lat, ds.lng);
     }
-    this.selectedDs = ds;
-    this.setLocation(ds.lat, ds.lng);
   }
 
   sortData(sort: Sort) {
