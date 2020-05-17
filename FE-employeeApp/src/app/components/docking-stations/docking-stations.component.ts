@@ -12,6 +12,7 @@ import {
 } from 'rxjs/operators';
 import { DockingDialog } from 'src/app/dialogs/docking-dialog';
 import { MatDialog } from '@angular/material/dialog';
+import { DeleteDialog } from '../../dialogs';
 import { Router } from '@angular/router';
 import { DockingService } from 'src/app/services/docking.service';
 
@@ -23,6 +24,7 @@ import { DockingService } from 'src/app/services/docking.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DockingStationsComponent implements OnInit {
+  public model: DockingStation;
   dockingStations: DockingStation[];
   searchForm = new FormGroup({
     city: new FormControl(''),
@@ -62,21 +64,24 @@ export class DockingStationsComponent implements OnInit {
         console.log(err);
       }
     );
+    this.selectedDs = new DockingStation();
   }
-
-  formatter = (ds: DockingStation) => ds.name;
 
   search = (text$: Observable<string>) =>
     text$.pipe(
       debounceTime(200),
-      distinctUntilChanged(),
-      filter((term) => term.length >= 2),
       map((term) =>
-        this.dockingStations
-          .filter((state) => new RegExp(term, 'mi').test(state.name))
-          .slice(0, 10)
+        term === ''
+          ? []
+          : this.dockingStations
+              .filter(
+                (v) => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1
+              )
+              .slice(0, 10)
       )
     );
+
+  formatter = (ds: DockingStation) => ds.name;
 
   selectedItem(location) {
     this.setLocation(location.item.lat, location.item.lng);
@@ -93,28 +98,43 @@ export class DockingStationsComponent implements OnInit {
     console.log(`clicked the marker: ${name || id}`);
   }
 
-  setActive(ds) {
+  setActive(i) {
     // TODO : set change to backend
     // TODO : subscribe new dockingStations.
-    if ((ds.active = false)) {
-      let index = this.dockingStations.indexOf(
-        this.dockingStations.find((x) => x.dockingId == ds.dockingId)
-      );
-      this.dockingStations[index].active = true;
-    } else {
-      let index = this.dockingStations.indexOf(
-        this.dockingStations.find((x) => x.dockingId == ds.dockingId)
-      );
-      this.dockingStations[index].active = false;
-    }
   }
 
-  onDelete(ds) {
+  onDelete(ds): void {
+    const deleteRef = this.dialog.open(DeleteDialog, {
+      panelClass: 'dialog',
+      width: '300px',
+      height: '200px',
+      data: ds,
+    });
+    deleteRef.afterClosed().subscribe(() => {
+      this.selectedDs = new DockingStation();
+      this.dockingService.getDockingStations().subscribe((ds) => {
+        this.dockingStations = ds;
+        this.sortedData = this.dockingStations.sort((a, b) => {
+          return compare(a.name, b.name, true);
+        });
+      });
+    });
+
     console.log('delete: ' + ds.name);
   }
 
   onEdit(ds) {
-    console.log('edit: ' + ds.name);
+    const dialogRef = this.dialog.open(DockingDialog, {
+      panelClass: 'dialog',
+      width: '300px',
+      height: '500px',
+      data: ds,
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.router.navigate(['dockingStations']);
+      this.getDockingStations();
+    });
   }
 
   newDs(): void {
@@ -126,6 +146,7 @@ export class DockingStationsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(() => {
       this.router.navigate(['dockingStations']);
+      this.getDockingStations();
     });
   }
 
@@ -135,6 +156,7 @@ export class DockingStationsComponent implements OnInit {
       return;
     }
     this.selectedDs = ds;
+    this.setLocation(ds.lat, ds.lng);
   }
 
   sortData(sort: Sort) {

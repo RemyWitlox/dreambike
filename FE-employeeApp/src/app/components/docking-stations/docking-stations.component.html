@@ -6,22 +6,14 @@
           ><mat-icon style="margin-top: -2px; margin-left: -5px;">add</mat-icon
           >New Docking Station</mat-button-toggle
         >
-        <mat-button-toggle
-          class="btn"
-          style="height: 30px;"
-          (click)="getDockingStations()"
-          ><mat-icon style="margin-top: -2px; margin-left: -5px;">add</mat-icon
-          >GetDockingStations</mat-button-toggle
-        >
       </mat-button-toggle-group>
       <hr />
       <div id="maintable">
         <table matSort (matSortChange)="sortData($event)">
           <thead>
             <tr>
-              <th style="max-width: 25px;"></th>
+              <th style="max-width: 50px;"></th>
               <th mat-sort-header="name">Name</th>
-              <th style="max-width: 25px;"></th>
               <th style="max-width: 50px;" mat-sort-header="active">
                 Active
               </th>
@@ -44,37 +36,31 @@
           </thead>
           <tbody>
             <tr
-              *ngFor="let ds of sortedData"
+              *ngFor="let ds of sortedData; let i = index"
               [class.selected]="ds === selectedDs"
               [ngClass]="{ active: ds == selectedDs }"
               (click)="onSelect(ds)"
             >
-              <td style="margin-top: -5px; max-width: 25px;">
+              <td style="margin-top: -5px; max-width: 50px;">
                 <button class="buttonIcon" (click)="onEdit(ds)">
                   <mat-icon area-hidden="true" class="icon">edit</mat-icon>
-                </button>
-              </td>
-              <td>
-                {{ ds.name }}
-              </td>
-              <td style="max-width: 25px;">
-                <button
-                  *ngIf="ds.active"
-                  class="buttonIcon"
-                  (click)="onDelete(ds)"
-                >
-                  <mat-icon class="icon">remove</mat-icon>
                 </button>
                 <button
                   *ngIf="!ds.active"
                   class="buttonIcon"
                   (click)="onDelete(ds)"
                 >
-                  <mat-icon class="icon">add</mat-icon>
+                  <mat-icon area-hidden="true" class="icon">delete</mat-icon>
                 </button>
               </td>
+              <td>
+                {{ ds.name }}
+              </td>
               <td style="max-width: 50px;">
-                {{ ds.active ? "Active" : "x" }}
+                <mat-checkbox
+                  [(ngModel)]="ds.active"
+                  (change)="setActive(ds)"
+                ></mat-checkbox>
               </td>
               <td style="max-width: 65px;">
                 {{ ds.bikes }}
@@ -106,7 +92,7 @@
           type="text"
           class="searchInput"
           (selectItem)="selectedItem($event)"
-          [(ngModel)]="dockingStations"
+          [(ngModel)]="model"
           [ngbTypeahead]="search"
           [inputFormatter]="formatter"
           [resultFormatter]="formatter"
@@ -134,6 +120,7 @@
               [longitude]="ds.lng"
               [label]="ds.bikes.toString()"
               [markerDraggable]="false"
+              [opacity]="ds.active ? 1 : 0.5"
             >
               <agm-info-window>
                 <strong>{{ ds.name }} {{ ds.bikes }}/{{ ds.capacity }}</strong>
@@ -141,43 +128,50 @@
             </agm-marker>
           </agm-map>
         </div>
-        <table
-          id="tableSmall"
-          matSort
-          (matSortChange)="sortData($event)"
-          class="table-scroll second"
-        >
-          <thead>
-            <tr style="margin-left: 5px !important;">
-              <th style="width: 100% !important;" mat-sort-header="name">
-                Name
-              </th>
-              <th style="max-width: 10px;" mat-sort-header="bikes">
-                B
-              </th>
-              <th style="min-width: 40px;" mat-sort-header="capacity">
-                / C
-              </th>
-              <th style="min-width: 16px;"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let ds of sortedData">
-              <td style="width: 100% !important;">{{ ds.name }}</td>
-              <td style="text-align: right;">{{ ds.bikes }}</td>
-              <td>/{{ ds.capacity }}</td>
-              <td style="min-width: 16px;">
-                <mat-checkbox
-                  id="{{ ds.id }}"
-                  [checked]="ds.active"
-                  [(ngModel)]="ds.active"
-                  (change)="setActive(ds)"
-                ></mat-checkbox>
-              </td>
-            </tr>
-            <tr></tr>
-          </tbody>
-        </table>
+        <div id="maintable">
+          <table
+            id="tableSmall"
+            matSort
+            (matSortChange)="sortData($event)"
+            class="table-scroll second"
+          >
+            <thead>
+              <tr style="margin-left: 5px !important;">
+                <th style="width: 100% !important;" mat-sort-header="name">
+                  Name
+                </th>
+                <th style="max-width: 10px;" mat-sort-header="bikes">
+                  B
+                </th>
+                <th style="min-width: 40px;" mat-sort-header="capacity">
+                  / C
+                </th>
+                <th style="min-width: 16px;"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let ds of sortedData"
+                [class.selected]="ds === selectedDs"
+                [ngClass]="{ active: ds == selectedDs }"
+                (click)="onSelect(ds)"
+              >
+                <td style="width: 100% !important;">{{ ds.name }}</td>
+                <td style="text-align: right;">{{ ds.bikes }}</td>
+                <td>/{{ ds.capacity }}</td>
+                <td style="min-width: 16px;">
+                  <mat-checkbox
+                    id="{{ ds.id }}"
+                    [checked]="ds.active"
+                    [(ngModel)]="ds.active"
+                    (change)="setActive(ds)"
+                  ></mat-checkbox>
+                </td>
+              </tr>
+              <tr></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </mat-tab>
   </mat-tab-group>
