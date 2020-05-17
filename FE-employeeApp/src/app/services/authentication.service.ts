@@ -1,11 +1,10 @@
 ﻿import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as jwt_decode from 'jwt-decode';
 
 import { LoginService } from './login.service';
-import { ReceiveUser } from '../models/receiveUser';
+import { ReceiveUser } from '../models';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -15,7 +14,7 @@ export class AuthenticationService {
   public currentBackendUserSubject: BehaviorSubject<ReceiveUser>;
   public currentBackendUser: Observable<ReceiveUser>;
 
-  constructor(private http: HttpClient, private loginService: LoginService) {
+  constructor(private loginService: LoginService) {
     this.currentBackendUserSubject = new BehaviorSubject<ReceiveUser>(
       JSON.parse(localStorage.getItem('currentBackendUser'))
     );
@@ -43,6 +42,7 @@ export class AuthenticationService {
           JSON.stringify(this.receiveUser)
         );
         this.currentBackendUserSubject.next(this.receiveUser);
+        localStorage.setItem('access_token', this.receiveUser.access_token);
         return user;
       })
     );
@@ -51,6 +51,7 @@ export class AuthenticationService {
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('currentBackendUser');
+    localStorage.removeItem('access_token');
     this.currentBackendUserSubject.next(null);
   }
 }

@@ -3,8 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { LoginDialog } from '../../dialogs/login-dialog';
 import { Role } from 'src/app/models';
 import { Router } from '@angular/router';
-import { AuthenticationService, LoginService } from 'src/app/services';
-import { ReceiveUser } from 'src/app/models/receiveUser';
+import { AuthenticationService } from 'src/app/services';
+import { ReceiveUser } from 'src/app/models';
 
 @Component({
   selector: 'app-root',
@@ -20,8 +20,7 @@ export class AppComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private router: Router,
-    private authenticationService: AuthenticationService,
-    private loginService: LoginService
+    private authenticationService: AuthenticationService
   ) {
     this.authenticationService.currentBackendUser.subscribe(
       (x) => (this.currentBackendUser = x)
@@ -29,22 +28,8 @@ export class AppComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.loading = true;
-    this.connected = false;
-    await this.loginService.testConnection().subscribe(
-      (x) => (
-        (this.connected = x),
-        (this.loading = false),
-        console.log('X connect:  ', this.connected, ' load: ', this.loading)
-      ),
-      (err) => (
-        console.log('HTTP error', err),
-        (this.connected = false),
-        (this.loading = false),
-        console.log('ERR connect: ', this.connected, ' load: ', this.loading)
-      )
-    );
-    console.log('connect: ', this.connected, ' load: ', this.loading);
+    this.loading = false;
+    this.connected = true;
   }
 
   get isAdmin() {

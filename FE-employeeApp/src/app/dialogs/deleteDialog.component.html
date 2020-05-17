@@ -1,0 +1,12 @@
+<div mat-dialog-content>
+  <p>
+    Are you sure you want to delete
+    {{ data.name }}?
+  </p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onConfirm(data)" cdkFocusInitial>
+    Yes
+  </button>
+  <button mat-button (click)="onNoClick()">No</button>
+</div>

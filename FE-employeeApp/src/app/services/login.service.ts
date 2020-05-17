@@ -1,23 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { SendUser } from '../models/sendUser';
-import { ReceiveUser } from '../models/receiveUser';
+import { ReceiveUser } from '../models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
   // For login test:
-  url: string = 'http://Localhost:2020/api/login';
-  username: string = 'Remy';
-  password: string = 'Schaap1407!';
-  sendUser: SendUser = { username: this.username, password: this.password };
+  url: string = 'http://Localhost:2020/login';
 
   constructor(private http: HttpClient) {}
 
   testConnection(): Observable<boolean> {
-    return this.http.get<boolean>('http://Localhost:2020/api/connect');
+    return this.http.get<boolean>('http://Localhost:2020/connect');
   }
 
   authenticate(username: string, password: string): Observable<ReceiveUser> {
@@ -25,6 +21,4 @@ export class LoginService {
       params: { username: username, password: password },
     });
   }
-
-  getUserById(id: number) {}
 }

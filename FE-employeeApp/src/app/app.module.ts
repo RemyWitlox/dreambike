@@ -14,6 +14,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { DatePipe } from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AgmCoreModule } from '@agm/core';
 
 // Services;
 import { CustomHttpInterceptorService } from './services';
@@ -30,13 +32,17 @@ import { BikesComponent } from './components/bikes';
 import { DockingStationsComponent } from './components/docking-stations';
 
 // Dialogs:
-import { LoginDialog } from './dialogs/login-dialog';
+import { LoginDialog } from './dialogs';
+import { DockingDialog } from './dialogs';
+import { DeleteDialog } from './dialogs';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginDialog,
+    DeleteDialog,
+    DockingDialog,
     SettingsComponent,
     AnalyticsComponent,
     RepairsComponent,
@@ -45,6 +51,7 @@ import { LoginDialog } from './dialogs/login-dialog';
   ],
   imports: [
     BrowserModule,
+    NgbModule,
     MaterialModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -60,9 +67,12 @@ import { LoginDialog } from './dialogs/login-dialog';
     MatSidenavModule,
     MatListModule,
     FlexLayoutModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCU6a9rxjrf7jWAP1Vjg39fAF3SRi4XuSk',
+    }),
   ],
   exports: [FormsModule, ReactiveFormsModule],
-  entryComponents: [LoginDialog],
+  entryComponents: [LoginDialog, DockingDialog, DeleteDialog],
   providers: [
     DatePipe,
     {

@@ -7,7 +7,7 @@ export class User {
   name: string;
   role: Role;
   token?: string;
-  accessToken?: string;
+  access_token?: string;
   refreshToken?: string;
   expiryDuration?: Date;
 }

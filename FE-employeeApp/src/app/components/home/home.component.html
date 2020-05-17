@@ -1,4 +1,4 @@
-<div class="divContent">
+<div class="contentMargin">
   <p *ngIf="!currentBackendUser">
     You are not logged in. Please log in to continue.
   </p>
@@ -11,8 +11,8 @@
       }}</strong
       >. Now let's get started!
     </p>
-    <div style="width: 600px;">
-      <mat-grid-list cols="3" rowHeight="1:1" style="position: static;">
+    <div style="max-width: 600px;">
+      <mat-grid-list cols="3" rowHeight="1:1">
         <mat-grid-tile>
           <mat-card>
             <button class="btnImg" (click)="goDocking()">

@@ -2,13 +2,13 @@
   <mat-sidenav-container class="horizontalMenu">
     <mat-sidenav-content>
       <mat-toolbar color="primary">
-        <div>
+        <div style="padding-left: 15px;">
           <img
             style="height: 50px;"
             alt="DreambikeLogo"
             src="assets/notxtsqr.png"
           />
-          <span class="label" style="padding-left: 15px;">
+          <span style="padding-left: 15px;">
             DreamBike Employee Application
           </span>
         </div>
@@ -73,16 +73,13 @@
       >Settings</a
     >
   </div>
-  <div class="contect" *ngIf="loading">
+  <div *ngIf="loading">
     <p style="margin-left: 230px;">Loading,... Please wait.</p>
-    <mat-progress-bar
-      mode="indeterminate"
-      style="margin: 15px;"
-    ></mat-progress-bar>
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   </div>
   <div class="content" *ngIf="!loading">
     <router-outlet *ngIf="connected"></router-outlet>
-    <p *ngIf="!connected" style="margin-left: 15px;">
+    <p *ngIf="!connected" style="margin-left: 25px;">
       There is no connection with the database, please contact the IT crowd!
     </p>
   </div>

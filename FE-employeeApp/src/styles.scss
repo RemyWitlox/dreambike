@@ -1,30 +1,31 @@
 @import "./assets/dreambike.css";
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
-$background-color: silver;
-$background-color-dark: rgb(70, 70, 70);
-$background-color-light: rgb(170, 169, 169);
-$gold: rgb(215, 194, 120);
-$backgroundHover-color: rgb(215, 194, 120);
-$border: 2px solid $background-color-dark;
+$bg: silver;
+$bg-dark: rgb(70, 70, 70);
+$bg-light: rgb(170, 169, 169);
+$hover: rgb(215, 194, 120);
+$border: 2px solid $bg-dark;
 $border-radius: 0.5rem !default;
 $box-shadow: 0 1px #666;
 $alert: rgb(153, 1, 1);
-$active: green;
+$active: rgb(10, 126, 29);
 
 body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   margin: 0;
+  height: 100%;
   padding: 0;
 }
 
 body,
 html {
   height: 100%;
+  margin: 0;
 
   /* Styling for background - class="bg" */
   .bg {
-    background-color: $background-color;
+    background-color: $bg;
     height: 100%;
     width: 100%;
     background-position: center;
@@ -32,52 +33,106 @@ html {
     background-size: cover;
   }
 
-  /* Styling for horizontal menu - class="horizontalMenu" */
-  .horizontalMenu {
-    color: black;
+  .mat-checkbox-layout {
+    vertical-align: top;
+    margin-top: 2px;
+  }
+
+  .mat-checkbox .mat-checkbox-ripple {
+    height: 0px;
+    width: 0px;
+  }
+
+  /* button voor icons*/
+  .buttonIcon {
+    background-color: transparent;
+    margin-left: -10px;
+    margin-right: -10px;
+    border: 0px;
+  }
+
+  .buttonIcon:hover {
+    background-color: transparent;
+    border: 0px;
+  }
+
+  .buttonIcon:active {
+    background-color: transparent;
+    border: 0px;
+  }
+
+  /* Styling for tabels with scroll - class="table-scroll" */
+  .mat-cell,
+  .mat-header-cell {
+    overflow: hidden;
+    word-wrap: break-word;
+  }
+
+  .table-scroll {
+    min-width: calc(max+180px);
     width: 100%;
-    min-width: 805px;
+    table-layout: auto;
+    empty-cells: show;
+    border-collapse: separate;
+
+    /* Decoration */
+    border-spacing: 0;
+    border: 1px solid black;
   }
 
-  .navigation-items {
-    list-style: none;
-    margin: 0;
-    margin-right: 0;
-    cursor: pointer;
-  }
-
-  /* Styling for vertical menu - class="verticalMenu" */
-  .verticalMenu {
-    background-color: $background-color-light;
-    position: absolute;
-    top: 64px;
-    bottom: 0;
-    border-left: 15px solid black;
-    width: 200px;
-    float: left;
-    height: calc(100%-64px);
-  }
-
-  .verticalMenu a {
-    background-color: $background-color-light;
-    color: black;
+  .table-scroll thead {
     display: block;
-    padding: 12px;
-    text-decoration: none;
+    background-color: black;
+    color: $hover;
+    border-left: 3px solid black;
   }
 
-  .verticalMenu a:hover {
-    background-color: $backgroundHover-color;
-    color: black;
+  .table-scroll tbody {
+    /* Position */
+    max-height: 500px;
+    display: block;
+    overflow-y: scroll;
+    /* Decoration */
+    background-color: $bg;
+    border-left: 3px solid black;
   }
 
-  .verticalMenu a.active {
-    background-color: $active;
-    color: white;
+  .table-scroll tr {
+    display: block;
+    padding: 3px;
+    cursor: default;
   }
 
-  /* Styling for all the buttons - class="button" */
-  .button {
+  .table-scroll td {
+    display: table-cell;
+    vertical-align: inherit;
+  }
+
+  .table-scroll tr th {
+    display: table-cell;
+    vertical-align: inherit;
+    text-align: -internal-center;
+
+    flex-basis: 100%;
+    vertical-align: middle;
+    padding: -1px;
+  }
+
+  .table-scroll thead tr {
+    margin-right: 0px;
+  }
+
+  /* Other options */
+  .table-scroll tbody tr:nth-child(2n) {
+    background-color: $bg-light;
+  }
+
+  .table-scroll thead tr {
+    margin-right: 20px;
+  }
+
+  /* Styling for all the buttons - class="btn" */
+  .btn {
     -webkit-transition-duration: 0.2s;
     transition-duration: 0.2s;
     border: $border;
@@ -85,32 +140,12 @@ html {
     box-shadow: $box-shadow;
   }
 
-  .button:hover {
-    background-color: $background-color-dark;
+  .btn:hover {
+    background-color: $hover;
+  }
+
+  .btn:active {
     color: white;
-  }
-
-  .button:active {
-    background-color: $active;
-    box-shadow: $box-shadow;
-    transform: translateY(2px);
-  }
-
-  .btnImg {
-    border-radius: 8px;
-    background-color: $background-color;
-    width: 150px;
-    height: 150px;
-    display: block;
-    margin-top: 3px !important;
-  }
-
-  .btnImg:hover {
-    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.24), 0 2px 3px 0 rgba(0, 0, 0, 0.19);
-    background-color: $background-color-light;
-  }
-
-  .btnImg:active {
     background-color: $active;
     box-shadow: $box-shadow;
     transform: translateY(2px);
@@ -122,15 +157,9 @@ html {
     margin-left: -5px;
   }
 
-  /* All other styles: */
-  .content {
-    position: absolute;
-    margin-left: 215px;
-    background-color: $background-color;
-  }
-
-  .divContent {
-    margin-left: 15px;
+  /* mat- icon kleiner dan normaal: */
+  .mat-icon {
+    transform: scale(0.75);
   }
 
   .icon {
@@ -144,13 +173,6 @@ html {
     width: 15%;
   }
 
-  .label {
-    display: inline-block;
-    line-height: 30px;
-    margin: 0;
-    width: 85%;
-  }
-
   .alert {
     font-size: small;
     color: $alert;
@@ -160,16 +182,13 @@ html {
     display: grid;
   }
 
+  // buttons on home page:
   .mat-card {
     font-size: 15px;
     line-height: 10px;
     margin: 10px;
     border-radius: 8px;
-    background-color: $background-color;
-  }
-
-  .mat-card:hover {
-    background-color: $background-color !important;
+    background-color: $bg;
   }
 
   .mat-card-content {
@@ -181,4 +200,62 @@ html {
   *:focus {
     outline: none;
   }
+
+  /* Margin right side of the menu */
+  .contentMargin {
+    margin-left: 10px;
+  }
+
+  // toggle buttons:
+  .mat-button-toggle-group {
+    margin-top: 10px;
+  }
+
+  .mat-button-toggle-button {
+    max-height: 28px;
+  }
+
+  .mat-button-toggle-label-content {
+    line-height: 28px !important;
+  }
+}
+
+.mat-tab-body-wrapper {
+  margin-left: 10px;
+}
+
+.mat.tab.label :hover {
+  color: black;
+  background-color: $hover;
+}
+
+.mat-tab-label-container {
+  max-height: 28px;
+}
+
+.mat-tab-labels {
+  max-height: 28px;
+}
+
+.mat-tab-label {
+  max-height: 28px;
+  border-right: 1px solid black;
+}
+
+.mat-tab-label.mat-tab-label-active {
+  color: white;
+  background-color: $active;
+}
+
+::ng-deep .mat-tooltip {
+  white-space: pre-line !important;
+  max-width: 30px !important;
+}
+
+::ng-deep.mat-tab-label,
+::ng-deep.mat-tab-label-active {
+  max-height: 28px !important;
+  padding: 3px !important;
+  margin: 3px !important;
+  font-size: 14px;
 }

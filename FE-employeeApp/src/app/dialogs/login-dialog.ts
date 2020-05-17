@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { User } from '../models/user';
-import { ReceiveUser } from '../models/receiveUser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../services';
 import { first } from 'rxjs/operators';
@@ -12,15 +10,10 @@ import { first } from 'rxjs/operators';
   templateUrl: './loginDialog.component.html',
 })
 export class LoginDialog {
-  receivedUser: ReceiveUser;
-  login = new User();
   loginForm: FormGroup;
   returnUrl: string;
   submitted = false;
   error = '';
-  token: string;
-  decoded: any;
-  decodedName: string;
 
   constructor(
     private dialogRef: MatDialogRef<LoginDialog>,
