@@ -3,6 +3,8 @@ import { Sort } from '@angular/material/sort';
 import { Bike } from 'src/app/models/bike';
 import { BikeType } from 'src/app/models/bikeType';
 import { BikeDriver } from 'src/app/models/bikeDriver';
+import { BikeDialog, DeleteDialog } from 'src/app/dialogs';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-bikes',
@@ -14,7 +16,7 @@ export class BikesComponent {
   sortedData: Bike[];
   selectedBike: Bike;
 
-  constructor() {
+  constructor(private dialog: MatDialog) {
     this.bikes = [
       {
         bikeId: 1,
@@ -77,14 +79,44 @@ export class BikesComponent {
   }
 
   onEdit(bike) {
-    console.log('edit bike');
+    const dialogRef = this.dialog.open(BikeDialog, {
+      panelClass: 'dialog',
+      width: '300px',
+      height: '500px',
+      data: bike,
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      // navigate back to bike
+      // get bikes again form backend.
+    });
   }
 
   onDelete(bike) {
+    const deleteRef = this.dialog.open(DeleteDialog, {
+      panelClass: 'dialog',
+      width: '300px',
+      height: '200px',
+      data: bike,
+    });
+    deleteRef.afterClosed().subscribe(() => {
+      this.selectedBike = new Bike();
+      // get bikes again from backend.
+    });
     console.log('delete bike');
   }
 
-  onAdd() {}
+  onAdd(): void {
+    const dialogRef = this.dialog.open(BikeDialog, {
+      panelClass: 'dialog',
+      width: '300px',
+      height: '500px',
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      // route back to bikes
+      // get bikes again from backend.
+    });
+  }
 
   sortData(sort: Sort) {
     const data = this.sortedData;
