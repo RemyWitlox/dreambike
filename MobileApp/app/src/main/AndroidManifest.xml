@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
   package="com.dreambike.fe_clientapp">
   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
   <uses-permission android:name="android.permission.INTERNET"/>
@@ -12,18 +13,11 @@
     android:label="@string/app_name"
     android:roundIcon="@mipmap/notxtrnd"
     android:supportsRtl="true"
-    android:theme="@style/AppTheme">
+    android:theme="@style/AppTheme"
+    tools:targetApi="n">
     <meta-data
       android:name="com.google.android.geo.API_KEY"
       android:value="@string/google_maps_key" />
-    <activity
-      android:name=".MapsActivity"
-      android:label="@string/title_activity_maps">
-      <intent-filter>
-        <action android:name="com.dreambike.fe_clientapp.ui.MapsActivity" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </activity>
     <activity
       android:name=".LoginActivity"
       android:label="@string/app_name">

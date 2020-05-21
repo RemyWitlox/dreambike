@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_login);
 
-    baseUrl = "http://192.168.1.110:2020/api/login";
+    baseUrl = "http://192.168.1.110:2020/login";
 
     infoTxt = (TextView) findViewById(R.id.infoTxt);
     usernameTxt = (EditText) findViewById(R.id.username);
