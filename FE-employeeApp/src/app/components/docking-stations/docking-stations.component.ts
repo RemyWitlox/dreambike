@@ -20,19 +20,18 @@ import { DockingService } from 'src/app/services/docking.service';
 })
 export class DockingStationsComponent implements OnInit {
   public model: DockingStation;
-  dockingStations: DockingStation[];
-  searchForm = new FormGroup({
+  public dockingStations: DockingStation[];
+  public searchForm = new FormGroup({
     city: new FormControl(''),
   });
-  sortedData: DockingStation[];
+  public sortedData: DockingStation[];
 
-  // TODO: set initial center position for the map to city in searchbar
-  address: string;
-  lat: number = 51.441262;
-  lng: number = 5.477672;
+  public address: string;
+  public lat: number = 51.441262;
+  public lng: number = 5.477672;
   // google maps zoom level
-  zoom: number;
-  selectedDs: DockingStation;
+  public zoom: number;
+  public selectedDs: DockingStation;
 
   constructor(
     private dialog: MatDialog,
@@ -42,12 +41,12 @@ export class DockingStationsComponent implements OnInit {
     this.getDockingStations();
   }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.setLocation(51.44083, 5.47778);
     this.zoom = 12;
   }
 
-  getDockingStations(): void {
+  public getDockingStations(): void {
     this.dockingService.getDockingStations().subscribe(
       (ds) => {
         this.dockingStations = ds;
@@ -62,7 +61,7 @@ export class DockingStationsComponent implements OnInit {
     this.selectedDs = new DockingStation();
   }
 
-  search = (text$: Observable<string>) =>
+  public search = (text$: Observable<string>) =>
     text$.pipe(
       debounceTime(200),
       map((term) =>
@@ -76,29 +75,29 @@ export class DockingStationsComponent implements OnInit {
       )
     );
 
-  formatter = (ds: DockingStation) => ds.name;
+  public formatter = (ds: DockingStation) => ds.name;
 
-  selectedItem(location) {
+  public selectedItem(location) {
     this.setLocation(location.item.lat, location.item.lng);
   }
 
   // Get Current Location Coordinates
-  setLocation(lat: number, lng: number) {
+  public setLocation(lat: number, lng: number) {
     this.lat = lat;
     this.lng = lng;
     this.zoom = 12;
   }
 
-  clickedMarker(name: string, id: number) {
+  public clickedMarker(name: string, id: number) {
     console.log(`clicked the marker: ${name || id}`);
   }
 
-  setActive(i) {
+  public setActive(i) {
     // TODO : set change to backend
     // TODO : subscribe new dockingStations.
   }
 
-  onDelete(ds): void {
+  public onDelete(ds): void {
     const deleteRef = this.dialog.open(DeleteDialog, {
       panelClass: 'dialog',
       width: '300px',
@@ -118,7 +117,7 @@ export class DockingStationsComponent implements OnInit {
     console.log('delete: ' + ds.name);
   }
 
-  onEdit(ds) {
+  public onEdit(ds) {
     const dialogRef = this.dialog.open(DockingDialog, {
       panelClass: 'dialog',
       width: '300px',
@@ -132,7 +131,7 @@ export class DockingStationsComponent implements OnInit {
     });
   }
 
-  newDs(): void {
+  public newDs(): void {
     const dialogRef = this.dialog.open(DockingDialog, {
       panelClass: 'dialog',
       width: '300px',
@@ -145,7 +144,7 @@ export class DockingStationsComponent implements OnInit {
     });
   }
 
-  onSelect(ds) {
+  public onSelect(ds) {
     if (this.selectedDs === ds) {
       this.selectedDs = new DockingStation();
       return;
@@ -155,7 +154,7 @@ export class DockingStationsComponent implements OnInit {
     }
   }
 
-  sortData(sort: Sort) {
+  public sortData(sort: Sort) {
     const data = this.sortedData;
     if (!sort.active || sort.direction === '') {
       this.sortedData = data;
