@@ -17,14 +17,25 @@
     </mat-form-field>
     <mat-form-field>
       <mat-label for="type">Type</mat-label>
-      <input matInput formControlName="type" required autocomplete="off" />
+      <select formControlName="type" required matNativeControl>
+        <option *ngFor="let type of keys(types)" [ngValue]="types[type]">
+          {{ types[type] }}
+        </option>
+      </select>
       <mat-hint *ngIf="submitted && f.type.errors && f.type.errors.required"
         >Type is required</mat-hint
       >
     </mat-form-field>
     <mat-form-field>
       <mat-label for="driver">Driver</mat-label>
-      <input matInput formControlName="driver" required autocomplete="off" />
+      <select formControlName="driver" required matNativeControl>
+        <option
+          *ngFor="let driver of keys(drivers)"
+          [ngValue]="drivers[driver]"
+        >
+          {{ drivers[driver] }}
+        </option>
+      </select>
       <mat-hint *ngIf="submitted && f.driver.errors && f.driver.errors.required"
         >Driver is required</mat-hint
       >
