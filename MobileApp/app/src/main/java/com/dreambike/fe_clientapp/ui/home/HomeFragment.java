@@ -1,23 +1,17 @@
 package com.dreambike.fe_clientapp.ui.home;
 
-import android.app.Activity;
-import android.location.Location;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
-
 import com.dreambike.fe_clientapp.R;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
+import com.dreambike.fe_clientapp.services.HttpGetRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -25,14 +19,15 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import java.util.concurrent.ExecutionException;
 
 public class HomeFragment extends Fragment implements OnMapReadyCallback{
 
   private GoogleMap mGoogleMap;
   private MapView mMapView;
   private View mView;
+  private String token;
 
   public HomeFragment (){
     // Required empty public constructor
@@ -41,13 +36,14 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    SharedPreferences pref = getContext().getApplicationContext().getSharedPreferences("MyPref", 0);
+    this.token = pref.getString("access_token", null);
   }
 
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater,
                            ViewGroup container, Bundle savedInstanceState) {
     // Inflate the layout for this fragment
-    Log.e("log: ", "OnCreateView - home.");
     mView = inflater.inflate(R.layout.fragment_home, container, false);
     return mView;
   }
@@ -61,6 +57,31 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
       mMapView.onCreate(null);
       mMapView.onResume();
       mMapView.getMapAsync(this);
+    }
+
+    try {
+      String uri = new Uri.Builder()
+        .scheme("http")
+        .encodedAuthority("192.168.1.110:2020")
+        .path("api/getAllDocking")
+        .appendQueryParameter("access_token",token)
+        .build().toString();
+
+      String result;
+      HttpGetRequest getRequest = new HttpGetRequest(token);
+
+      result = getRequest.execute(uri).get();
+
+
+      if (result.isEmpty()){
+        Toast.makeText(getContext().getApplicationContext(), "Database unavailable", Toast.LENGTH_LONG).show();
+      } else {
+        // Write the access token of the result:
+        Toast.makeText(getContext().getApplicationContext(), "Dockers loaded from backend", Toast.LENGTH_LONG).show();
+        Log.d("result docking stations", result.toString());
+      }
+    } catch (ExecutionException | InterruptedException e) {
+      e.printStackTrace();
     }
   }
 

@@ -4,7 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.AsyncTask;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -16,7 +17,10 @@ import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.dreambike.fe_clientapp.services.ApiAuthClient;
+import com.dreambike.fe_clientapp.services.HttpLoginRequest;
+
+import org.json.JSONObject;
+
 
 public class LoginActivity extends AppCompatActivity {
   private Button loginBtn;
@@ -36,19 +40,22 @@ public class LoginActivity extends AppCompatActivity {
 
     baseUrl = "http://192.168.1.110:2020/login";
 
-    infoTxt = (TextView) findViewById(R.id.infoTxt);
-    usernameTxt = (EditText) findViewById(R.id.username);
-    passwordTxt = (EditText) findViewById(R.id.password);
-    loginBtn = (Button) findViewById(R.id.loginBtn);
-    registerTxt = (TextView) findViewById(R.id.registerTxt);
+    infoTxt = findViewById(R.id.infoTxt);
+    usernameTxt = findViewById(R.id.username);
+    passwordTxt = findViewById(R.id.password);
+    loginBtn = findViewById(R.id.loginBtn);
+    registerTxt = findViewById(R.id.registerTxt);
     textToLink(registerTxt, "https://www.google.com", "Register here.");
 
     loginBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        Log.e("log: ", "The button is clicked!");
         v.clearFocus();
         hideKeyboardFrom(v);
+
+        // Display the progress bar.
+        findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
+
         if (usernameTxt.getText().toString().isEmpty() || passwordTxt.getText().toString().isEmpty()){
           infoTxt.setText("Please enter your username and password.");
         } else {
@@ -56,16 +63,40 @@ public class LoginActivity extends AppCompatActivity {
             username = usernameTxt.getText().toString();
             password = passwordTxt.getText().toString();
 
-            ApiAuthClient apiAuthClient =
-              new ApiAuthClient(
-                baseUrl,
-                username, password
-              );
+            String uri = new Uri.Builder()
+              .scheme("http")
+              .encodedAuthority("192.168.1.110:2020")
+              .path("login")
+              .appendQueryParameter("username", username)
+              .appendQueryParameter("password", password)
+              .build().toString();
 
-            AsyncTask<Void, Void, String> execute = new ExecuteNetworkOperation(apiAuthClient);
+            String result;
+            HttpLoginRequest getRequest = new HttpLoginRequest();
+            result = getRequest.execute(uri).get();
+
+            if (result.isEmpty()){
+              infoTxt.setText("Username/Password incorrect, please try again.");
+              Toast.makeText(getApplicationContext(), "Login Failed", Toast.LENGTH_LONG).show();
+            } else {
+              // Write the access token of the result:
+              SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+              SharedPreferences.Editor editor = pref.edit();
+              JSONObject obj = new JSONObject(result);
+              String access_token = obj.getString("access_token");
+              editor.putString("access_token", access_token);
+              editor.commit();
+              Log.e("Access_token from Pref", pref.getString("access_token", null));
+              // Remove the progress bar and continue.
+              findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+              Toast.makeText(getApplicationContext(), "Welcome " + username, Toast.LENGTH_LONG).show();
+              openMain();
+            }
 
           } catch (Exception ex) {
+            findViewById(R.id.loadingPanel).setVisibility(View.GONE);
             infoTxt.setText("Your username or password is incorrect.");
+            hideKeyboardFrom(v);
           }
         }
       }
@@ -82,67 +113,6 @@ public class LoginActivity extends AppCompatActivity {
   public void hideKeyboardFrom(View view) {
     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
     imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-  }
-
-  /**
-   * This subclass handles the network operations in a new thread.
-   * It starts the progress bar, makes the API call, and ends the progress bar.
-   */
-  public class ExecuteNetworkOperation extends AsyncTask<Void, Void, String> {
-
-    private ApiAuthClient apiAuthClient;
-    private String isValidCredentials;
-
-    /**
-     * Overload the constructor to pass objects to this class.
-     */
-    public ExecuteNetworkOperation(ApiAuthClient apiAuthClient) {
-      Log.e("log: ", "Execute Network Operation.");
-      this.apiAuthClient = apiAuthClient;
-      execute();
-    }
-
-    @Override
-    protected void onPreExecute() {
-      super.onPreExecute();
-
-      // Display the progress bar.
-      Log.e("log: ", "Display progress.");
-      findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    protected String doInBackground(Void... params) {
-      try {
-        isValidCredentials = apiAuthClient.execute();
-        Log.e("credentials: ", "valid credentials.");
-      } catch (Exception e) {
-        Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_LONG).show();
-        e.printStackTrace();
-      }
-
-      return null;
-    }
-
-    @Override
-      protected void onPostExecute(String result) {
-        super.onPostExecute(result);
-
-        // Hide the progress bar.
-        findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-        Log.e("log: ", "Hide progress.");
-
-      // Login succeeded?
-      if (isValidCredentials.isEmpty()) {
-        infoTxt.setText("Username/Password incorrect, please try again.");
-        Toast.makeText(getApplicationContext(), "Login Failed", Toast.LENGTH_LONG).show();
-      }
-      else {
-        Log.e("log: ", "open main.");
-        Toast.makeText(getApplicationContext(), "Welcome " + username, Toast.LENGTH_LONG).show();
-        openMain();
-      }
-    }
   }
 
   public void openMain() {

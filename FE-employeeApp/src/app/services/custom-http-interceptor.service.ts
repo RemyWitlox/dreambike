@@ -24,9 +24,6 @@ export class CustomHttpInterceptorService implements HttpInterceptor {
         Authorization: bearer,
         access_token: at,
       });
-      // for (const key of req.headers.keys()) {
-      //   myheaders[key] = req.headers.getAll[key];
-      // }
       return next.handle(req.clone({ headers: myheaders }));
     } else {
       return next.handle(req.clone());

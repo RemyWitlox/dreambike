@@ -106,12 +106,7 @@ export class DockingStationsComponent implements OnInit {
     });
     deleteRef.afterClosed().subscribe(() => {
       this.selectedDs = new DockingStation();
-      this.dockingService.getDockingStations().subscribe((ds) => {
-        this.dockingStations = ds;
-        this.sortedData = this.dockingStations.sort((a, b) => {
-          return compare(a.name, b.name, true);
-        });
-      });
+      this.getDockingStations();
     });
 
     console.log('delete: ' + ds.name);
