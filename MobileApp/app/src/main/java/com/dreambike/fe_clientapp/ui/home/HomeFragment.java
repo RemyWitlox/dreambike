@@ -104,17 +104,29 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
           String name = jsonObject.getString("name");
           String lat = jsonObject.getString("lat");
           String lng = jsonObject.getString("lng");
+          Boolean active = jsonObject.getBoolean("active");
+          String bikes = jsonObject.getString("bikes");
+          String capacity = jsonObject.getString("capacity");
+
 
           HashMap<String, String> ds = new HashMap<>();
 
           ds.put("name", name);
           ds.put("lat", lat);
           ds.put("lng", lng);
+          ds.put("active", active.toString());
+          ds.put("bikes", bikes);
+          ds.put("capacity", capacity);
 
           double lat1 = Double.parseDouble(lat);
           double lng1 = Double.parseDouble(lng);
+          int bikes1 = Integer.parseInt(bikes);
+          int capacity1 = Integer.parseInt(capacity);
+          int rentable = capacity1 - bikes1;
 
-          googleMap.addMarker(new MarkerOptions().position(new LatLng(lat1, lng1)).title(name));
+          if (active) {
+            googleMap.addMarker(new MarkerOptions().position(new LatLng(lat1, lng1)).title(name).snippet(rentable + " bikes to rent."));
+          }
         }
       }
     } catch (ExecutionException | InterruptedException | JSONException e) {
