@@ -20,6 +20,12 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
 public class HomeFragment extends Fragment implements OnMapReadyCallback{
@@ -58,7 +64,20 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
       mMapView.onResume();
       mMapView.getMapAsync(this);
     }
+  }
 
+  @Override
+  public void onMapReady(GoogleMap googleMap) {
+    MapsInitializer.initialize(getContext());
+
+    LatLng home = new LatLng(51.546869, 5.484493);
+    mGoogleMap = googleMap;
+    // Set map type
+    googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+    // Set a marker
+    googleMap.addMarker(new MarkerOptions().position(home).title("Remy's Home").snippet("Visit anytime."));
+
+    // Get data from backend
     try {
       String uri = new Uri.Builder()
         .scheme("http")
@@ -79,22 +98,28 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
         // Write the access token of the result:
         Toast.makeText(getContext().getApplicationContext(), "Dockers loaded from backend", Toast.LENGTH_LONG).show();
         Log.d("result docking stations", result.toString());
+        JSONArray array = new JSONArray(result);
+        for (int i = 0; i < array.length(); i++) {
+          JSONObject jsonObject = array.getJSONObject(i);
+          String name = jsonObject.getString("name");
+          String lat = jsonObject.getString("lat");
+          String lng = jsonObject.getString("lng");
+
+          HashMap<String, String> ds = new HashMap<>();
+
+          ds.put("name", name);
+          ds.put("lat", lat);
+          ds.put("lng", lng);
+
+          double lat1 = Double.parseDouble(lat);
+          double lng1 = Double.parseDouble(lng);
+
+          googleMap.addMarker(new MarkerOptions().position(new LatLng(lat1, lng1)).title(name));
+        }
       }
-    } catch (ExecutionException | InterruptedException e) {
+    } catch (ExecutionException | InterruptedException | JSONException e) {
       e.printStackTrace();
     }
-  }
-
-  @Override
-  public void onMapReady(GoogleMap googleMap) {
-    MapsInitializer.initialize(getContext());
-
-    LatLng home = new LatLng(51.546869, 5.484493);
-    mGoogleMap = googleMap;
-    // Set map type
-    googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-    // Set a marker
-    googleMap.addMarker(new MarkerOptions().position(home).title("Remy's Home").snippet("Visit anytime."));
 
     // Set a position
     CameraPosition Liberty = CameraPosition.builder().target(home).zoom(16).bearing(0).tilt(45).build();
