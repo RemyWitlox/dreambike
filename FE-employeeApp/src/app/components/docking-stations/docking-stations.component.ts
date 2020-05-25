@@ -1,7 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { DockingStation } from '../../models';
-import { FormControl, FormGroup } from '@angular/forms';
 import { NgbTypeaheadConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
@@ -21,9 +20,6 @@ import { DockingService } from 'src/app/services/docking.service';
 export class DockingStationsComponent implements OnInit {
   public model: DockingStation;
   public dockingStations: DockingStation[];
-  public searchForm = new FormGroup({
-    city: new FormControl(''),
-  });
   public sortedData: DockingStation[];
 
   public address: string;

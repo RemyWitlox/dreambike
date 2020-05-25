@@ -36,6 +36,7 @@ import { LoginDialog } from './dialogs';
 import { DockingDialog } from './dialogs';
 import { DeleteDialog } from './dialogs';
 import { BikeDialog } from './dialogs';
+import { BikeDockDialog } from './dialogs';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { BikeDialog } from './dialogs';
     DeleteDialog,
     DockingDialog,
     BikeDialog,
+    BikeDockDialog,
     SettingsComponent,
     AnalyticsComponent,
     RepairsComponent,

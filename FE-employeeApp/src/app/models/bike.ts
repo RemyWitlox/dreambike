@@ -1,5 +1,6 @@
 import { BikeType } from './bikeType';
 import { BikeDriver } from './bikeDriver';
+import { DockingStation } from './dockingStation';
 
 export class Bike {
   bikeId: number;
@@ -8,4 +9,5 @@ export class Bike {
   driver: BikeDriver;
   size: number;
   created: Date;
+  docking?: DockingStation;
 }

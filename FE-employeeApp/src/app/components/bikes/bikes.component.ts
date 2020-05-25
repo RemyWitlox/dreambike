@@ -5,6 +5,7 @@ import { BikeType } from 'src/app/models/bikeType';
 import { BikeDriver } from 'src/app/models/bikeDriver';
 import { BikeDialog, DeleteDialog } from 'src/app/dialogs';
 import { MatDialog } from '@angular/material/dialog';
+import { BikeDockDialog } from 'src/app/dialogs/bikedock-dialog';
 
 @Component({
   selector: 'app-bikes',
@@ -110,6 +111,20 @@ export class BikesComponent {
       panelClass: 'dialog',
       width: '300px',
       height: '500px',
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      // route back to bikes
+      // get bikes again from backend.
+    });
+  }
+
+  onDocking(bike): void {
+    const dialogRef = this.dialog.open(BikeDockDialog, {
+      panelClass: 'dialog',
+      width: '400px',
+      height: '450px',
+      data: bike,
     });
 
     dialogRef.afterClosed().subscribe(() => {
