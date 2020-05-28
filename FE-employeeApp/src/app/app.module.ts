@@ -3,7 +3,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material-module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  BrowserAnimationsModule,
+  NoopAnimationsModule,
+} from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
@@ -24,7 +27,7 @@ import { CustomHttpInterceptorService } from './services';
 import { AppComponent } from './components/app';
 import { AppRoutingModule } from './router/app-routing.module';
 import { HomeComponent } from './components/home';
-import { JwtInterceptor, ErrorInterceptor } from './_helpers';
+import { JwtInterceptor, ErrorInterceptor, NoopComponent } from './_helpers';
 import { SettingsComponent } from './components/settings';
 import { AnalyticsComponent } from './components/analytics';
 import { RepairsComponent } from './components/repairs';
@@ -48,6 +51,7 @@ import { BikeDockDialog } from './dialogs';
     BikeDialog,
     BikeDockDialog,
     SettingsComponent,
+    NoopComponent,
     AnalyticsComponent,
     RepairsComponent,
     BikesComponent,
@@ -57,6 +61,9 @@ import { BikeDockDialog } from './dialogs';
     BrowserModule,
     NgbModule,
     MaterialModule,
+    NoopAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -76,7 +83,13 @@ import { BikeDockDialog } from './dialogs';
     }),
   ],
   exports: [FormsModule, ReactiveFormsModule],
-  entryComponents: [LoginDialog, DockingDialog, DeleteDialog],
+  entryComponents: [
+    LoginDialog,
+    DockingDialog,
+    DeleteDialog,
+    BikeDialog,
+    BikeDockDialog,
+  ],
   providers: [
     DatePipe,
     {

@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Bike, BikeType, BikeDriver } from '../models';
@@ -8,7 +8,7 @@ import { DatePipe } from '@angular/common';
   selector: 'bike-dialog',
   templateUrl: './bikeDialog.component.html',
 })
-export class BikeDialog {
+export class BikeDialog implements OnInit {
   types = BikeType;
   drivers = BikeDriver;
   keys = Object.keys;
@@ -60,7 +60,7 @@ export class BikeDialog {
     }
   }
 
-  onCancel(): void {
+  public onCancel(): void {
     this.dialogRef.close();
   }
 

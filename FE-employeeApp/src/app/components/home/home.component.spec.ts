@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from 'src/app/router/app-routing.module';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -9,6 +11,7 @@ describe('HomeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [HomeComponent],
+      imports: [HttpClientModule, AppRoutingModule],
     }).compileComponents();
   }));
 

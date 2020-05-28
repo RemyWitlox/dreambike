@@ -1,33 +1,56 @@
-import { TestBed, async } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from 'src/app/router/app-routing.module';
+import { of } from 'rxjs';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatDialog } from '@angular/material/dialog';
+import { MaterialModule } from 'src/material-module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+export class MatDialogMock {
+  // When the component calls this.dialog.open(...) we'll return an object
+  // with an afterClosed method that allows to subscribe to the dialog result observable.
+  open() {
+    return {
+      afterClosed: () => of({ action: true }),
+    };
+  }
+}
 
 describe('AppComponent', () => {
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
-      declarations: [AppComponent]
+      imports: [
+        MaterialModule,
+        AppRoutingModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        FlexLayoutModule,
+      ],
+      declarations: [AppComponent],
+      providers: [{ provide: MatDialog, useClass: MatDialogMock }],
     }).compileComponents();
   }));
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
+  beforeEach(async () => {
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
 
-  it(`should have as title 'FE-employeeApp'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('FE-employeeApp');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
+    component.ngOnInit();
+    await fixture.whenStable();
     fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain(
-      'FE-employeeApp app is running!'
-    );
+  });
+
+  it('should create the app', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should open the dialog', () => {
+    component.openDialog();
   });
 });

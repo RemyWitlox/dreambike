@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
   loading: boolean;
   connected: boolean;
   title = 'Dreambike';
+  subtitle = 'DreamBike Employee Application';
   currentBackendUser: ReceiveUser;
 
   constructor(

@@ -5,7 +5,7 @@ import { BikeType } from 'src/app/models/bikeType';
 import { BikeDriver } from 'src/app/models/bikeDriver';
 import { BikeDialog, DeleteDialog } from 'src/app/dialogs';
 import { MatDialog } from '@angular/material/dialog';
-import { BikeDockDialog } from 'src/app/dialogs/bikedock-dialog';
+import { BikeDockDialog } from 'src/app/dialogs/bikeDock-dialog';
 
 @Component({
   selector: 'app-bikes',
