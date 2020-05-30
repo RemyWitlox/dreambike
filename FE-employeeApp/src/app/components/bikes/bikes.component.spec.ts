@@ -1,4 +1,10 @@
-import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+import {
+  TestBed,
+  async,
+  ComponentFixture,
+  tick,
+  fakeAsync,
+} from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from 'src/app/router/app-routing.module';
 import { of } from 'rxjs';
@@ -7,7 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MaterialModule } from 'src/material-module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BikesComponent } from './bikes.component';
-import { Bike } from 'src/app/models';
+import { BikeDialog } from 'src/app/dialogs';
 
 export class MatDialogMock {
   // When the component calls this.dialog.open(...) we'll return an object
@@ -33,7 +39,7 @@ describe('BikesComponent', () => {
         HttpClientModule,
         FlexLayoutModule,
       ],
-      declarations: [BikesComponent],
+      declarations: [BikesComponent, BikeDialog],
       providers: [{ provide: MatDialog, useClass: MatDialogMock }],
     }).compileComponents();
   }));
@@ -50,17 +56,11 @@ describe('BikesComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should open the dialog on edit', () => {
-    const ds = new Bike();
-    component.onEdit(ds);
-  });
+  it('should open the dialog on add', () => {});
 
-  it('should open the dialog on delete', () => {
-    const ds = new Bike();
-    component.onDelete(ds);
-  });
+  it('should open the dialog on edit', () => {});
 
-  it('should open the dialog on add', () => {
-    component.onAdd();
-  });
+  it('should open the dialog on delete', () => {});
+
+  it('should open the dialog on clicking the button', fakeAsync(() => {}));
 });

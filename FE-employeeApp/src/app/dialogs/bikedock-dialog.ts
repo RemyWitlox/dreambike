@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, NgZone } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { DockingService } from '../services/docking.service';
@@ -24,9 +24,14 @@ export class BikeDockDialog {
     private dialogRef: MatDialogRef<BikeDockDialog>,
     private formBuilder: FormBuilder,
     private dockingService: DockingService,
+    private zone: NgZone,
     @Inject(MAT_DIALOG_DATA) public data: Bike
   ) {
     this.bike = data;
+    this.zone.run(() => this.getDockingStations());
+  }
+
+  getDockingStations() {
     this.dockingService.getDockingStations().subscribe(
       (ds) => {
         this.dockingStations = ds;

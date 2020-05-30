@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -20,7 +20,8 @@ export class LoginDialog {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private zone: NgZone
   ) {
     // redirect to home if already logged in
     if (this.authenticationService.currentBackendUserValue) {
@@ -55,18 +56,24 @@ export class LoginDialog {
       this.error = 'Please enter your username and password.';
       return;
     } else {
-      await this.authenticationService
-        .loginBackend(this.f.username.value, this.f.password.value)
-        .pipe(first())
-        .subscribe(
-          (data) => {
-            this.router.navigate([this.returnUrl]);
-            this.dialogRef.close();
-          },
-          (error) => {
-            this.error = 'Your username or password is incorrect.';
-          }
-        );
+      await this.zone.run(() =>
+        this.getLogin(this.f.username.value, this.f.password.value)
+      );
     }
+  }
+
+  getLogin(user, pass) {
+    this.authenticationService
+      .loginBackend(user, pass)
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          this.router.navigate([this.returnUrl]);
+          this.dialogRef.close();
+        },
+        (error) => {
+          this.error = 'Your username or password is incorrect.';
+        }
+      );
   }
 }

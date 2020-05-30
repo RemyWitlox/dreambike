@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginDialog } from '../../dialogs/login-dialog';
 import { Role } from 'src/app/models';
@@ -21,8 +21,13 @@ export class AppComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private router: Router,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private zone: NgZone
   ) {
+    this.zone.run(() => this.getCurrentBackendUser());
+  }
+
+  getCurrentBackendUser() {
     this.authenticationService.currentBackendUser.subscribe(
       (x) => (this.currentBackendUser = x)
     );

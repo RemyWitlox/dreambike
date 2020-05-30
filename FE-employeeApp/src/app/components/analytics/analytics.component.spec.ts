@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
 import { AnalyticsComponent } from './analytics.component';
 
@@ -8,9 +8,8 @@ describe('AnalyticsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AnalyticsComponent ]
-    })
-    .compileComponents();
+      declarations: [AnalyticsComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -21,5 +20,9 @@ describe('AnalyticsComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should be under construction', () => {
+    expect(component.message).toContain('under construction');
   });
 });

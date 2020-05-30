@@ -13,7 +13,7 @@ class NoopComponent {}
 
 const TEST_DIRECTIVES = [BikeDockDialog, NoopComponent];
 
-describe('InformationDialog', () => {
+describe('Connect Bike to Dockingstation Dialog', () => {
   let dialog: MatDialog;
   let overlayContainerElement: HTMLElement;
   let noop: ComponentFixture<NoopComponent>;

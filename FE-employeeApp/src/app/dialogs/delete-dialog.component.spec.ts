@@ -13,7 +13,7 @@ class NoopComponent {}
 
 const TEST_DIRECTIVES = [DeleteDialog, NoopComponent];
 
-describe('InformationDialog', () => {
+describe('Delete Dialog', () => {
   let dialog: MatDialog;
   let overlayContainerElement: HTMLElement;
   let noop: ComponentFixture<NoopComponent>;

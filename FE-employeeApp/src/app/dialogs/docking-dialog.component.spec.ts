@@ -13,7 +13,7 @@ class NoopComponent {}
 
 const TEST_DIRECTIVES = [DockingDialog, NoopComponent];
 
-describe('InformationDialog', () => {
+describe('Add/Edit Docking station Dialog', () => {
   let dialog: MatDialog;
   let overlayContainerElement: HTMLElement;
   let noop: ComponentFixture<NoopComponent>;

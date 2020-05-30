@@ -1,4 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  NgZone,
+} from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { DockingStation } from '../../models';
 import { NgbTypeaheadConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -32,9 +37,10 @@ export class DockingStationsComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private dockingService: DockingService,
-    private router: Router
+    private router: Router,
+    private zone: NgZone
   ) {
-    this.getDockingStations();
+    this.zone.run(() => this.getDockingStations());
   }
 
   public ngOnInit() {
@@ -102,7 +108,7 @@ export class DockingStationsComponent implements OnInit {
     });
     deleteRef.afterClosed().subscribe(() => {
       this.selectedDs = new DockingStation();
-      this.getDockingStations();
+      this.zone.run(() => this.getDockingStations());
     });
 
     console.log('delete: ' + ds.name);
@@ -118,7 +124,7 @@ export class DockingStationsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(() => {
       this.router.navigate(['dockingStations']);
-      this.getDockingStations();
+      this.zone.run(() => this.getDockingStations());
     });
   }
 
@@ -131,7 +137,7 @@ export class DockingStationsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(() => {
       this.router.navigate(['dockingStations']);
-      this.getDockingStations();
+      this.zone.run(() => this.getDockingStations());
     });
   }
 

@@ -17,7 +17,7 @@ export class BikesComponent {
   sortedData: Bike[];
   selectedBike: Bike;
 
-  constructor(private dialog: MatDialog) {
+  constructor(public dialog: MatDialog) {
     this.bikes = [
       {
         bikeId: 1,
@@ -103,7 +103,6 @@ export class BikesComponent {
       this.selectedBike = new Bike();
       // get bikes again from backend.
     });
-    console.log('delete bike');
   }
 
   onAdd(): void {

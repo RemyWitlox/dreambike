@@ -21,4 +21,8 @@ describe('SettingsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should be under construction', () => {
+    expect(component.message).toContain('under construction');
+  });
 });
