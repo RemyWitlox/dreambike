@@ -128,7 +128,7 @@ export class DockingStationsComponent implements OnInit {
     });
   }
 
-  public newDs(): void {
+  public onAdd(): void {
     const dialogRef = this.dialog.open(DockingDialog, {
       panelClass: 'dialog',
       width: '300px',

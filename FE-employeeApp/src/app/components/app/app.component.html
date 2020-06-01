@@ -1,5 +1,5 @@
 <div>
-  <span hidden>{{ title }}</span>
+  <h1 hidden>{{ title }}</h1>
   <mat-sidenav-container class="horizontalMenu">
     <mat-sidenav-content>
       <mat-toolbar color="primary">
@@ -21,7 +21,7 @@
         >
           <ul fxLayout fxLayoutGap="20px" class="navigation-items">
             <li *ngIf="!currentBackendUser">
-              <a (click)="openDialog()">
+              <a id="openDialog" (click)="openDialog()">
                 <mat-icon class="icon">input</mat-icon>
                 <a class="label">Login</a>
               </a>
@@ -39,7 +39,7 @@
               </a>
             </li>
             <li *ngIf="currentBackendUser">
-              <a (click)="onLogout()">
+              <a id="onLogout" (click)="onLogout()">
                 <mat-icon class="icon">input</mat-icon>
                 <a class="label">LogOut</a>
               </a>

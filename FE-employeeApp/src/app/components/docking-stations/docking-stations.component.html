@@ -2,7 +2,11 @@
   <mat-tab-group>
     <mat-tab label="Table">
       <mat-button-toggle-group name="dsBtns">
-        <mat-button-toggle class="btn" style="height: 30px;" (click)="newDs()"
+        <mat-button-toggle
+          id="onAdd"
+          class="btn"
+          style="height: 30px;"
+          (click)="onAdd()"
           ><mat-icon style="margin-top: -2px; margin-left: -5px;">add</mat-icon
           >New Docking Station</mat-button-toggle
         >
@@ -42,10 +46,11 @@
               (click)="onSelect(ds)"
             >
               <td style="margin-top: -5px; max-width: 50px;">
-                <button class="buttonIcon" (click)="onEdit(ds)">
+                <button id="onEdit" class="buttonIcon" (click)="onEdit(ds)">
                   <mat-icon area-hidden="true" class="icon">edit</mat-icon>
                 </button>
                 <button
+                  id="onDelete"
                   *ngIf="!ds.active"
                   class="buttonIcon"
                   (click)="onDelete(ds)"

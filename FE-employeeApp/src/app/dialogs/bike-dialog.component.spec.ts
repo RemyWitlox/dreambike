@@ -16,7 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { MaterialModule } from 'src/material-module';
 
-describe('BikeDialog', () => {
+describe('Add/Edit Bike Dialog', () => {
   let dialog: MatDialog;
   let overlayContainer: OverlayContainer;
   let component: BikeDialog;

@@ -1,6 +1,10 @@
 <div class="contentMargin">
   <mat-button-toggle-group name="bikeBtns">
-    <mat-button-toggle class="btn" style="height: 30px;" (click)="onAdd()"
+    <mat-button-toggle
+      id="onAdd"
+      class="btn"
+      style="height: 30px;"
+      (click)="onAdd()"
       ><mat-icon style="margin-top: -2px; margin-left: -5px;">add</mat-icon>New
       Bike</mat-button-toggle
     >
@@ -31,19 +35,19 @@
       </thead>
       <tbody>
         <tr
-          *ngFor="let bike of bikes; let i = index"
+          *ngFor="let bike of sortedData; let i = index"
           [class.selected]="bike === selectedBike"
           [ngClass]="{ active: bike == selectedBike }"
           (click)="onSelect(bike)"
         >
           <td style="margin-top: -5px; max-width: 75px;">
-            <button class="buttonIcon" (click)="onEdit(bike)">
+            <button id="onEdit" class="buttonIcon" (click)="onEdit(bike)">
               <mat-icon area-hidden="true" class="icon">edit</mat-icon>
             </button>
-            <button class="buttonIcon" (click)="onDelete(bike)">
+            <button id="onDelete" class="buttonIcon" (click)="onDelete(bike)">
               <mat-icon area-hidden="true" class="icon">delete</mat-icon>
             </button>
-            <button class="buttonIcon" (click)="onDocking(bike)">
+            <button id="onDocking" class="buttonIcon" (click)="onDocking(bike)">
               <mat-icon area-hidden="true" class="icon">home</mat-icon>
             </button>
           </td>

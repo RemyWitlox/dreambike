@@ -3,7 +3,7 @@
     You are not logged in. Please log in to continue.
   </p>
   <div *ngIf="currentBackendUser">
-    <h1>Welcome {{ currentBackendUser?.name }},</h1>
+    <h1 id="welcome">Welcome {{ currentBackendUser?.name }},</h1>
     <p>
       Your current role is
       <strong>{{
@@ -15,7 +15,7 @@
       <mat-grid-list cols="3" rowHeight="1:1">
         <mat-grid-tile>
           <mat-card>
-            <button class="btnImg" (click)="goDocking()">
+            <button id="goDocking" class="btnImg" (click)="goDocking()">
               <img src="../../../assets/docking.png" class="img" />
             </button>
             <mat-card-content>
@@ -27,7 +27,7 @@
         </mat-grid-tile>
         <mat-grid-tile>
           <mat-card>
-            <button class="btnImg" (click)="goBikes()">
+            <button id="goBikes" class="btnImg" (click)="goBikes()">
               <img src="../../../assets/bike.png" class="img" />
             </button>
             <mat-card-content>
@@ -39,7 +39,7 @@
         </mat-grid-tile>
         <mat-grid-tile>
           <mat-card>
-            <button class="btnImg" (click)="goRepairs()">
+            <button id="goRepairs" class="btnImg" (click)="goRepairs()">
               <img src="../../../assets/repair.png" class="img" />
             </button>
             <mat-card-content>
