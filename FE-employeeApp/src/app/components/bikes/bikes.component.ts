@@ -68,6 +68,9 @@ export class BikesComponent {
         created: new Date('2017-01-06'),
       },
     ];
+    this.sortedData = this.bikes.sort((a, b) => {
+      return compare(a.bikeId, b.bikeId, true);
+    });
   }
 
   onSelect(bike) {
