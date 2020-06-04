@@ -1,10 +1,4 @@
-import {
-  TestBed,
-  async,
-  ComponentFixture,
-  tick,
-  fakeAsync,
-} from '@angular/core/testing';
+import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from 'src/app/router/app-routing.module';
 import { of } from 'rxjs';
@@ -143,7 +137,7 @@ describe('BikesComponent', () => {
     expect(component.onDelete).toHaveBeenCalled();
   });
 
-  it('should open the dialog on adding a docking station to the bike', () => {
+  it('should open the dialog on changing the docking station of the bike', () => {
     fixture.detectChanges();
     spyOn(component, 'onDocking');
     element = fixture.debugElement.query(By.css('#onDocking')).nativeElement;
