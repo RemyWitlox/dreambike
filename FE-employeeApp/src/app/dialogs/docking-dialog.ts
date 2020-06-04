@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { DockingStation } from '../models';
+import { DockingService } from '../services/docking.service';
 
 @Component({
   selector: 'docking-dialog',
@@ -11,12 +12,20 @@ export class DockingDialog {
   dockingForm: FormGroup;
   returnUrl: string;
   submitted = false;
+  newDocking: DockingStation = {
+    name: '',
+    bikes: 0,
+    capacity: 0,
+    lat: 0,
+    lng: 0,
+  };
   intro = '';
   error = '';
 
   constructor(
     private dialogRef: MatDialogRef<DockingDialog>,
     private formBuilder: FormBuilder,
+    private dockingService: DockingService,
     @Inject(MAT_DIALOG_DATA) public data: DockingStation
   ) {}
 
@@ -107,7 +116,28 @@ export class DockingDialog {
       this.error = 'Form is not complete.';
       return;
     } else {
-      //TODO: send to backend
+      if (this.data) {
+        this.newDocking.dockingId = this.data.dockingId;
+        this.newDocking.name = this.dockingForm.value.name;
+        this.newDocking.bikes = this.dockingForm.value.bikes;
+        this.newDocking.capacity = this.dockingForm.value.capacity;
+        this.newDocking.lat = this.dockingForm.value.lat;
+        this.newDocking.lng = this.dockingForm.value.lng;
+        this.dockingService
+          .updateDockingStation(this.newDocking)
+          .subscribe({ error: (e) => console.error(e) });
+      } else {
+        // new docking
+        this.newDocking.name = this.f.name.value;
+        this.newDocking.bikes = this.f.bikes.value;
+        this.newDocking.capacity = this.f.capacity.value;
+        this.newDocking.lat = this.f.lat.value;
+        this.newDocking.lng = this.f.lng.value;
+        this.dockingService
+          .createDockingStation(this.newDocking)
+          .subscribe({ error: (e) => console.error(e) });
+      }
+      //Close at the end.
       this.dialogRef.close();
     }
   }

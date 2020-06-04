@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { DockingStation } from '../models';
 
@@ -17,12 +17,20 @@ export class DockingService {
   }
 
   createDockingStation(ds: DockingStation): Observable<DockingStation> {
+    console.log(ds);
     const url = this.url + 'newDocking';
     return this.http.post<DockingStation>(url, ds);
   }
 
-  // deleteDockingStation(ds: DockingStation): Observable<any> {
-  //   const url = this.url + "deleteDocking";
-  //   return this.http.delete<any>(url, {dockingId: ds.dockingId});
-  // }
+  updateDockingStation(ds: DockingStation): Observable<DockingStation> {
+    const url = this.url + 'updateDocking';
+    return this.http.post<DockingStation>(url, ds);
+  }
+
+  deleteDockingStation(id): Observable<any> {
+    const url = this.url + 'deleteDocking';
+    return this.http.delete<any>(url, {
+      params: { dockingId: id },
+    });
+  }
 }

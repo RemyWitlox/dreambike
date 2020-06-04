@@ -69,13 +69,7 @@
       >
     </mat-form-field>
     <div mat-dialog-actions>
-      <button
-        [disabled]="!f.valid"
-        mat-button
-        class="btn"
-        cdkFocusInitial
-        (ngSubmit)="onConfirm()"
-      >
+      <button mat-button class="btn" cdkFocusInitial (ngSubmit)="onConfirm()">
         Submit
       </button>
       <button mat-button class="btn" (click)="onCancel()">Cancel</button>

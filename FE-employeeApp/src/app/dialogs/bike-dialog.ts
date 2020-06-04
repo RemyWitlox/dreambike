@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Bike, BikeType, BikeDriver } from '../models';
 import { DatePipe } from '@angular/common';
+import { BikeService } from '../services/bike.service';
 
 @Component({
   selector: 'bike-dialog',
@@ -14,6 +15,13 @@ export class BikeDialog implements OnInit {
   keys = Object.keys;
   bikeForm: FormGroup;
   returnUrl: string;
+  newBike: Bike = {
+    name: '',
+    type: BikeType.ELECTRIC,
+    driver: BikeDriver.CHILD,
+    size: 0,
+    created: new Date(),
+  };
   submitted = false;
   intro = '';
   error = '';
@@ -22,6 +30,7 @@ export class BikeDialog implements OnInit {
     private dialogRef: MatDialogRef<BikeDialog>,
     private formBuilder: FormBuilder,
     private datePipe: DatePipe,
+    private bikeService: BikeService,
     @Inject(MAT_DIALOG_DATA) public data: Bike
   ) {}
 
@@ -77,7 +86,27 @@ export class BikeDialog implements OnInit {
       this.error = 'Form is not complete.';
       return;
     } else {
-      console.log(this.bikeForm.value);
+      if (this.data) {
+        this.newBike.bikeId = this.data.bikeId;
+        this.newBike.name = this.f.name.value;
+        this.newBike.driver = this.f.driver.value;
+        this.newBike.size = this.f.size.value;
+        this.newBike.type = this.f.type.value;
+        this.newBike.created = this.f.created.value;
+        this.bikeService
+          .updateBike(this.newBike)
+          .subscribe({ error: (e) => console.error(e) });
+      } else {
+        // new docking
+        this.newBike.name = this.f.name.value;
+        this.newBike.driver = this.f.driver.value;
+        this.newBike.size = this.f.size.value;
+        this.newBike.type = this.f.type.value;
+        this.newBike.created = this.f.created.value;
+        this.bikeService
+          .createBike(this.newBike)
+          .subscribe({ error: (e) => console.error(e) });
+      }
       //TODO: send to backend
       this.dialogRef.close();
     }

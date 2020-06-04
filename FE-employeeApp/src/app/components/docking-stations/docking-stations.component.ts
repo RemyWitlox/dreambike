@@ -110,8 +110,6 @@ export class DockingStationsComponent implements OnInit {
       this.selectedDs = new DockingStation();
       this.zone.run(() => this.getDockingStations());
     });
-
-    console.log('delete: ' + ds.name);
   }
 
   public onEdit(ds) {

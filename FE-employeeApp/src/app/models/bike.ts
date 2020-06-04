@@ -3,7 +3,7 @@ import { BikeDriver } from './bikeDriver';
 import { DockingStation } from './dockingStation';
 
 export class Bike {
-  bikeId: number;
+  bikeId?: number;
   name: string;
   type: BikeType;
   driver: BikeDriver;

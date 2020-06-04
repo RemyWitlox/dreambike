@@ -7,10 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -88,7 +84,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
       String uri = new Uri.Builder()
         .scheme("http")
         .encodedAuthority("192.168.1.110:2020")
-        .path("api/getAllDocking")
+        .path("api/getAll")
         .appendQueryParameter("access_token",token)
         .build().toString();
 
