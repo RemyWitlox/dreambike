@@ -16,7 +16,7 @@
         <table matSort (matSortChange)="sortData($event)">
           <thead>
             <tr>
-              <th style="max-width: 50px;"></th>
+              <th style="max-width: 65px !important;"></th>
               <th mat-sort-header="name">Name</th>
               <th style="max-width: 50px;" mat-sort-header="active">
                 Active
@@ -45,7 +45,7 @@
               [ngClass]="{ active: ds == selectedDs }"
               (click)="onSelect(ds)"
             >
-              <td style="margin-top: -5px; max-width: 50px;">
+              <td style="margin-top: -5px; max-width: 65px !important;">
                 <button id="onEdit" class="buttonIcon" (click)="onEdit(ds)">
                   <mat-icon area-hidden="true" class="icon">edit</mat-icon>
                 </button>

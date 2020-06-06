@@ -67,16 +67,16 @@
         >Creation date is required</mat-hint
       >
     </mat-form-field>
-    <div mat-dialog-actions>
-      <button mat-button class="btn" cdkFocusInitial (ngSubmit)="onConfirm()">
-        Submit
-      </button>
-      <button mat-button [disabled]="!f.valid" class="btn" (click)="onCancel()">
-        Cancel
-      </button>
-      <p *ngIf="error" class="alert">
-        {{ error }}
-      </p>
-    </div>
   </form>
+  <div mat-dialog-actions>
+    <button mat-button class="btn" cdkFocusInitial (ngSubmit)="onConfirm()">
+      Submit
+    </button>
+    <button mat-button [disabled]="!f.valid" class="btn" (click)="onCancel()">
+      Cancel
+    </button>
+    <p *ngIf="error" class="alert">
+      {{ error }}
+    </p>
+  </div>
 </div>

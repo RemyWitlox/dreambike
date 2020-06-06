@@ -33,6 +33,15 @@ export class DockingStationsComponent implements OnInit {
   // google maps zoom level
   public zoom: number;
   public selectedDs: DockingStation;
+  public newDocking: DockingStation = {
+    dockingId: 0,
+    name: '',
+    bikes: 0,
+    capacity: 0,
+    lat: 0,
+    lng: 0,
+    active: true,
+  };
 
   constructor(
     private dialog: MatDialog,
@@ -94,9 +103,29 @@ export class DockingStationsComponent implements OnInit {
     console.log(`clicked the marker: ${name || id}`);
   }
 
-  public setActive(i) {
-    // TODO : set change to backend
-    // TODO : subscribe new dockingStations.
+  public setActive(ds: DockingStation) {
+    this.newDocking.dockingId = ds.dockingId;
+    this.newDocking.name = ds.name;
+    this.newDocking.bikes = ds.bikes;
+    this.newDocking.capacity = ds.capacity;
+    this.newDocking.lat = ds.lat;
+    this.newDocking.lng = ds.lng;
+    if (ds.active) {
+      this.newDocking.active = false;
+    } else {
+      this.newDocking.active = true;
+    }
+    this.dockingService.updateDockingStation(this.newDocking).subscribe(
+      (result) => {
+        console.log(result);
+      },
+      (error) => {
+        console.error(error);
+      },
+      () => {
+        this.getDockingStations();
+      }
+    );
   }
 
   public onDelete(ds): void {
