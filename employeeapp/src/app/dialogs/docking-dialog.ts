@@ -123,9 +123,15 @@ export class DockingDialog {
         this.newDocking.lat = this.dockingForm.value.lat;
         this.newDocking.lng = this.dockingForm.value.lng;
         console.log(this.newDocking);
-        this.dockingService
-          .updateDockingStation(this.newDocking)
-          .subscribe({ error: (e) => console.error(e) });
+        this.dockingService.updateDockingStation(this.newDocking).subscribe(
+          () => {},
+          (error) => {
+            console.error(error);
+          },
+          () => {
+            this.dialogRef.close();
+          }
+        );
       } else {
         // new docking
         this.newDocking.name = this.f.name.value;
@@ -133,11 +139,16 @@ export class DockingDialog {
         this.newDocking.capacity = this.f.capacity.value;
         this.newDocking.lat = this.f.lat.value;
         this.newDocking.lng = this.f.lng.value;
-        this.dockingService
-          .createDockingStation(this.newDocking)
-          .subscribe({ error: (e) => console.error(e) });
+        this.dockingService.createDockingStation(this.newDocking).subscribe(
+          () => {},
+          (error) => {
+            console.error(error);
+          },
+          () => {
+            this.dialogRef.close();
+          }
+        );
       }
-      this.dialogRef.close();
     }
   }
 }

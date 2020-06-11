@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { Bike } from 'src/app/models/bike';
 import { BikeType } from 'src/app/models/bikeType';
@@ -6,6 +6,7 @@ import { BikeDriver } from 'src/app/models/bikeDriver';
 import { BikeDialog, DeleteDialog } from 'src/app/dialogs';
 import { MatDialog } from '@angular/material/dialog';
 import { BikeDockDialog } from 'src/app/dialogs/bikeDock-dialog';
+import { BikeService } from 'src/app/services/bike.service';
 
 @Component({
   selector: 'app-bikes',
@@ -17,63 +18,42 @@ export class BikesComponent {
   sortedData: Bike[];
   selectedBike: Bike;
 
-  constructor(public dialog: MatDialog) {
-    this.bikes = [
-      {
-        bikeId: 1,
-        name: 'Polygon Heist 2.0',
-        type: BikeType.ELECTRIC,
-        driver: BikeDriver.FEMALE,
-        size: 24,
-        created: new Date('2019-05-17'),
-      },
-      {
-        bikeId: 2,
-        name: '2020 Path E5 Shimano E5000',
-        type: BikeType.ELECTRIC,
-        driver: BikeDriver.FEMALE,
-        size: 22,
-        created: new Date('2019-09-17'),
-      },
-      {
-        bikeId: 3,
-        name: 'Polygon Sierra AX',
-        type: BikeType.ROAD,
-        driver: BikeDriver.MALE,
-        size: 26,
-        created: new Date('2018-07-14'),
-      },
-      {
-        bikeId: 4,
-        name: '2020 Path E5 Shimano E5000',
-        type: BikeType.ELECTRIC,
-        driver: BikeDriver.MALE,
-        size: 24,
-        created: new Date('2018-03-02'),
-      },
-      {
-        bikeId: 5,
-        name: 'Trek Mountain Train',
-        type: BikeType.MOUNTAIN,
-        driver: BikeDriver.CHILD,
-        size: 14,
-        created: new Date('2018-11-21'),
-      },
-      {
-        bikeId: 6,
-        name: 'Trek Mountain Train',
-        type: BikeType.MOUNTAIN,
-        driver: BikeDriver.CHILD,
-        size: 12,
-        created: new Date('2017-01-06'),
-      },
-    ];
-    this.sortedData = this.bikes.sort((a, b) => {
-      return compare(a.bikeId, b.bikeId, true);
-    });
+  constructor(
+    public dialog: MatDialog,
+    public zone: NgZone,
+    public bikeService: BikeService
+  ) {
+    this.zone.run(() => this.getBikes());
   }
 
-  onSelect(bike) {
+  public getType(type) {
+    const t: String = BikeType[type];
+    return t;
+  }
+
+  public getDriver(driver) {
+    const d: String = BikeDriver[driver];
+    return d;
+  }
+
+  public getBikes(): void {
+    this.bikeService.getBikes().subscribe(
+      (bikes) => {
+        console.log(bikes);
+
+        this.bikes = bikes;
+        this.sortedData = bikes.sort((a, b) => {
+          return compare(a.bikeId, b.bikeId, true);
+        });
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+    this.selectedBike = new Bike();
+  }
+
+  public onSelect(bike) {
     if (this.selectedBike === bike) {
       this.selectedBike = new Bike();
       return;
@@ -82,7 +62,7 @@ export class BikesComponent {
     }
   }
 
-  onEdit(bike) {
+  public onEdit(bike) {
     const dialogRef = this.dialog.open(BikeDialog, {
       panelClass: 'dialog',
       width: '300px',
@@ -90,12 +70,12 @@ export class BikesComponent {
       data: bike,
     });
     dialogRef.afterClosed().subscribe(() => {
-      // navigate back to bike
-      // get bikes again form backend.
+      this.selectedBike = new Bike();
+      this.zone.run(() => this.getBikes());
     });
   }
 
-  onDelete(bike) {
+  public onDelete(bike) {
     const deleteRef = this.dialog.open(DeleteDialog, {
       panelClass: 'dialog',
       width: '300px',
@@ -104,11 +84,11 @@ export class BikesComponent {
     });
     deleteRef.afterClosed().subscribe(() => {
       this.selectedBike = new Bike();
-      // get bikes again from backend.
+      this.zone.run(() => this.getBikes());
     });
   }
 
-  onAdd(): void {
+  public onAdd(): void {
     const dialogRef = this.dialog.open(BikeDialog, {
       panelClass: 'dialog',
       width: '300px',
@@ -116,12 +96,12 @@ export class BikesComponent {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      // route back to bikes
-      // get bikes again from backend.
+      this.selectedBike = new Bike();
+      this.zone.run(() => this.getBikes());
     });
   }
 
-  onDocking(bike): void {
+  public onDocking(bike): void {
     const dialogRef = this.dialog.open(BikeDockDialog, {
       panelClass: 'dialog',
       width: '400px',
@@ -130,12 +110,12 @@ export class BikesComponent {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      // route back to bikes
-      // get bikes again from backend.
+      this.selectedBike = new Bike();
+      this.zone.run(() => this.getBikes());
     });
   }
 
-  sortData(sort: Sort) {
+  public sortData(sort: Sort) {
     const data = this.sortedData;
     if (!sort.active || sort.direction === '') {
       this.sortedData = data;

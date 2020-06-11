@@ -61,7 +61,7 @@ export class DockingStationsComponent implements OnInit {
     this.dockingService.getDockingStations().subscribe(
       (ds) => {
         this.dockingStations = ds;
-        this.sortedData = this.dockingStations.sort((a, b) => {
+        this.sortedData = ds.sort((a, b) => {
           return compare(a.dockingId, b.dockingId, true);
         });
       },
@@ -103,7 +103,7 @@ export class DockingStationsComponent implements OnInit {
     console.log(`clicked the marker: ${name || id}`);
   }
 
-  public setActive(ds: DockingStation) {
+  public async setActive(ds: DockingStation) {
     this.newDocking.dockingId = ds.dockingId;
     this.newDocking.name = ds.name;
     this.newDocking.bikes = ds.bikes;
@@ -116,8 +116,7 @@ export class DockingStationsComponent implements OnInit {
       this.newDocking.active = false;
     }
     this.dockingService.updateDockingStation(this.newDocking).subscribe(
-      (result) => {
-        console.log(result);
+      () => {
         this.zone.run(() => this.getDockingStations());
       },
       (error) => {
@@ -148,8 +147,8 @@ export class DockingStationsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      this.router.navigate(['dockingStations']);
-      this.zone.run(() => this.getDockingStations());
+      this.selectedDs = new DockingStation();
+      this.getDockingStations();
     });
   }
 

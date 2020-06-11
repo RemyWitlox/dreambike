@@ -31,9 +31,7 @@ export class BikeService {
   }
 
   deleteBike(id): Observable<any> {
-    const url = this.url + 'deleteBike';
-    return this.http.delete<any>(url, {
-      params: { bikeId: id },
-    });
+    const url = this.url + 'deleteBike/' + id.toString();
+    return this.http.delete<any>(url);
   }
 }

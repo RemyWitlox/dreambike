@@ -19,14 +19,17 @@ export class DeleteDialog {
 
   onConfirm(data) {
     if (data.name != '') {
-      this.dockingService
-        .deleteDockingStation(data.dockingId)
-        .subscribe({ error: (e) => console.error(e) });
-      console.log('Delete: ' + data.name);
+      this.dockingService.deleteDockingStation(data.dockingId).subscribe(
+        () => {
+          this.dialogRef.close();
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
       // TODO: send to backend.
     } else {
       return;
     }
-    this.dialogRef.close();
   }
 }

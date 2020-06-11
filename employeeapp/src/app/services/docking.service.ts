@@ -23,14 +23,12 @@ export class DockingService {
   }
 
   updateDockingStation(ds: DockingStation): Observable<DockingStation> {
-    console.log('ds: ', ds);
-
     const url = this.url + 'updateDocking';
     return this.http.put<DockingStation>(url, ds);
   }
 
   deleteDockingStation(id): Observable<any> {
-    const url = this.url + 'deleteDocking';
-    return this.http.delete<any>(url, id);
+    const url = this.url + 'deleteDocking/' + id.toString();
+    return this.http.delete<any>(url);
   }
 }

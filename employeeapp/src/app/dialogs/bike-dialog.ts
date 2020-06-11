@@ -93,9 +93,14 @@ export class BikeDialog implements OnInit {
         this.newBike.size = this.f.size.value;
         this.newBike.type = this.f.type.value;
         this.newBike.created = this.f.created.value;
-        this.bikeService
-          .updateBike(this.newBike)
-          .subscribe({ error: (e) => console.error(e) });
+        this.bikeService.updateBike(this.newBike).subscribe(
+          () => {
+            this.dialogRef.close();
+          },
+          (error) => {
+            console.error(error);
+          }
+        );
       } else {
         // new docking
         this.newBike.name = this.f.name.value;
@@ -103,9 +108,14 @@ export class BikeDialog implements OnInit {
         this.newBike.size = this.f.size.value;
         this.newBike.type = this.f.type.value;
         this.newBike.created = this.f.created.value;
-        this.bikeService
-          .createBike(this.newBike)
-          .subscribe({ error: (e) => console.error(e) });
+        this.bikeService.createBike(this.newBike).subscribe(
+          () => {
+            this.dialogRef.close();
+          },
+          (error) => {
+            console.error(error);
+          }
+        );
       }
       //TODO: send to backend
       this.dialogRef.close();
