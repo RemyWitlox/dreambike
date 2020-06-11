@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Bike } from '../models';
 
@@ -27,7 +27,11 @@ export class BikeService {
   }
 
   deleteBike(id): Observable<any> {
-    const url = this.url + 'deleteBike/' + id.toString();
-    return this.http.delete<any>(url);
+    const url = this.url + 'deleteBike/' + id;
+    return this.http.delete<any>(url, {
+      params: {
+        bikeId: id,
+      },
+    });
   }
 }

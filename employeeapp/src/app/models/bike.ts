@@ -9,5 +9,6 @@ export class Bike {
   driver: BikeDriver;
   size: number;
   created: Date;
+  broken?: boolean;
   docking?: DockingStation;
 }
