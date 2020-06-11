@@ -109,24 +109,34 @@ export class DockingDialog {
   }
 
   async onConfirm() {
+    console.log('knopje gedrukt');
+
     this.submitted = true;
     this.error = '';
 
     if (this.dockingForm.invalid) {
+      console.log('form not complete');
+
       this.error = 'Form is not complete.';
       return;
     } else {
+      console.log('else');
+
       if (this.data) {
+        console.log('er is data');
         this.newDocking.dockingId = this.data.dockingId;
         this.newDocking.name = this.dockingForm.value.name;
         this.newDocking.bikes = this.dockingForm.value.bikes;
         this.newDocking.capacity = this.dockingForm.value.capacity;
         this.newDocking.lat = this.dockingForm.value.lat;
         this.newDocking.lng = this.dockingForm.value.lng;
+        console.log(this.newDocking);
         this.dockingService
           .updateDockingStation(this.newDocking)
           .subscribe({ error: (e) => console.error(e) });
       } else {
+        console.log('geen data, nieuwe ds');
+
         // new docking
         this.newDocking.name = this.f.name.value;
         this.newDocking.bikes = this.f.bikes.value;
@@ -138,6 +148,8 @@ export class DockingDialog {
           .subscribe({ error: (e) => console.error(e) });
       }
       //Close at the end.
+      console.log('sluiten');
+
       this.dialogRef.close();
     }
   }

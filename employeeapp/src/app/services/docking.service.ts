@@ -23,6 +23,8 @@ export class DockingService {
   }
 
   updateDockingStation(ds: DockingStation): Observable<DockingStation> {
+    console.log('ds: ', ds);
+
     const url = this.url + 'updateDocking';
     return this.http.put<DockingStation>(url, ds);
   }

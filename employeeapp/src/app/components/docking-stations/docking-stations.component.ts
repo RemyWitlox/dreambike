@@ -111,9 +111,9 @@ export class DockingStationsComponent implements OnInit {
     this.newDocking.lat = ds.lat;
     this.newDocking.lng = ds.lng;
     if (ds.active) {
-      this.newDocking.active = false;
-    } else {
       this.newDocking.active = true;
+    } else {
+      this.newDocking.active = false;
     }
     this.dockingService.updateDockingStation(this.newDocking).subscribe(
       (result) => {
