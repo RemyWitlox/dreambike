@@ -118,12 +118,10 @@ export class DockingStationsComponent implements OnInit {
     this.dockingService.updateDockingStation(this.newDocking).subscribe(
       (result) => {
         console.log(result);
+        this.zone.run(() => this.getDockingStations());
       },
       (error) => {
         console.error(error);
-      },
-      () => {
-        this.getDockingStations();
       }
     );
   }
