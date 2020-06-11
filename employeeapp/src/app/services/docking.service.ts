@@ -28,7 +28,11 @@ export class DockingService {
   }
 
   deleteDockingStation(id): Observable<any> {
-    const url = this.url + 'deleteDocking/' + id.toString();
-    return this.http.delete<any>(url);
+    const url = this.url + 'deleteDocking/' + id;
+    return this.http.delete<any>(url, {
+      params: {
+        dockingId: id,
+      },
+    });
   }
 }
