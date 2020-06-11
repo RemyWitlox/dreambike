@@ -18,9 +18,7 @@ export class BikeService {
 
   createBike(bike: Bike): Observable<Bike> {
     const url = this.url + 'newBike';
-    return this.http.post<Bike>(url, {
-      params: bike,
-    });
+    return this.http.post<Bike>(url, bike);
   }
 
   updateBike(bike: Bike): Observable<Bike> {

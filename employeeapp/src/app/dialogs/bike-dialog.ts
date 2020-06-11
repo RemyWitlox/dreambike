@@ -89,9 +89,9 @@ export class BikeDialog implements OnInit {
       if (this.data) {
         this.newBike.bikeId = this.data.bikeId;
         this.newBike.name = this.f.name.value;
-        this.newBike.driver = this.f.driver.value;
+        this.newBike.driver = this.f.driver.value.toString().toUpperCase();
         this.newBike.size = this.f.size.value;
-        this.newBike.type = this.f.type.value;
+        this.newBike.type = this.f.type.value.toString().toUpperCase();
         this.newBike.created = this.f.created.value;
         this.bikeService.updateBike(this.newBike).subscribe(
           () => {
@@ -104,9 +104,9 @@ export class BikeDialog implements OnInit {
       } else {
         // new docking
         this.newBike.name = this.f.name.value;
-        this.newBike.driver = this.f.driver.value;
+        this.newBike.driver = this.f.driver.value.toString().toUpperCase();
         this.newBike.size = this.f.size.value;
-        this.newBike.type = this.f.type.value;
+        this.newBike.type = this.f.type.value.toString().toUpperCase();
         this.newBike.created = this.f.created.value;
         this.bikeService.createBike(this.newBike).subscribe(
           () => {
