@@ -23,9 +23,7 @@ export class BikeService {
 
   updateBike(bike: Bike): Observable<Bike> {
     const url = this.url + 'updateBike';
-    return this.http.post<Bike>(url, {
-      params: bike,
-    });
+    return this.http.put<Bike>(url, bike);
   }
 
   deleteBike(id): Observable<any> {

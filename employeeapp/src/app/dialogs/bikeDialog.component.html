@@ -72,7 +72,7 @@
     <button mat-button class="btn" cdkFocusInitial (click)="onConfirm()">
       Submit
     </button>
-    <button mat-button [disabled]="!f.valid" class="btn" (click)="onCancel()">
+    <button mat-button class="btn" (click)="onCancel()">
       Cancel
     </button>
     <p *ngIf="error" class="alert">

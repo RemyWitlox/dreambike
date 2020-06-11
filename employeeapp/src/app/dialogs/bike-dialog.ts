@@ -51,10 +51,10 @@ export class BikeDialog implements OnInit {
       this.bikeForm.controls['name'].setValue(this.data.name, {
         onlySelf: true,
       });
-      this.bikeForm.controls['type'].setValue(this.data.type, {
+      this.bikeForm.controls['type'].setValue(BikeType[this.data.type], {
         onlySelf: true,
       });
-      this.bikeForm.controls['driver'].setValue(this.data.driver, {
+      this.bikeForm.controls['driver'].setValue(BikeDriver[this.data.driver], {
         onlySelf: true,
       });
       this.bikeForm.controls['size'].setValue(this.data.size, {
