@@ -85,7 +85,7 @@ export class BikeDockDialog {
     this.submitted = true;
     this.error = '';
 
-    if (this.bikeDockForm.invalid) {
+    if (this.f.invalid || this.f.docking.value == '') {
       this.error = 'Form is not complete.';
       return;
     } else if (this.bikeDockForm.get('docking').value == this.data.docking) {

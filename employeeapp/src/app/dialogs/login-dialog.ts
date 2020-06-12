@@ -52,7 +52,11 @@ export class LoginDialog {
     this.submitted = true;
     this.error = '';
 
-    if (this.loginForm.invalid) {
+    if (
+      this.loginForm.invalid ||
+      this.f.username.value == '' ||
+      this.f.password.value == ''
+    ) {
       this.error = 'Please enter your username and password.';
       return;
     } else {
@@ -73,6 +77,7 @@ export class LoginDialog {
         },
         (error) => {
           this.error = 'Your username or password is incorrect.';
+          return;
         }
       );
   }

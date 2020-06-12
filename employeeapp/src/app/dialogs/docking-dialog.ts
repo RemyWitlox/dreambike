@@ -111,17 +111,24 @@ export class DockingDialog {
   async onConfirm() {
     this.submitted = true;
     this.error = '';
-    if (this.dockingForm.invalid) {
+    if (
+      this.dockingForm.invalid ||
+      this.f.name.value == '' ||
+      this.f.bikes.value == '' ||
+      this.f.capacity.value == '' ||
+      this.f.lat.value == '' ||
+      this.f.lng.value == ''
+    ) {
       this.error = 'Form is not complete.';
       return;
     } else {
       if (this.data) {
         this.newDocking.dockingId = this.data.dockingId;
-        this.newDocking.name = this.dockingForm.value.name;
-        this.newDocking.bikes = this.dockingForm.value.bikes;
-        this.newDocking.capacity = this.dockingForm.value.capacity;
-        this.newDocking.lat = this.dockingForm.value.lat;
-        this.newDocking.lng = this.dockingForm.value.lng;
+        this.newDocking.name = this.f.name.value;
+        this.newDocking.bikes = this.f.bikes.value;
+        this.newDocking.capacity = this.f.capacity.value;
+        this.newDocking.lat = this.f.lat.value;
+        this.newDocking.lng = this.f.lng.value;
         console.log(this.newDocking);
         this.dockingService.updateDockingStation(this.newDocking).subscribe(
           (succes) => {

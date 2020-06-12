@@ -82,7 +82,14 @@ export class BikeDialog implements OnInit {
     this.submitted = true;
     this.error = '';
 
-    if (this.bikeForm.invalid) {
+    if (
+      this.bikeForm.invalid ||
+      this.f.name.value == '' ||
+      this.f.driver.value.toString() == '' ||
+      this.f.size.value == '' ||
+      this.f.type.value.toString() == '' ||
+      this.f.created.value == ''
+    ) {
       this.error = 'Form is not complete.';
       return;
     } else if (this.data) {

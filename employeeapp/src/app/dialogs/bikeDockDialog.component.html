@@ -36,13 +36,7 @@
       mat-dialog-actions
       style="margin-top: 75px; display: block !important;"
     >
-      <button
-        mat-button
-        class="btn"
-        [disabled]="!f.valid"
-        cdkFocusInitial
-        (ngSubmit)="onConfirm()"
-      >
+      <button mat-button class="btn" cdkFocusInitial (ngSubmit)="onConfirm()">
         Submit
       </button>
       <button mat-button class="btn" (click)="onCancel()">Cancel</button>
