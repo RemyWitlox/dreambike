@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  NgZone,
-} from '@angular/core';
+import { Component } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { DockingStation } from '../../models';
 import { NgbTypeaheadConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -12,7 +7,6 @@ import { debounceTime, map } from 'rxjs/operators';
 import { DockingDialog } from 'src/app/dialogs/docking-dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialog } from '../../dialogs';
-import { Router } from '@angular/router';
 import { DockingService } from 'src/app/services/docking.service';
 
 @Component({
@@ -20,13 +14,13 @@ import { DockingService } from 'src/app/services/docking.service';
   templateUrl: './docking-stations.component.html',
   styleUrls: ['./docking-stations.component.scss'],
   providers: [NgbTypeaheadConfig],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DockingStationsComponent implements OnInit {
+export class DockingStationsComponent {
   public model: DockingStation;
   public dockingStations: DockingStation[];
   public sortedData: DockingStation[];
-  public loading: boolean = false;
+  public loading: boolean;
+  public error: boolean;
 
   public address: string;
   public lat: number = 51.441262;
@@ -47,9 +41,9 @@ export class DockingStationsComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private dockingService: DockingService
-  ) {}
-
-  public ngOnInit() {
+  ) {
+    this.error = false;
+    this.loading = false;
     this.getDockingStations();
     this.setLocation(51.44083, 5.47778);
     this.zoom = 12;
@@ -66,6 +60,8 @@ export class DockingStationsComponent implements OnInit {
         });
       },
       (err) => {
+        this.loading = false;
+        this.error = true;
         console.log(err);
       },
       () => {

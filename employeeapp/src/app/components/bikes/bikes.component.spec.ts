@@ -10,7 +10,7 @@ import { BikesComponent } from './bikes.component';
 import { BikeDialog } from 'src/app/dialogs';
 import { By } from '@angular/platform-browser';
 import { Bike, BikeType, BikeDriver } from 'src/app/models';
-import { formatDate } from '@angular/common';
+import { formatDate, APP_BASE_HREF } from '@angular/common';
 
 export class MatDialogMock {
   // When the component calls this.dialog.open(...) we'll return an object
@@ -26,32 +26,6 @@ describe('BikesComponent', () => {
   let component: BikesComponent;
   let element: HTMLElement;
   let fixture: ComponentFixture<BikesComponent>;
-  let testData: Bike[] = [
-    {
-      bikeId: 1,
-      name: 'Bike1',
-      type: BikeType.ELECTRIC,
-      driver: BikeDriver.FEMALE,
-      size: 24,
-      created: new Date(),
-    },
-    {
-      bikeId: 2,
-      name: 'Bike2',
-      type: BikeType.HYBRID,
-      driver: BikeDriver.MALE,
-      size: 28,
-      created: new Date(),
-    },
-    {
-      bikeId: 3,
-      name: 'Bike3',
-      type: BikeType.MOUNTAIN,
-      driver: BikeDriver.CHILD,
-      size: 14,
-      created: new Date(),
-    },
-  ];
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -64,13 +38,15 @@ describe('BikesComponent', () => {
         FlexLayoutModule,
       ],
       declarations: [BikesComponent, BikeDialog],
-      providers: [{ provide: MatDialog, useClass: MatDialogMock }],
+      providers: [
+        { provide: MatDialog, useClass: MatDialogMock },
+        { provide: APP_BASE_HREF, useValue: '/' },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(BikesComponent);
     component = fixture.componentInstance; // The component instantiation
     element = fixture.nativeElement; // The HTML reference
-    component.sortedData = testData;
   }));
 
   beforeEach(async () => {
@@ -88,7 +64,7 @@ describe('BikesComponent', () => {
       fixture.detectChanges();
 
       let tableRows = fixture.nativeElement.querySelectorAll('tr');
-      expect(tableRows.length).toBe(5);
+      expect(tableRows.length).toBe(8);
 
       // Header row
       let headerRow = tableRows[0];
@@ -102,13 +78,11 @@ describe('BikesComponent', () => {
       // Data rows
       let row1 = tableRows[1];
       expect(row1.cells[1].innerHTML).toContain('1');
-      expect(row1.cells[2].innerHTML).toContain('Bike1');
+      expect(row1.cells[2].innerHTML).toContain('Polygon Heist 2.0');
       expect(row1.cells[3].innerHTML).toContain('Electric');
       expect(row1.cells[4].innerHTML).toContain('Female');
       expect(row1.cells[5].innerHTML).toContain('24');
-      expect(row1.cells[6].innerHTML).toContain(
-        formatDate(new Date(), 'dd-MM-yyyy', 'en-US')
-      );
+      expect(row1.cells[6].innerHTML).toContain('01-04-2019');
       done();
     });
   });

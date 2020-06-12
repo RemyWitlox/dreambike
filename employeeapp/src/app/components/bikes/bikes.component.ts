@@ -17,13 +17,16 @@ export class BikesComponent {
   public bikes: Bike[];
   public sortedData: Bike[];
   public selectedBike: Bike;
-  public loading: boolean = false;
+  public loading: boolean;
+  public error: boolean;
 
   constructor(
     public dialog: MatDialog,
     public zone: NgZone,
     public bikeService: BikeService
   ) {
+    this.error = false;
+    this.loading = false;
     this.zone.run(() => this.getBikes());
   }
 

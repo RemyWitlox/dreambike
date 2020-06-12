@@ -11,8 +11,9 @@ import {
 } from '@angular/platform-browser/animations';
 import { DockingStationsComponent } from './docking-stations.component';
 import { By } from '@angular/platform-browser';
-import { MatTabsModule, MatTabGroup } from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
 import { DockingStation } from 'src/app/models';
+import { APP_BASE_HREF, DatePipe } from '@angular/common';
 
 export class MatDialogMock {
   // When the component calls this.dialog.open(...) we'll return an object
@@ -28,14 +29,13 @@ describe('DockingStationsComponent', () => {
   let component: DockingStationsComponent;
   let element: HTMLElement;
   let fixture: ComponentFixture<DockingStationsComponent>;
-  const expectedTabLabels = ['Table', 'Map'];
   const testData: DockingStation[] = [
     {
       dockingId: 1,
       name: 'Docking1',
       bikes: 1,
       capacity: 2,
-      active: true,
+      active: false,
       lat: 51.6456,
       lng: 61.55492,
     },
@@ -72,16 +72,20 @@ describe('DockingStationsComponent', () => {
         NoopAnimationsModule,
       ],
       declarations: [DockingStationsComponent],
-      providers: [{ provide: MatDialog, useClass: MatDialogMock }],
+      providers: [
+        { provide: MatDialog, useClass: MatDialogMock },
+        { provide: APP_BASE_HREF, useValue: '/' },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DockingStationsComponent);
     component = fixture.componentInstance; // The component instantiation
     element = fixture.nativeElement; // The HTML reference
+    component.sortedData = testData;
+    component.dockingStations = testData;
   });
 
   beforeEach(async () => {
-    component.ngOnInit();
     await fixture.whenStable();
     fixture.detectChanges();
 
@@ -108,7 +112,7 @@ describe('DockingStationsComponent', () => {
       fixture.detectChanges();
 
       let tableRows = fixture.nativeElement.querySelectorAll('tr');
-      expect(tableRows.length).toBe(5);
+      expect(tableRows.length).toBe(16);
 
       // Header row
       let headerRow = tableRows[0];
@@ -123,14 +127,13 @@ describe('DockingStationsComponent', () => {
       // Data rows
       //{ dockingId: 1, name: "Docking1", bikes: 1, capacity: 2, active: true, lat: 51.6456, lng: 61.55492 },
       let row1 = tableRows[1];
-      expect(row1.cells[1].innerHTML).toContain('Docking1');
+      expect(row1.cells[1].innerHTML).toContain('Centrum Eindhoven');
       expect(row1.cells[2].innerHTML).toContain('true');
       expect(row1.cells[3].innerHTML).toContain('1');
       expect(row1.cells[4].innerHTML).toContain('1');
       expect(row1.cells[5].innerHTML).toContain('2');
-      expect(row1.cells[6].innerHTML).toContain('51.6456');
-      expect(row1.cells[7].innerHTML).toContain('61.55492');
-
+      expect(row1.cells[6].innerHTML).toContain('51.441262');
+      expect(row1.cells[7].innerHTML).toContain('5.447672');
       done();
     });
   });
@@ -144,18 +147,26 @@ describe('DockingStationsComponent', () => {
   });
 
   it('should open the dialog on edit', () => {
-    fixture.detectChanges();
-    spyOn(component, 'onEdit');
-    element = fixture.debugElement.query(By.css('#onEdit')).nativeElement;
-    element.click();
-    expect(component.onEdit).toHaveBeenCalled();
+    fixture.whenRenderingDone().then(() => {
+      spyOn(component, 'onEdit');
+      let btn = fixture.debugElement.nativeElement.querySelector('#onEdit');
+      btn.click();
+      fixture.whenStable().then(() => {
+        expect(component.onEdit).toHaveBeenCalled();
+      });
+      alert(1);
+    });
   });
 
   it('should open the dialog on delete', () => {
-    fixture.detectChanges();
-    spyOn(component, 'onDelete');
-    element = fixture.debugElement.query(By.css('#onDelete')).nativeElement;
-    element.click();
-    expect(component.onDelete).toHaveBeenCalled();
+    fixture.whenRenderingDone().then(() => {
+      spyOn(component, 'onDelete');
+      let btn = fixture.debugElement.nativeElement.querySelector('#onDelete');
+      btn.click();
+      fixture.whenStable().then(() => {
+        expect(component.onDelete).toHaveBeenCalled();
+      });
+      alert(1);
+    });
   });
 });

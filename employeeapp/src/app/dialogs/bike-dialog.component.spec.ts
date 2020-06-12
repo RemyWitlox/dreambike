@@ -12,9 +12,10 @@ import {
   inject,
 } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { MaterialModule } from 'src/material-module';
+import { DatePipe } from '@angular/common';
 
 describe('Add/Edit Bike Dialog', () => {
   let dialog: MatDialog;
@@ -27,7 +28,13 @@ describe('Add/Edit Bike Dialog', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [BrowserAnimationsModule, ReactiveFormsModule, MaterialModule],
+      imports: [
+        BrowserAnimationsModule,
+        ReactiveFormsModule,
+        MaterialModule,
+        FormsModule,
+        DatePipe,
+      ],
       providers: [
         { provide: MatDialogRef, useValue: mockDialogRef },
         {
@@ -47,6 +54,9 @@ describe('Add/Edit Bike Dialog', () => {
     });
 
     TestBed.compileComponents();
+    fixture = TestBed.createComponent(BikeDialog);
+    component = fixture.componentInstance;
+    component.ngOnInit();
   }));
 
   beforeEach(inject(
@@ -61,18 +71,7 @@ describe('Add/Edit Bike Dialog', () => {
     overlayContainer.ngOnDestroy();
   });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(BikeDialog);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  it('form invalid when empty', () => {
+    expect(component.bikeForm.valid).toBeFalsy();
   });
-
-  // it('should create', () => {
-  //   expect(component).toBeTruthy();
-  // });
-
-  // it('onCancel should close the dialog', () => {
-  //   component.onCancel();
-  //   expect(mockDialogRef.close).toHaveBeenCalled();
-  // });
 });

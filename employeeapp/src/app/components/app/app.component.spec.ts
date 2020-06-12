@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MaterialModule } from 'src/material-module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
+import { APP_BASE_HREF } from '@angular/common';
 
 export class MatDialogMock {
   // When the component calls this.dialog.open(...) we'll return an object
@@ -37,7 +38,13 @@ describe('AppComponent', () => {
         HttpClientModule,
         FlexLayoutModule,
       ],
-      providers: [{ provide: MatDialog, useClass: MatDialogMock }],
+      providers: [
+        {
+          provide: MatDialog,
+          useClass: MatDialogMock,
+        },
+        { provide: APP_BASE_HREF, useValue: '/' },
+      ],
       declarations: [AppComponent],
     }).compileComponents();
 

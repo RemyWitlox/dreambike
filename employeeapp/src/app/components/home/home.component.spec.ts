@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from 'src/app/router/app-routing.module';
 import { By } from '@angular/platform-browser';
 import { ReceiveUser, Role } from 'src/app/models';
+import { APP_BASE_HREF } from '@angular/common';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -20,6 +21,7 @@ describe('HomeComponent', () => {
     TestBed.configureTestingModule({
       declarations: [HomeComponent],
       imports: [HttpClientModule, AppRoutingModule],
+      providers: [{ provide: APP_BASE_HREF, useValue: '/' }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HomeComponent);

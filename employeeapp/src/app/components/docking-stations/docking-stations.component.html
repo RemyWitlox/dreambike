@@ -12,11 +12,17 @@
         >
       </mat-button-toggle-group>
       <hr />
-      <div *ngIf="loading">
+      <div *ngIf="loading && !error">
         <p>Loading,... Please wait.</p>
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
       </div>
-      <div id="maintable" *ngIf="!loading">
+      <div *ngIf="error && !loading">
+        <p>
+          There is no connection to the database. Please try again or contact
+          us.
+        </p>
+      </div>
+      <div id="maintable" *ngIf="!loading && !error">
         <table matSort (matSortChange)="sortData($event)">
           <thead>
             <tr>
