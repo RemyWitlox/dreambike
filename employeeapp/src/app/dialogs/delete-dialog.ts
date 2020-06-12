@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DockingService } from '../services/docking.service';
-import { BikeService } from '../services/bike.service';
+import { DockingService } from '../services';
+import { BikeService } from '../services';
 
 @Component({
   selector: 'delete-dialog',
@@ -23,27 +23,32 @@ export class DeleteDialog {
     if (data.name != '') {
       if (data.dockingId) {
         this.dockingService.deleteDockingStation(data.dockingId).subscribe(
-          () => {
-            this.dialogRef.close();
+          (succes) => {
+            console.log(succes);
           },
           (error) => {
             console.error(error);
+          },
+          () => {
+            this.dialogRef.close();
           }
         );
       } else if (data.bikeId) {
         this.bikeService.deleteBike(data.bikeId).subscribe(
-          () => {
-            this.dialogRef.close();
+          (succes) => {
+            console.log(succes);
           },
           (error) => {
             console.error(error);
+          },
+          () => {
+            this.dialogRef.close();
           }
         );
       }
       // TODO: send to backend.
     } else {
       console.log('ERROR');
-
       return;
     }
   }

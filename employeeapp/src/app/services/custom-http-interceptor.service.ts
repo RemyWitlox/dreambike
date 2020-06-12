@@ -4,7 +4,6 @@ import {
   HttpEvent,
   HttpHandler,
   HttpRequest,
-  HttpHeaders,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -26,7 +25,7 @@ export class CustomHttpInterceptorService implements HttpInterceptor {
     //   });
     //   return next.handle(req.clone({ headers: myheaders }));
     // } else {
-    return next.handle(req.clone());
+    return next.handle(req);
     // }
   }
 }

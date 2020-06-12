@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Bike, BikeType, BikeDriver } from '../models';
 import { DatePipe } from '@angular/common';
-import { BikeService } from '../services/bike.service';
+import { BikeService } from '../services';
 
 @Component({
   selector: 'bike-dialog',
@@ -85,40 +85,42 @@ export class BikeDialog implements OnInit {
     if (this.bikeForm.invalid) {
       this.error = 'Form is not complete.';
       return;
+    } else if (this.data) {
+      this.newBike.bikeId = this.data.bikeId;
+      this.newBike.name = this.f.name.value;
+      this.newBike.driver = this.f.driver.value.toString().toUpperCase();
+      this.newBike.size = this.f.size.value;
+      this.newBike.type = this.f.type.value.toString().toUpperCase();
+      this.newBike.created = this.f.created.value;
+      this.bikeService.updateBike(this.newBike).subscribe(
+        (succes) => {
+          console.log(succes);
+        },
+        (error) => {
+          console.error(error);
+        },
+        () => {
+          this.dialogRef.close();
+        }
+      );
     } else {
-      if (this.data) {
-        this.newBike.bikeId = this.data.bikeId;
-        this.newBike.name = this.f.name.value;
-        this.newBike.driver = this.f.driver.value.toString().toUpperCase();
-        this.newBike.size = this.f.size.value;
-        this.newBike.type = this.f.type.value.toString().toUpperCase();
-        this.newBike.created = this.f.created.value;
-        this.bikeService.updateBike(this.newBike).subscribe(
-          () => {
-            this.dialogRef.close();
-          },
-          (error) => {
-            console.error(error);
-          }
-        );
-      } else {
-        // new docking
-        this.newBike.name = this.f.name.value;
-        this.newBike.driver = this.f.driver.value.toString().toUpperCase();
-        this.newBike.size = this.f.size.value;
-        this.newBike.type = this.f.type.value.toString().toUpperCase();
-        this.newBike.created = this.f.created.value;
-        this.bikeService.createBike(this.newBike).subscribe(
-          () => {
-            this.dialogRef.close();
-          },
-          (error) => {
-            console.error(error);
-          }
-        );
-      }
-      //TODO: send to backend
-      this.dialogRef.close();
+      // new docking
+      this.newBike.name = this.f.name.value;
+      this.newBike.driver = this.f.driver.value.toString().toUpperCase();
+      this.newBike.size = this.f.size.value;
+      this.newBike.type = this.f.type.value.toString().toUpperCase();
+      this.newBike.created = this.f.created.value;
+      this.bikeService.createBike(this.newBike).subscribe(
+        (succes) => {
+          console.log(succes);
+        },
+        (error) => {
+          console.error(error);
+        },
+        () => {
+          this.dialogRef.close();
+        }
+      );
     }
   }
 }

@@ -12,7 +12,11 @@
         >
       </mat-button-toggle-group>
       <hr />
-      <div id="maintable">
+      <div *ngIf="loading">
+        <p>Loading,... Please wait.</p>
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </div>
+      <div id="maintable" *ngIf="!loading">
         <table matSort (matSortChange)="sortData($event)">
           <thead>
             <tr>
@@ -63,6 +67,8 @@
               </td>
               <td style="max-width: 50px;">
                 <mat-checkbox
+                  id="{{ ds.id }}"
+                  [checked]="ds.active"
                   [(ngModel)]="ds.active"
                   (change)="setActive(ds)"
                 ></mat-checkbox>

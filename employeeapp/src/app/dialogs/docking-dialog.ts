@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { DockingStation } from '../models';
-import { DockingService } from '../services/docking.service';
+import { DockingService } from '../services';
 
 @Component({
   selector: 'docking-dialog',
@@ -124,7 +124,9 @@ export class DockingDialog {
         this.newDocking.lng = this.dockingForm.value.lng;
         console.log(this.newDocking);
         this.dockingService.updateDockingStation(this.newDocking).subscribe(
-          () => {},
+          (succes) => {
+            console.log(succes);
+          },
           (error) => {
             console.error(error);
           },
@@ -140,7 +142,9 @@ export class DockingDialog {
         this.newDocking.lat = this.f.lat.value;
         this.newDocking.lng = this.f.lng.value;
         this.dockingService.createDockingStation(this.newDocking).subscribe(
-          () => {},
+          (succes) => {
+            console.log(succes);
+          },
           (error) => {
             console.error(error);
           },

@@ -14,9 +14,10 @@ import { BikeService } from 'src/app/services/bike.service';
   styleUrls: ['./bikes.component.scss'],
 })
 export class BikesComponent {
-  bikes: Bike[];
-  sortedData: Bike[];
-  selectedBike: Bike;
+  public bikes: Bike[];
+  public sortedData: Bike[];
+  public selectedBike: Bike;
+  public loading: boolean = false;
 
   constructor(
     public dialog: MatDialog,
@@ -37,6 +38,7 @@ export class BikesComponent {
   }
 
   public getBikes(): void {
+    this.loading = true;
     this.bikeService.getBikes().subscribe(
       (bikes) => {
         console.log(bikes);
@@ -48,6 +50,9 @@ export class BikesComponent {
       },
       (err) => {
         console.log(err);
+      },
+      () => {
+        this.loading = false;
       }
     );
     this.selectedBike = new Bike();
@@ -71,7 +76,7 @@ export class BikesComponent {
     });
     dialogRef.afterClosed().subscribe(() => {
       this.selectedBike = new Bike();
-      this.zone.run(() => this.getBikes());
+      this.getBikes();
     });
   }
 
@@ -84,7 +89,7 @@ export class BikesComponent {
     });
     deleteRef.afterClosed().subscribe(() => {
       this.selectedBike = new Bike();
-      this.zone.run(() => this.getBikes());
+      this.getBikes();
     });
   }
 
@@ -97,7 +102,7 @@ export class BikesComponent {
 
     dialogRef.afterClosed().subscribe(() => {
       this.selectedBike = new Bike();
-      this.zone.run(() => this.getBikes());
+      this.getBikes();
     });
   }
 
@@ -111,7 +116,7 @@ export class BikesComponent {
 
     dialogRef.afterClosed().subscribe(() => {
       this.selectedBike = new Bike();
-      this.zone.run(() => this.getBikes());
+      this.getBikes();
     });
   }
 

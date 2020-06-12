@@ -40,6 +40,7 @@ import { DockingDialog } from './dialogs';
 import { DeleteDialog } from './dialogs';
 import { BikeDialog } from './dialogs';
 import { BikeDockDialog } from './dialogs';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { BikeDockDialog } from './dialogs';
     MatToolbarModule,
     MatIconModule,
     MatSidenavModule,
+    MatProgressBarModule,
     MatListModule,
     FlexLayoutModule,
     AgmCoreModule.forRoot({

@@ -26,6 +26,7 @@ export class DockingStationsComponent implements OnInit {
   public model: DockingStation;
   public dockingStations: DockingStation[];
   public sortedData: DockingStation[];
+  public loading: boolean = false;
 
   public address: string;
   public lat: number = 51.441262;
@@ -45,28 +46,30 @@ export class DockingStationsComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private dockingService: DockingService,
-    private router: Router,
-    private zone: NgZone
-  ) {
-    this.zone.run(() => this.getDockingStations());
-  }
+    private dockingService: DockingService
+  ) {}
 
   public ngOnInit() {
+    this.getDockingStations();
     this.setLocation(51.44083, 5.47778);
     this.zoom = 12;
   }
 
   public getDockingStations(): void {
+    this.loading = true;
+    this.dockingStations = [];
     this.dockingService.getDockingStations().subscribe(
       (ds) => {
         this.dockingStations = ds;
-        this.sortedData = ds.sort((a, b) => {
+        this.sortedData = this.dockingStations.sort((a, b) => {
           return compare(a.dockingId, b.dockingId, true);
         });
       },
       (err) => {
         console.log(err);
+      },
+      () => {
+        this.loading = false;
       }
     );
     this.selectedDs = new DockingStation();
@@ -117,7 +120,7 @@ export class DockingStationsComponent implements OnInit {
     }
     this.dockingService.updateDockingStation(this.newDocking).subscribe(
       () => {
-        this.zone.run(() => this.getDockingStations());
+        this.getDockingStations();
       },
       (error) => {
         console.error(error);
@@ -133,8 +136,7 @@ export class DockingStationsComponent implements OnInit {
       data: ds,
     });
     deleteRef.afterClosed().subscribe(() => {
-      this.selectedDs = new DockingStation();
-      this.zone.run(() => this.getDockingStations());
+      this.getDockingStations();
     });
   }
 
@@ -147,7 +149,6 @@ export class DockingStationsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      this.selectedDs = new DockingStation();
       this.getDockingStations();
     });
   }
@@ -160,8 +161,7 @@ export class DockingStationsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      this.router.navigate(['dockingStations']);
-      this.zone.run(() => this.getDockingStations());
+      this.getDockingStations();
     });
   }
 

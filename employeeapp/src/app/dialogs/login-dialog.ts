@@ -39,7 +39,7 @@ export class LoginDialog {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  onCancel(): void {
+  public onCancel(): void {
     this.dialogRef.close();
   }
 
@@ -62,7 +62,7 @@ export class LoginDialog {
     }
   }
 
-  getLogin(user, pass) {
+  public getLogin(user, pass) {
     this.authenticationService
       .loginBackend(user, pass)
       .pipe(first())
