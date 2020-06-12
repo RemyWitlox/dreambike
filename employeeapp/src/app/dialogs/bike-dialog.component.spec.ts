@@ -2,76 +2,67 @@ import {
   MatDialog,
   MatDialogRef,
   MAT_DIALOG_DATA,
+  MatDialogModule,
 } from '@angular/material/dialog';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { BikeDialog } from './bike-dialog';
-import {
-  ComponentFixture,
-  async,
-  TestBed,
-  inject,
-} from '@angular/core/testing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
-import { MaterialModule } from 'src/material-module';
-import { DatePipe } from '@angular/common';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { Component, NgModule } from '@angular/core';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopComponent } from '../_helpers';
 
 describe('Add/Edit Bike Dialog', () => {
   let dialog: MatDialog;
-  let overlayContainer: OverlayContainer;
-  let component: BikeDialog;
-  let fixture: ComponentFixture<BikeDialog>;
-  const mockDialogRef = {
-    close: jasmine.createSpy('close'),
-  };
+  let overlayContainerElement: HTMLElement;
+  let noop: ComponentFixture<NoopComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        BrowserAnimationsModule,
-        ReactiveFormsModule,
-        MaterialModule,
-        FormsModule,
-        DatePipe,
-      ],
+      imports: [BikeDialog],
       providers: [
-        { provide: MatDialogRef, useValue: mockDialogRef },
         {
-          provide: MAT_DIALOG_DATA,
-          useValue: {
-            title: 'Add a Bike.',
+          provide: OverlayContainer,
+          useFactory: () => {
+            overlayContainerElement = document.createElement('div');
+            return { getContainerElement: () => overlayContainerElement };
           },
         },
       ],
-      declarations: [BikeDialog],
     });
 
-    TestBed.overrideModule(BrowserDynamicTestingModule, {
-      set: {
-        entryComponents: [BikeDialog],
-      },
-    });
+    dialog = TestBed.get(MatDialog);
 
-    TestBed.compileComponents();
-    fixture = TestBed.createComponent(BikeDialog);
-    component = fixture.componentInstance;
-    component.ngOnInit();
-  }));
-
-  beforeEach(inject(
-    [MatDialog, OverlayContainer],
-    (d: MatDialog, oc: OverlayContainer) => {
-      dialog = d;
-      overlayContainer = oc;
-    }
-  ));
-
-  afterEach(() => {
-    overlayContainer.ngOnDestroy();
+    noop = TestBed.createComponent(NoopComponent);
   });
 
-  it('form invalid when empty', () => {
-    expect(component.bikeForm.valid).toBeFalsy();
+  it('shows information without details', () => {
+    const config = {
+      data: {
+        title: '',
+        details: [],
+      },
+    };
+    dialog.open(BikeDialog, config);
+
+    noop.detectChanges(); // Updates the dialog in the overlay
+
+    const h2 = overlayContainerElement.querySelector('#mat-dialog-title-0');
+    const button = overlayContainerElement.querySelector('#onCancel');
+    const btnConfirm = overlayContainerElement.querySelector('#onConfirm');
+
+    expect(h2.textContent).toContain('a Bike.');
+    expect(button.textContent).toBe('Cancel');
+    expect(btnConfirm.textContent).toBe('Submit');
   });
 });
+
+const TEST_DIRECTIVES = [BikeDialog, NoopComponent];
+
+@NgModule({
+  imports: [MatDialogModule, NoopAnimationsModule],
+  exports: TEST_DIRECTIVES,
+  declarations: TEST_DIRECTIVES,
+  entryComponents: [BikeDialog],
+})
+class DialogTestModule {}

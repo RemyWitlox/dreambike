@@ -112,7 +112,7 @@ describe('DockingStationsComponent', () => {
       fixture.detectChanges();
 
       let tableRows = fixture.nativeElement.querySelectorAll('tr');
-      expect(tableRows.length).toBe(16);
+      expect(tableRows.length).toBe(5);
 
       // Header row
       let headerRow = tableRows[0];
@@ -127,13 +127,13 @@ describe('DockingStationsComponent', () => {
       // Data rows
       //{ dockingId: 1, name: "Docking1", bikes: 1, capacity: 2, active: true, lat: 51.6456, lng: 61.55492 },
       let row1 = tableRows[1];
-      expect(row1.cells[1].innerHTML).toContain('Centrum Eindhoven');
+      expect(row1.cells[1].innerHTML).toContain('Docking1');
       expect(row1.cells[2].innerHTML).toContain('true');
       expect(row1.cells[3].innerHTML).toContain('1');
       expect(row1.cells[4].innerHTML).toContain('1');
       expect(row1.cells[5].innerHTML).toContain('2');
-      expect(row1.cells[6].innerHTML).toContain('51.441262');
-      expect(row1.cells[7].innerHTML).toContain('5.447672');
+      expect(row1.cells[6].innerHTML).toContain('51.6456');
+      expect(row1.cells[7].innerHTML).toContain('61.55492');
       done();
     });
   });

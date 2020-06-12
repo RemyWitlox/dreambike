@@ -69,10 +69,16 @@
     </mat-form-field>
   </form>
   <div mat-dialog-actions>
-    <button mat-button class="btn" cdkFocusInitial (click)="onConfirm()">
+    <button
+      id="onConfirm"
+      mat-button
+      class="btn"
+      cdkFocusInitial
+      (click)="onConfirm()"
+    >
       Submit
     </button>
-    <button mat-button class="btn" (click)="onCancel()">
+    <button id="onCancel" mat-button class="btn" (click)="onCancel()">
       Cancel
     </button>
     <p *ngIf="error" class="alert">
