@@ -3,7 +3,7 @@
     <mat-tab label="Table">
       <mat-button-toggle-group name="dsBtns">
         <mat-button-toggle
-          id="onAdd"
+          id="onAddds"
           class="btn"
           style="height: 30px;"
           (click)="onAdd()"
@@ -56,11 +56,11 @@
             >
               <!-- (click)="onSelect(ds)" -->
               <td style="margin-top: -5px; max-width: 65px !important;">
-                <button id="onEdit" class="buttonIcon" (click)="onEdit(ds)">
+                <button id="onEditds" class="buttonIcon" (click)="onEdit(ds)">
                   <mat-icon area-hidden="true" class="icon">edit</mat-icon>
                 </button>
                 <button
-                  id="onDelete"
+                  id="onDeleteds"
                   *ngIf="!ds.active"
                   class="buttonIcon"
                   (click)="onDelete(ds)"

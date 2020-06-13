@@ -141,7 +141,7 @@ describe('DockingStationsComponent', () => {
   it('should open the dialog on add', () => {
     fixture.detectChanges();
     spyOn(component, 'onAdd');
-    element = fixture.debugElement.query(By.css('#onAdd')).nativeElement;
+    element = fixture.debugElement.query(By.css('#onAddds')).nativeElement;
     element.click();
     expect(component.onAdd).toHaveBeenCalled();
   });
@@ -149,7 +149,7 @@ describe('DockingStationsComponent', () => {
   it('should open the dialog on edit', () => {
     fixture.detectChanges();
     spyOn(component, 'onEdit');
-    element = fixture.debugElement.query(By.css('#onEdit')).nativeElement;
+    element = fixture.debugElement.query(By.css('#onEditds')).nativeElement;
     element.click();
     expect(component.onEdit).toHaveBeenCalled();
   });
@@ -157,7 +157,7 @@ describe('DockingStationsComponent', () => {
   it('should open the dialog on delete', () => {
     fixture.detectChanges();
     spyOn(component, 'onDelete');
-    element = fixture.debugElement.query(By.css('#onDelete')).nativeElement;
+    element = fixture.debugElement.query(By.css('#onDeleteds')).nativeElement;
     element.click();
     expect(component.onDelete).toHaveBeenCalled();
   });
