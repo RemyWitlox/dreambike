@@ -1,17 +1,27 @@
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-  MatDialogModule,
-} from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { BikeDialog } from './bike-dialog';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Component, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NoopComponent } from '../_helpers';
+import { FormBuilder } from '@angular/forms';
+import { DatePipe } from '@angular/common';
+import {
+  HttpClientModule,
+  HttpClient,
+  HttpHandler,
+} from '@angular/common/http';
 
+const TEST_DIRECTIVES = [BikeDialog, NoopComponent];
+@NgModule({
+  imports: [MatDialogModule, NoopAnimationsModule],
+  exports: TEST_DIRECTIVES,
+  declarations: TEST_DIRECTIVES,
+  entryComponents: [BikeDialog],
+})
+class DialogTestModule {}
 describe('Add/Edit Bike Dialog', () => {
   let dialog: MatDialog;
   let overlayContainerElement: HTMLElement;
@@ -19,8 +29,13 @@ describe('Add/Edit Bike Dialog', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [BikeDialog],
+      imports: [DialogTestModule],
       providers: [
+        HttpClientModule,
+        FormBuilder,
+        DatePipe,
+        HttpClient,
+        HttpHandler,
         {
           provide: OverlayContainer,
           useFactory: () => {
@@ -36,7 +51,7 @@ describe('Add/Edit Bike Dialog', () => {
     noop = TestBed.createComponent(NoopComponent);
   });
 
-  it('shows information without details', () => {
+  it('shows titel and buttons', () => {
     const config = {
       data: {
         title: '',
@@ -47,22 +62,12 @@ describe('Add/Edit Bike Dialog', () => {
 
     noop.detectChanges(); // Updates the dialog in the overlay
 
-    const h2 = overlayContainerElement.querySelector('#mat-dialog-title-0');
+    const h2 = overlayContainerElement.querySelector('#titelBike');
     const button = overlayContainerElement.querySelector('#onCancel');
     const btnConfirm = overlayContainerElement.querySelector('#onConfirm');
 
     expect(h2.textContent).toContain('a Bike.');
-    expect(button.textContent).toBe('Cancel');
-    expect(btnConfirm.textContent).toBe('Submit');
+    expect(button.textContent).toContain('Cancel');
+    expect(btnConfirm.textContent).toContain('Submit');
   });
 });
-
-const TEST_DIRECTIVES = [BikeDialog, NoopComponent];
-
-@NgModule({
-  imports: [MatDialogModule, NoopAnimationsModule],
-  exports: TEST_DIRECTIVES,
-  declarations: TEST_DIRECTIVES,
-  entryComponents: [BikeDialog],
-})
-class DialogTestModule {}

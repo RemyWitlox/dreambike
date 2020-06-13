@@ -147,26 +147,18 @@ describe('DockingStationsComponent', () => {
   });
 
   it('should open the dialog on edit', () => {
-    fixture.whenRenderingDone().then(() => {
-      spyOn(component, 'onEdit');
-      let btn = fixture.debugElement.nativeElement.querySelector('#onEdit');
-      btn.click();
-      fixture.whenStable().then(() => {
-        expect(component.onEdit).toHaveBeenCalled();
-      });
-      alert(1);
-    });
+    fixture.detectChanges();
+    spyOn(component, 'onEdit');
+    element = fixture.debugElement.query(By.css('#onEdit')).nativeElement;
+    element.click();
+    expect(component.onEdit).toHaveBeenCalled();
   });
 
   it('should open the dialog on delete', () => {
-    fixture.whenRenderingDone().then(() => {
-      spyOn(component, 'onDelete');
-      let btn = fixture.debugElement.nativeElement.querySelector('#onDelete');
-      btn.click();
-      fixture.whenStable().then(() => {
-        expect(component.onDelete).toHaveBeenCalled();
-      });
-      alert(1);
-    });
+    fixture.detectChanges();
+    spyOn(component, 'onDelete');
+    element = fixture.debugElement.query(By.css('#onDelete')).nativeElement;
+    element.click();
+    expect(component.onDelete).toHaveBeenCalled();
   });
 });

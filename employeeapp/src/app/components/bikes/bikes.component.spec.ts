@@ -9,8 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BikesComponent } from './bikes.component';
 import { BikeDialog } from 'src/app/dialogs';
 import { By } from '@angular/platform-browser';
-import { Bike, BikeType, BikeDriver } from 'src/app/models';
-import { formatDate, APP_BASE_HREF } from '@angular/common';
+import { APP_BASE_HREF } from '@angular/common';
 
 export class MatDialogMock {
   // When the component calls this.dialog.open(...) we'll return an object
@@ -34,7 +33,6 @@ describe('BikesComponent', () => {
         AppRoutingModule,
         HttpClientModule,
         BrowserAnimationsModule,
-        HttpClientModule,
         FlexLayoutModule,
       ],
       declarations: [BikesComponent, BikeDialog],
