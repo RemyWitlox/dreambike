@@ -83,6 +83,8 @@ describe('DockingStationsComponent', () => {
     element = fixture.nativeElement; // The HTML reference
     component.sortedData = testData;
     component.dockingStations = testData;
+    component.error = false;
+    component.loading = false;
   });
 
   beforeEach(async () => {
@@ -91,6 +93,8 @@ describe('DockingStationsComponent', () => {
 
     component.sortedData = testData;
     component.dockingStations = testData;
+    component.error = false;
+    component.loading = false;
   });
 
   it('should create the app', () => {

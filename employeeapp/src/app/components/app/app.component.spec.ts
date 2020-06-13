@@ -80,9 +80,9 @@ describe('AppComponent', () => {
 
   it('should open the Login dialog', () => {
     fixture.detectChanges();
-    spyOn(component, 'openDialog');
-    element = fixture.debugElement.query(By.css('#openDialog')).nativeElement;
+    spyOn(component, 'onLogin');
+    element = fixture.debugElement.query(By.css('#onLoginApp')).nativeElement;
     element.click();
-    expect(component.openDialog).toHaveBeenCalled();
+    expect(component.onLogin).toHaveBeenCalled();
   });
 });

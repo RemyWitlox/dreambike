@@ -56,7 +56,7 @@ export class AppComponent implements OnInit {
     this.router.navigate(['']);
   }
 
-  openDialog(): void {
+  onLogin(): void {
     const dialogRef = this.dialog.open(LoginDialog, {
       panelClass: 'dialog',
       width: '300px',
