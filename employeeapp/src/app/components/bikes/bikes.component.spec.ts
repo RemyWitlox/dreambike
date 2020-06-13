@@ -33,6 +33,7 @@ describe('BikesComponent', () => {
       type: BikeType.ELECTRIC,
       driver: BikeDriver.CHILD,
       size: 24,
+      broken: true,
       created: new Date('2019-07-14'),
     },
     {
@@ -41,6 +42,7 @@ describe('BikesComponent', () => {
       type: BikeType.HYBRID,
       driver: BikeDriver.FEMALE,
       size: 26,
+      broken: false,
       created: new Date('2018-03-01'),
     },
     {
@@ -49,6 +51,7 @@ describe('BikesComponent', () => {
       type: BikeType.MOUNTAIN,
       driver: BikeDriver.MALE,
       size: 28,
+      broken: false,
       created: new Date('2008-11-20'),
     },
   ];
@@ -109,7 +112,8 @@ describe('BikesComponent', () => {
       expect(headerRow.cells[3].innerHTML).toContain('Type');
       expect(headerRow.cells[4].innerHTML).toContain('Driver');
       expect(headerRow.cells[5].innerHTML).toContain('Size');
-      expect(headerRow.cells[6].innerHTML).toContain('Created');
+      expect(headerRow.cells[6].innerHTML).toContain('Broken');
+      expect(headerRow.cells[7].innerHTML).toContain('Created');
       // Data rows
       let row1 = tableRows[1];
       expect(row1.cells[1].innerHTML).toContain('1');
@@ -117,7 +121,8 @@ describe('BikesComponent', () => {
       expect(row1.cells[3].innerHTML).toContain(' ');
       expect(row1.cells[4].innerHTML).toContain(' ');
       expect(row1.cells[5].innerHTML).toContain('24');
-      expect(row1.cells[6].innerHTML).toContain('14-07-2019');
+      expect(row1.cells[6].innerHTML).toContain('true');
+      expect(row1.cells[7].innerHTML).toContain('14-07-2019');
       done();
     });
   });

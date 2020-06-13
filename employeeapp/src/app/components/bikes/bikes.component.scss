@@ -33,6 +33,10 @@ $active: rgb(10, 126, 29);
     border-left: 3px solid black;
   }
 
+  thead th {
+    font-weight: normal !important;
+  }
+
   tbody {
     max-height: 740px !important;
     /* Decoration */

@@ -102,7 +102,7 @@ export class DockingStationsComponent {
     console.log(`clicked the marker: ${name || id}`);
   }
 
-  public async setActive(ds: DockingStation) {
+  public setActive(ds: DockingStation) {
     this.newDocking.dockingId = ds.dockingId;
     this.newDocking.name = ds.name;
     this.newDocking.bikes = ds.bikes;
@@ -120,8 +120,12 @@ export class DockingStationsComponent {
       },
       (error) => {
         console.error(error);
+      },
+      () => {
+        this.newDocking = new DockingStation();
       }
     );
+    this.newDocking = new DockingStation();
   }
 
   public onDelete(ds): void {
@@ -181,16 +185,22 @@ export class DockingStationsComponent {
     this.sortedData = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
+        case 'id':
+          return compare(a.dockingId, b.dockingId, isAsc);
         case 'name':
           return compare(a.name, b.name, isAsc);
-        case 'dockingId':
-          return compare(a.dockingId, b.dockingId, isAsc);
-        case 'active':
+        case 'act':
           return compare(a.active.toString(), b.active.toString(), isAsc);
-        case 'capacity':
-          return compare(a.capacity, b.capacity, isAsc);
         case 'bikes':
           return compare(a.bikes, b.bikes, isAsc);
+        case 'space':
+          return compare(a.capacity - a.bikes, b.capacity - b.bikes, isAsc);
+        case 'capacity':
+          return compare(a.capacity, b.capacity, isAsc);
+        case 'lat':
+          return compare(a.lat, b.lat, isAsc);
+        case 'lng':
+          return compare(a.lng, b.lng, isAsc);
         default:
           return compare(a.name.toString(), b.name.toString(), isAsc);
       }

@@ -37,6 +37,9 @@
           <th style="max-width: 65px;" mat-sort-header="size">
             Size
           </th>
+          <th style="max-width: 50px;" mat-sort-header="broken">
+            Broken
+          </th>
           <th style="max-width: 120px;" mat-sort-header="created">
             Created
           </th>
@@ -73,6 +76,14 @@
             {{ getDriver(bike.driver) }}
           </td>
           <td style="max-width: 65px;">{{ bike.size }}"</td>
+          <td style="max-width: 50px;">
+            <mat-checkbox
+              id="{{ bike.bikeId }}"
+              [checked]="bike.broken"
+              [(ngModel)]="bike.broken"
+              (change)="setBroken(bike)"
+            ></mat-checkbox>
+          </td>
           <td style="max-width: 120px;">
             {{ bike.created | date: "dd-MM-yyyy" }}
           </td>

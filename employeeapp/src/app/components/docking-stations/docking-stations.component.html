@@ -27,8 +27,11 @@
           <thead>
             <tr>
               <th style="max-width: 65px !important;"></th>
+              <th style="max-width: 30px !important;" mat-sort-header="id">
+                Id
+              </th>
               <th mat-sort-header="name">Name</th>
-              <th style="max-width: 50px;" mat-sort-header="active">
+              <th style="max-width: 50px;" mat-sort-header="act">
                 Active
               </th>
               <th style="max-width: 65px;" mat-sort-header="bikes">
@@ -69,11 +72,14 @@
                 </button>
               </td>
               <td>
+                {{ ds.dockingId }}
+              </td>
+              <td>
                 {{ ds.name }}
               </td>
               <td style="max-width: 50px;">
                 <mat-checkbox
-                  id="{{ ds.id }}"
+                  id="{{ ds.dockingId }}"
                   [checked]="ds.active"
                   [(ngModel)]="ds.active"
                   (change)="setActive(ds)"

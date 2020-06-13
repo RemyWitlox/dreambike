@@ -1,4 +1,4 @@
-import { Component, NgZone } from '@angular/core';
+import { Component, NgZone, ComponentFactoryResolver } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { Bike } from 'src/app/models/bike';
 import { BikeType } from 'src/app/models/bikeType';
@@ -15,6 +15,7 @@ import { BikeService } from 'src/app/services/bike.service';
 })
 export class BikesComponent {
   public bikes: Bike[];
+  public newBike: Bike;
   public sortedData: Bike[];
   public selectedBike: Bike;
   public loading: boolean;
@@ -59,6 +60,32 @@ export class BikesComponent {
       }
     );
     this.selectedBike = new Bike();
+  }
+
+  public setBroken(bike: Bike) {
+    this.newBike.bikeId = bike.bikeId;
+    this.newBike.name = bike.name;
+    this.newBike.type = bike.type;
+    this.newBike.driver = bike.driver;
+    this.newBike.created = bike.created;
+    this.newBike.size = bike.size;
+    this.newBike.docking = bike.docking;
+    if (bike.broken) {
+      this.newBike.broken = true;
+    } else {
+      this.newBike.broken = false;
+    }
+    this.bikeService.updateBike(this.newBike).subscribe(
+      () => {
+        this.getBikes();
+      },
+      (error) => {
+        console.error(error);
+      },
+      () => {
+        this.newBike = new Bike();
+      }
+    );
   }
 
   public onSelect(bike) {
@@ -141,6 +168,8 @@ export class BikesComponent {
           return compare(a.type, b.type, isAsc);
         case 'driver':
           return compare(a.driver, b.driver, isAsc);
+        case 'broken':
+          return compare(a.broken.toString(), b.broken.toString(), isAsc);
         case 'created':
           return compare(a.created.toString(), b.created.toString(), isAsc);
         default:
