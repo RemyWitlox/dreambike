@@ -8,12 +8,11 @@ import { LoginDialog } from './';
 import {
   ComponentFixture,
   TestBed,
-  async,
   inject,
   fakeAsync,
   tick,
+  async,
 } from '@angular/core/testing';
-
 import {
   NgModule,
   Component,
@@ -81,8 +80,9 @@ describe('Login Dialog', () => {
     snapshot: { data: {} },
   } as ActivatedRoute;
 
-  beforeEach(() => {
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
+      declarations: [],
       imports: [DialogTestModule],
       providers: [
         HttpClientModule,
@@ -100,7 +100,7 @@ describe('Login Dialog', () => {
         },
       ],
     }).compileComponents();
-  });
+  }));
 
   beforeEach(inject([MatDialog], (d: MatDialog) => {
     dialog = d;
@@ -125,7 +125,7 @@ describe('Login Dialog', () => {
     viewContainerFixture.detectChanges();
   }));
 
-  it('shows titel and buttons', () => {
+  it('shows titel and buttons', (done) => {
     const h2 = element.querySelector('#titelLogin');
     const button = element.querySelector('#onCancelLoginD');
     const btnConfirm = element.querySelector('#onConfirmLoginD');
@@ -133,6 +133,7 @@ describe('Login Dialog', () => {
     expect(h2.textContent).toContain('Login');
     expect(button.textContent).toContain('Cancel');
     expect(btnConfirm.textContent).toContain('Login');
+    done();
   });
 
   it('should close when cancel button pressed', (done) => {
@@ -151,16 +152,16 @@ describe('Login Dialog', () => {
     done();
   });
 
-  it('should show disabled login-button if there is no password entry', fakeAsync(() => {
+  it('should show disabled login-button if there is no password entry', (done) => {
+    viewContainerFixture.detectChanges();
     const submitBtn = element.querySelector(
       '#onConfirmLoginD'
     ) as HTMLButtonElement;
-    const nameInput = element.querySelector(
-      'input[formcontrolname="username"]'
-    ) as HTMLInputElement;
+    const nameInput = element.querySelector('input[formcontrolname="username"]')
+      .parentElement as HTMLInputElement;
     const passwordInput = element.querySelector(
       'input[formcontrolname="password"]'
-    ) as HTMLInputElement;
+    ).parentElement as HTMLInputElement;
     nameInput.value = 'ABC';
     nameInput.dispatchEvent(new Event('input'));
     viewContainerFixture.detectChanges();
@@ -169,34 +170,61 @@ describe('Login Dialog', () => {
       viewContainerFixture.detectChanges();
 
       expect(nameInput.value).toEqual('ABC');
-      expect(passwordInput.value).toEqual('');
+      expect(passwordInput.value).toBe(undefined);
 
       expect(submitBtn.getAttribute('ng-reflect-disabled')).toBe('true');
     });
-  }));
+    done();
+  });
 
-  it('should show disabled login-button if there is no password entry', async(() => {
-    (element.querySelector(
+  it('should show disabled login-button if there is no login entry', (done) => {
+    viewContainerFixture.detectChanges();
+    const submitBtn = element.querySelector(
+      '#onConfirmLoginD'
+    ) as HTMLButtonElement;
+    const nameInput = element.querySelector('input[formcontrolname="username"]')
+      .parentElement as HTMLInputElement;
+    const passwordInput = element.querySelector(
       'input[formcontrolname="password"]'
-    ) as HTMLInputElement).value = 'Password';
+    ).parentElement as HTMLInputElement;
+    passwordInput.value = '123';
+    passwordInput.dispatchEvent(new Event('input'));
     viewContainerFixture.detectChanges();
 
     viewContainerFixture.whenStable().then(() => {
       viewContainerFixture.detectChanges();
-      const nameInput = element.querySelector(
-        'input[formcontrolname="username"]'
-      );
-      const passwordInput = element.querySelector(
-        'input[formcontrolname="password"]'
-      );
 
-      expect((nameInput as HTMLInputElement).value).toEqual('');
-      expect((passwordInput as HTMLInputElement).value).toEqual('Password');
-      expect(
-        element
-          .querySelector('button[md-raised-button]')
-          .getAttribute('ng-reflect-disabled')
-      ).toBe('true');
+      expect(nameInput.value).toEqual(undefined);
+      expect(passwordInput.value).toBe('123');
+
+      expect(submitBtn.getAttribute('ng-reflect-disabled')).toBe('true');
     });
-  }));
+    done();
+  });
+
+  it('should show login-button if the entries are valid', (done) => {
+    viewContainerFixture.detectChanges();
+    const submitBtn = element.querySelector(
+      '#onConfirmLoginD'
+    ) as HTMLButtonElement;
+    const nameInput = element.querySelector(
+      'input[formControlName="username"]'
+    ) as HTMLInputElement;
+    const passwordInput = element.querySelector(
+      'input[formControlName="password"]'
+    ) as HTMLInputElement;
+
+    nameInput.value = 'ABC';
+    nameInput.dispatchEvent(new Event('input'));
+    passwordInput.value = '123';
+    passwordInput.dispatchEvent(new Event('input'));
+    viewContainerFixture.detectChanges();
+
+    viewContainerFixture.whenStable().then(() => {
+      expect(nameInput.value).toEqual('ABC');
+      expect(passwordInput.value).toEqual('123');
+      expect(submitBtn.getAttribute('ng-reflect-disabled')).toBe('false');
+    });
+    done();
+  });
 });

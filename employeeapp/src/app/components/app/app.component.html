@@ -19,7 +19,7 @@
         *ngIf="connected && !loading"
       >
         <ul fxLayout fxLayoutGap="20px" class="navigation-items">
-          <li *ngIf="!currentBackendUser">
+          <li>
             <a id="onLoginApp" (click)="onLogin()">
               <mat-icon class="icon">input</mat-icon>
               <a class="label">Login</a>

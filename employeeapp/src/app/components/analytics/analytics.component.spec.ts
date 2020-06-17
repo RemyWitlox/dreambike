@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-
 import { AnalyticsComponent } from './analytics.component';
 
 describe('AnalyticsComponent', () => {
