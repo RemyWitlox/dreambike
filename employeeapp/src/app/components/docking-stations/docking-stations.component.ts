@@ -60,7 +60,6 @@ export class DockingStationsComponent {
         });
       },
       (err) => {
-        this.loading = false;
         this.error = true;
         console.log(err);
       },

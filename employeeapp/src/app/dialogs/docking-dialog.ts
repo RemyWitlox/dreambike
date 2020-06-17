@@ -34,6 +34,7 @@ export class DockingDialog {
       this.intro = 'Change a Docking station.';
       this.dockingForm = this.formBuilder.group({
         name: [this.data.name, Validators.required],
+        active: [this.data.active],
         bikes: [
           this.data.bikes,
           [Validators.required, Validators.min(0), Validators.max(999999)],
@@ -128,6 +129,9 @@ export class DockingDialog {
         this.newDocking.bikes = this.f.bikes.value;
         this.newDocking.capacity = this.f.capacity.value;
         this.newDocking.lat = this.f.lat.value;
+        this.newDocking.active = this.data.active;
+        console.log(this.data.active);
+
         this.newDocking.lng = this.f.lng.value;
         console.log(this.newDocking);
         this.dockingService.updateDockingStation(this.newDocking).subscribe(
