@@ -11,11 +11,11 @@
   </mat-button-toggle-group>
   <hr />
   <div *ngIf="loading && !error">
-    <p>Loading,... Please wait.</p>
+    <p id="loadingBikes">Loading,... Please wait.</p>
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   </div>
   <div *ngIf="error && !loading">
-    <p>
+    <p id="errorBikes">
       There is no connection to the database. Please try again or contact us.
     </p>
   </div>

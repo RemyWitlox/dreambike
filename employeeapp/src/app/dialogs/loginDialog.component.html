@@ -33,18 +33,19 @@
     </mat-form-field>
     <div mat-dialog-actions>
       <button
-        id="confirmLogin"
+        id="onConfirmLoginD"
         mat-button
         class="btn"
         cdkFocusInitial
         (ngSubmit)="onConfirm()"
+        [disabled]="!loginForm.valid"
       >
         Login
       </button>
-      <button id="cancelLogin" mat-button class="btn" (click)="onCancel()">
+      <button id="onCancelLoginD" mat-button class="btn" (click)="onCancel()">
         Cancel
       </button>
-      <p *ngIf="error" class="alert">
+      <p id="errorLoginD" *ngIf="error" class="alert">
         {{ error }}
       </p>
     </div>

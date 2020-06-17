@@ -42,30 +42,29 @@ export class BikeDialog implements OnInit {
       size: [null, Validators.required],
       created: ['', Validators.required],
     });
-    this.intro = 'Add a Bike.';
 
     if (this.data?.bikeId) {
       this.intro = 'Change a Bike.';
-      console.log(this.data.type);
-
-      this.bikeForm.controls['name'].setValue(this.data.name, {
+      this.f['name'].setValue(this.data.name, {
         onlySelf: true,
       });
-      this.bikeForm.controls['type'].setValue(BikeType[this.data.type], {
+      this.f['type'].setValue(BikeType[this.data.type], {
         onlySelf: true,
       });
-      this.bikeForm.controls['driver'].setValue(BikeDriver[this.data.driver], {
+      this.f['driver'].setValue(BikeDriver[this.data.driver], {
         onlySelf: true,
       });
-      this.bikeForm.controls['size'].setValue(this.data.size, {
+      this.f['size'].setValue(this.data.size, {
         onlySelf: true,
       });
-      this.bikeForm.controls['created'].setValue(
+      this.f['created'].setValue(
         this.datePipe.transform(this.data.created, 'yyyy-MM-dd'),
         {
           onlySelf: true,
         }
       );
+    } else {
+      this.intro = 'Add a Bike.';
     }
   }
 

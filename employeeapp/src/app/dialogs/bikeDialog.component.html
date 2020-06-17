@@ -70,7 +70,7 @@
   </form>
   <div mat-dialog-actions>
     <button
-      id="onConfirm"
+      id="onConfirmBikeD"
       mat-button
       class="btn"
       cdkFocusInitial
@@ -78,10 +78,10 @@
     >
       Submit
     </button>
-    <button id="onCancel" mat-button class="btn" (click)="onCancel()">
+    <button id="onCancelBikeD" mat-button class="btn" (click)="onCancel()">
       Cancel
     </button>
-    <p *ngIf="error" class="alert">
+    <p id="errorBikeD" *ngIf="error" class="alert">
       {{ error }}
     </p>
   </div>
