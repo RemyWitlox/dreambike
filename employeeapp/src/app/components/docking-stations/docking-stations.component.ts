@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { DockingStation } from '../../models';
 import { NgbTypeaheadConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -44,6 +44,9 @@ export class DockingStationsComponent {
   ) {
     this.error = false;
     this.loading = false;
+  }
+
+  ngOnInit(): void {
     this.getDockingStations();
     this.setLocation(51.44083, 5.47778);
     this.zoom = 12;

@@ -23,9 +23,7 @@ export class AppComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private zone: NgZone
-  ) {
-    this.zone.run(() => this.getCurrentBackendUser());
-  }
+  ) {}
 
   getCurrentBackendUser() {
     this.authenticationService.currentBackendUser.subscribe(
@@ -33,7 +31,8 @@ export class AppComponent implements OnInit {
     );
   }
 
-  async ngOnInit() {
+  ngOnInit() {
+    this.zone.run(() => this.getCurrentBackendUser());
     this.loading = false;
     this.connected = true;
   }

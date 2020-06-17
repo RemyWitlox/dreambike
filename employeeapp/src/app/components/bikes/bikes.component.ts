@@ -1,4 +1,4 @@
-import { Component, NgZone, ComponentFactoryResolver } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { Bike } from 'src/app/models/bike';
 import { BikeType } from 'src/app/models/bikeType';
@@ -21,14 +21,13 @@ export class BikesComponent {
   public loading: boolean;
   public error: boolean;
 
-  constructor(
-    public dialog: MatDialog,
-    public zone: NgZone,
-    public bikeService: BikeService
-  ) {
+  constructor(public dialog: MatDialog, public bikeService: BikeService) {
     this.error = false;
     this.loading = false;
-    this.zone.run(() => this.getBikes());
+  }
+
+  ngOnInit(): void {
+    this.getBikes();
   }
 
   public getType(type) {

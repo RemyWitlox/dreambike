@@ -97,23 +97,26 @@ describe('DockingStationsComponent', () => {
     component.loading = false;
   });
 
-  it('should create the app', () => {
+  it('should create the app', (done) => {
     expect(component).toBeTruthy();
+    done();
   });
 
-  it('should have the tabs Table and Map', () => {
+  it('should have the tabs Table and Map', (done) => {
     const labels = fixture.debugElement.queryAll(
       By.css('.mat-tab-label .mat-tab-label-content')
     );
     expect(labels.length).toBe(2);
     expect(labels[0].nativeElement.innerHTML).toContain('Table');
     expect(labels[1].nativeElement.innerHTML).toContain('Map');
+    done();
   });
 
   it('should show a table of docking stations', (done) => {
     fixture.detectChanges();
     fixture.whenStable().then(() => {
-      fixture.detectChanges();
+      component.sortedData = testData;
+      component.dockingStations = testData;
 
       let tableRows = fixture.nativeElement.querySelectorAll('tr');
       expect(tableRows.length).toBe(5);
@@ -144,27 +147,30 @@ describe('DockingStationsComponent', () => {
     });
   });
 
-  it('should open the dialog on add', () => {
+  it('should open the dialog on add', (done) => {
     fixture.detectChanges();
     spyOn(component, 'onAdd');
     element = fixture.debugElement.query(By.css('#onAddds')).nativeElement;
     element.click();
     expect(component.onAdd).toHaveBeenCalled();
+    done();
   });
 
-  it('should open the dialog on edit', () => {
+  it('should open the dialog on edit', (done) => {
     fixture.detectChanges();
     spyOn(component, 'onEdit');
     element = fixture.debugElement.query(By.css('#onEditds')).nativeElement;
     element.click();
     expect(component.onEdit).toHaveBeenCalled();
+    done();
   });
 
-  it('should open the dialog on delete', () => {
+  it('should open the dialog on delete', (done) => {
     fixture.detectChanges();
     spyOn(component, 'onDelete');
     element = fixture.debugElement.query(By.css('#onDeleteds')).nativeElement;
     element.click();
     expect(component.onDelete).toHaveBeenCalled();
+    done();
   });
 });

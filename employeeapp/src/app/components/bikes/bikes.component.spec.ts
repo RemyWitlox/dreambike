@@ -92,14 +92,16 @@ describe('BikesComponent', () => {
     component.loading = false;
   });
 
-  it('should create the app', () => {
+  it('should create the app', (done) => {
     expect(component).toBeTruthy();
+    done();
   });
 
   it('should show a table of bikes', (done) => {
     fixture.detectChanges();
     fixture.whenStable().then(() => {
-      fixture.detectChanges();
+      component.sortedData = testData;
+      component.bikes = testData;
 
       let tableRows = fixture.nativeElement.querySelectorAll('tr');
       expect(tableRows.length).toBe(5);
@@ -127,35 +129,39 @@ describe('BikesComponent', () => {
     });
   });
 
-  it('should open the dialog on add', () => {
+  it('should open the dialog on add', (done) => {
     fixture.detectChanges();
     spyOn(component, 'onAdd');
     element = fixture.debugElement.query(By.css('#onAdd')).nativeElement;
     element.click();
     expect(component.onAdd).toHaveBeenCalled();
+    done();
   });
 
-  it('should open the dialog on edit', () => {
+  it('should open the dialog on edit', (done) => {
     fixture.detectChanges();
     spyOn(component, 'onEdit');
     element = fixture.debugElement.query(By.css('#onEdit')).nativeElement;
     element.click();
     expect(component.onEdit).toHaveBeenCalled();
+    done();
   });
 
-  it('should open the dialog on delete', () => {
+  it('should open the dialog on delete', (done) => {
     fixture.detectChanges();
     spyOn(component, 'onDelete');
     element = fixture.debugElement.query(By.css('#onDelete')).nativeElement;
     element.click();
     expect(component.onDelete).toHaveBeenCalled();
+    done();
   });
 
-  it('should open the dialog on changing the docking station of the bike', () => {
+  it('should open the dialog on changing the docking station of the bike', (done) => {
     fixture.detectChanges();
     spyOn(component, 'onDocking');
     element = fixture.debugElement.query(By.css('#onDocking')).nativeElement;
     element.click();
     expect(component.onDocking).toHaveBeenCalled();
+    done();
   });
 });
