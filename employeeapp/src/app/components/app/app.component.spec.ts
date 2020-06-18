@@ -9,6 +9,7 @@ import { MaterialModule } from 'src/material-module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 import { APP_BASE_HREF } from '@angular/common';
+import { Role } from 'src/app/models';
 
 export class MatDialogMock {
   // When the component calls this.dialog.open(...) we'll return an object
@@ -79,10 +80,26 @@ describe('AppComponent', () => {
   });
 
   it('should open the Login dialog', () => {
+    component.currentBackendUser = null;
     fixture.detectChanges();
     spyOn(component, 'onLogin');
     element = fixture.debugElement.query(By.css('#onLoginApp')).nativeElement;
     element.click();
     expect(component.onLogin).toHaveBeenCalled();
+  });
+
+  it('should logout a user', () => {
+    const user = {
+      name: 'Test',
+      username: 'Testuser',
+      role: Role.Admin,
+    };
+    component.currentBackendUser = user;
+
+    fixture.detectChanges();
+    spyOn(component, 'onLogout');
+    element = fixture.debugElement.query(By.css('#onLogoutApp')).nativeElement;
+    element.click();
+    expect(component.onLogout).toHaveBeenCalled();
   });
 });

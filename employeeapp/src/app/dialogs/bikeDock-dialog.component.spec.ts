@@ -51,7 +51,7 @@ describe('Add/Edit Docking Station on Bike Dialog', () => {
     noop = TestBed.createComponent(NoopComponent);
   });
 
-  it('shows titel and buttons', () => {
+  it('should show titel and buttons', () => {
     const config = {
       data: {
         title: '',

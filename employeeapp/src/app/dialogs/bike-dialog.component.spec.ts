@@ -57,7 +57,7 @@ describe('Add/Edit Bike Dialog', () => {
     noop.detectChanges();
   });
 
-  it('shows titel and buttons', () => {
+  it('should show titel and buttons', () => {
     const h2 = element.querySelector('#titelBike');
     const button = element.querySelector('#onCancelBikeD');
     const btnConfirm = element.querySelector('#onConfirmBikeD');

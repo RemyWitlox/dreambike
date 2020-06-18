@@ -125,7 +125,7 @@ describe('Login Dialog', () => {
     viewContainerFixture.detectChanges();
   }));
 
-  it('shows titel and buttons', (done) => {
+  it('should show titel and buttons', (done) => {
     const h2 = element.querySelector('#titelLogin');
     const button = element.querySelector('#onCancelLoginD');
     const btnConfirm = element.querySelector('#onConfirmLoginD');
