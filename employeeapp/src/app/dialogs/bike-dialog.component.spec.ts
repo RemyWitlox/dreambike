@@ -5,11 +5,15 @@ import {
 } from '@angular/material/dialog';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { BikeDialog } from './bike-dialog';
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-
+import {
+  ComponentFixture,
+  TestBed,
+  inject,
+  fakeAsync,
+  tick,
+} from '@angular/core/testing';
 import { NgModule } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { NoopComponent } from '../_helpers';
 import { FormBuilder, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import {
@@ -17,24 +21,37 @@ import {
   HttpClient,
   HttpHandler,
 } from '@angular/common/http';
+import { DlgTestViewContainerDirective } from '../_helpers/dlgTestViewContainerDirective';
+import { DlgTestChildViewContainerComponent } from '../_helpers/dlgTestChildViewContainerComponent';
+import { MaterialModule } from 'src/material-module';
 
-const TEST_DIRECTIVES = [BikeDialog, NoopComponent];
+const TEST_DIRECTIVES = [
+  DlgTestViewContainerDirective,
+  DlgTestChildViewContainerComponent,
+  BikeDialog,
+];
 @NgModule({
-  imports: [MatDialogModule, NoopAnimationsModule],
+  imports: [
+    MatDialogModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MaterialModule,
+    NoopAnimationsModule,
+  ],
   exports: TEST_DIRECTIVES,
   declarations: TEST_DIRECTIVES,
   entryComponents: [BikeDialog],
 })
 class DialogTestModule {}
-describe('Add/Edit Bike Dialog', () => {
+describe('     - Dialog - Add/Edit Bike Dialog', () => {
   let dialog: MatDialog;
   let dialogRef: MatDialogRef<BikeDialog>;
   let element: HTMLElement;
-  let noop: ComponentFixture<NoopComponent>;
+  let fixture: ComponentFixture<DlgTestChildViewContainerComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [DialogTestModule, ReactiveFormsModule, FormsModule],
+      imports: [DialogTestModule],
       providers: [
         HttpClientModule,
         FormBuilder,
@@ -49,15 +66,31 @@ describe('Add/Edit Bike Dialog', () => {
           },
         },
       ],
-    });
-
-    dialog = TestBed.get(MatDialog);
-    noop = TestBed.createComponent(NoopComponent);
-    dialogRef = dialog.open(BikeDialog);
-    noop.detectChanges();
+    }).compileComponents();
   });
 
-  it('should show titel and buttons', () => {
+  beforeEach(inject([MatDialog], (d: MatDialog) => {
+    dialog = d;
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(DlgTestChildViewContainerComponent);
+    fixture.detectChanges();
+    dialogRef = dialog.open(BikeDialog);
+    fixture.detectChanges();
+  });
+
+  it('should be created', fakeAsync(() => {
+    expect(dialogRef.componentInstance instanceof BikeDialog).toBe(
+      true,
+      'Failed to open'
+    );
+    dialogRef.close();
+    tick(500);
+    fixture.detectChanges();
+  }));
+
+  it('should show titel and buttons', (done) => {
     const h2 = element.querySelector('#titelBike');
     const button = element.querySelector('#onCancelBikeD');
     const btnConfirm = element.querySelector('#onConfirmBikeD');
@@ -65,6 +98,7 @@ describe('Add/Edit Bike Dialog', () => {
     expect(h2.textContent).toContain('a Bike.');
     expect(button.textContent).toContain('Cancel');
     expect(btnConfirm.textContent).toContain('Submit');
+    done();
   });
 
   it('should close when cancel button pressed', (done) => {
@@ -72,9 +106,10 @@ describe('Add/Edit Bike Dialog', () => {
 
     dialogRef.afterClosed().subscribe(afterCloseCallback);
     (element.querySelector('#onCancelBikeD') as HTMLElement).click();
-    noop.detectChanges();
+    fixture.detectChanges();
 
-    noop.whenStable().then(() => {
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
       expect(element.querySelector('mat-dialog-container')).toBeNull(
         'Dialog box still open'
       );

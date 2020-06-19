@@ -115,8 +115,10 @@ describe('DockingStationsComponent', () => {
   it('should show a table of docking stations', (done) => {
     fixture.detectChanges();
     fixture.whenStable().then(() => {
+      fixture.detectChanges();
       component.sortedData = testData;
       component.dockingStations = testData;
+      fixture.detectChanges();
 
       let tableRows = fixture.nativeElement.querySelectorAll('tr');
       expect(tableRows.length).toBe(5);

@@ -11,6 +11,7 @@ import { BikeDialog } from 'src/app/dialogs';
 import { By } from '@angular/platform-browser';
 import { APP_BASE_HREF } from '@angular/common';
 import { Bike, BikeType, BikeDriver } from 'src/app/models';
+import { DebugElement } from '@angular/core';
 
 export class MatDialogMock {
   // When the component calls this.dialog.open(...) we'll return an object
@@ -24,9 +25,9 @@ export class MatDialogMock {
 
 describe('BikesComponent', () => {
   let component: BikesComponent;
-  let element: HTMLElement;
+  let de: DebugElement;
   let fixture: ComponentFixture<BikesComponent>;
-  const testData: Bike[] = [
+  const mockBikes: Bike[] = [
     {
       bikeId: 1,
       name: 'Bike1',
@@ -74,11 +75,11 @@ describe('BikesComponent', () => {
 
     fixture = TestBed.createComponent(BikesComponent);
     component = fixture.componentInstance; // The component instantiation
-    element = fixture.nativeElement; // The HTML reference
+    de = fixture.debugElement;
 
-    component.sortedData = testData;
-    component.bikes = testData;
-    component.error = false;
+    component.sortedData = mockBikes;
+    component.bikes = mockBikes;
+    component.connected = true;
     component.loading = false;
   }));
 
@@ -86,9 +87,9 @@ describe('BikesComponent', () => {
     await fixture.whenStable();
     fixture.detectChanges();
 
-    component.sortedData = testData;
-    component.bikes = testData;
-    component.error = false;
+    component.sortedData = mockBikes;
+    component.bikes = mockBikes;
+    component.connected = true;
     component.loading = false;
   });
 
@@ -97,11 +98,34 @@ describe('BikesComponent', () => {
     done();
   });
 
+  it('should have a progress bar and text when loading', (done) => {
+    component.connected = false;
+    component.loading = true;
+    fixture.detectChanges();
+    const el = de.query(By.css('mat-progress-bar')).nativeElement;
+    const txt = de.query(By.css('#bikesLoadTxt')).nativeElement;
+    expect(el).toBeTruthy();
+    expect(txt.textContent).toContain('Loading,... Please wait.');
+    done();
+  });
+
+  it('should show a message when connection has failed', (done) => {
+    component.connected = false;
+    component.loading = false;
+    fixture.detectChanges();
+    const el = de.query(By.css('#bikesConErr')).nativeElement;
+    expect(el).toBeTruthy();
+    expect(el.textContent).toContain(
+      'There is no connection to the database. Please try again or contact us.'
+    );
+    done();
+  });
+
   it('should show a table of bikes', (done) => {
     fixture.detectChanges();
     fixture.whenStable().then(() => {
-      component.sortedData = testData;
-      component.bikes = testData;
+      component.sortedData = mockBikes;
+      component.bikes = mockBikes;
 
       let tableRows = fixture.nativeElement.querySelectorAll('tr');
       expect(tableRows.length).toBe(5);
@@ -130,46 +154,66 @@ describe('BikesComponent', () => {
   });
 
   it('should open the dialog on add', (done) => {
+    component.connected = true;
+    component.loading = false;
+    component.sortedData = mockBikes;
+    component.bikes = mockBikes;
     fixture.detectChanges();
     spyOn(component, 'onAdd');
-    element = fixture.debugElement.query(By.css('#onAdd')).nativeElement;
-    element.click();
+    const btn = de.query(By.css('#onAdd')).nativeElement;
+    btn.click();
     expect(component.onAdd).toHaveBeenCalled();
     done();
   });
 
   it('should open the dialog on edit', (done) => {
+    component.connected = true;
+    component.loading = false;
+    component.sortedData = mockBikes;
+    component.bikes = mockBikes;
     fixture.detectChanges();
     spyOn(component, 'onEdit');
-    element = fixture.debugElement.query(By.css('#onEdit')).nativeElement;
-    element.click();
+    const btn = de.query(By.css('#onEdit')).nativeElement;
+    btn.click();
     expect(component.onEdit).toHaveBeenCalled();
     done();
   });
 
   it('should open the dialog on delete', (done) => {
+    component.connected = true;
+    component.loading = false;
+    component.sortedData = mockBikes;
+    component.bikes = mockBikes;
     fixture.detectChanges();
     spyOn(component, 'onDelete');
-    element = fixture.debugElement.query(By.css('#onDelete')).nativeElement;
-    element.click();
+    const btn = de.query(By.css('#onDelete')).nativeElement;
+    btn.click();
     expect(component.onDelete).toHaveBeenCalled();
     done();
   });
 
   it('should select a bike when clicking in the table', (done) => {
+    component.connected = true;
+    component.loading = false;
+    component.sortedData = mockBikes;
+    component.bikes = mockBikes;
     fixture.detectChanges();
     spyOn(component, 'onSelect');
-    element = fixture.debugElement.query(By.css('#onSelect')).nativeElement;
-    element.click();
+    const btn = de.query(By.css('#onSelect')).nativeElement;
+    btn.click();
     expect(component.onSelect).toHaveBeenCalled();
     done();
   });
 
   it('should open the dialog on changing the docking station of the bike', (done) => {
+    component.connected = true;
+    component.loading = false;
+    component.sortedData = mockBikes;
+    component.bikes = mockBikes;
     fixture.detectChanges();
     spyOn(component, 'onDocking');
-    element = fixture.debugElement.query(By.css('#onDocking')).nativeElement;
-    element.click();
+    const btn = de.query(By.css('#onDocking')).nativeElement;
+    btn.click();
     expect(component.onDocking).toHaveBeenCalled();
     done();
   });

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { DockingStation } from '../../models';
 import { NgbTypeaheadConfig } from '@ng-bootstrap/ng-bootstrap';

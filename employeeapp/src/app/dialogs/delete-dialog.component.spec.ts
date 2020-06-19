@@ -37,7 +37,7 @@ const TEST_DIRECTIVES = [
   entryComponents: [DeleteDialog],
 })
 class DialogTestModule {}
-describe('Delete Dialog', () => {
+describe('     - Dialog - Delete Dialog', () => {
   let dialog: MatDialog;
   let dialogRef: MatDialogRef<DeleteDialog>;
   let element: HTMLElement;

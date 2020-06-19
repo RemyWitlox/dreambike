@@ -19,10 +19,10 @@ export class BikesComponent {
   public sortedData: Bike[];
   public selectedBike: Bike;
   public loading: boolean;
-  public error: boolean;
+  public connected: boolean;
 
   constructor(public dialog: MatDialog, public bikeService: BikeService) {
-    this.error = false;
+    this.connected = false;
     this.loading = false;
   }
 
@@ -44,15 +44,15 @@ export class BikesComponent {
     this.loading = true;
     this.bikeService.getBikes().subscribe(
       (bikes) => {
-        console.log(bikes);
-
         this.bikes = bikes;
         this.sortedData = bikes.sort((a, b) => {
           return compare(a.bikeId, b.bikeId, true);
         });
+        this.connected = true;
       },
       (err) => {
         console.log(err);
+        this.connected = false;
       },
       () => {
         this.loading = false;
@@ -77,9 +77,11 @@ export class BikesComponent {
     this.bikeService.updateBike(this.newBike).subscribe(
       () => {
         this.getBikes();
+        this.connected = true;
       },
       (error) => {
         console.error(error);
+        this.connected = false;
       },
       () => {
         this.newBike = new Bike();

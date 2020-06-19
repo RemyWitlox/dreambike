@@ -44,7 +44,7 @@ const TEST_DIRECTIVES = [
   entryComponents: [DockingDialog],
 })
 class DialogTestModule {}
-describe('Add/Edit Docking Station Dialog', () => {
+describe('     - Dialog - Add/Edit Docking Station Dialog', () => {
   let dialog: MatDialog;
   let dialogRef: MatDialogRef<DockingDialog>;
   let element: HTMLElement;

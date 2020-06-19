@@ -1,6 +1,6 @@
 <h1 hidden>{{ title }}</h1>
 <mat-sidenav-container class="horizontalMenu">
-  <mat-sidenav-content>
+  <mat-sidenav-content id="horizontalMenu">
     <mat-toolbar color="primary">
       <div style="padding-left: 15px;">
         <img
@@ -19,7 +19,7 @@
         *ngIf="connected && !loading"
       >
         <ul fxLayout fxLayoutGap="20px" class="navigation-items">
-          <li>
+          <li *ngIf="!currentBackendUser">
             <a id="onLoginApp" (click)="onLogin()">
               <mat-icon class="icon">input</mat-icon>
               <a id="label" class="label">Login</a>
@@ -49,7 +49,7 @@
   </mat-sidenav-content>
 </mat-sidenav-container>
 <!-- Verticaal menu -->
-<div class="verticalMenu" *ngIf="connected && !loading">
+<div id="verticalMenu" class="verticalMenu" *ngIf="connected && !loading">
   <a routerLinkActive="active" routerLink="home">Home</a>
   <a
     routerLinkActive="active"
@@ -74,12 +74,12 @@
   >
 </div>
 <div *ngIf="loading">
-  <p style="margin-left: 230px;">Loading,... Please wait.</p>
+  <p id="appLoadTxt" style="margin-left: 230px;">Loading,... Please wait.</p>
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
 <div class="content" *ngIf="!loading">
   <router-outlet *ngIf="connected"></router-outlet>
-  <p *ngIf="!connected" style="margin-left: 25px;">
+  <p id="conErr" *ngIf="!connected" style="margin-left: 25px;">
     There is no connection with the database, please contact the IT crowd!
   </p>
 </div>

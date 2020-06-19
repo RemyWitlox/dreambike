@@ -49,7 +49,7 @@ const TEST_DIRECTIVES = [
   entryComponents: [LoginDialog],
 })
 class DialogTestModule {}
-describe('Login Dialog', () => {
+describe('     - Dialog - Login Dialog', () => {
   let dialog: MatDialog;
   let dialogRef: MatDialogRef<LoginDialog>;
   let element: HTMLElement;

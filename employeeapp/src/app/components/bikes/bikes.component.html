@@ -10,16 +10,16 @@
     >
   </mat-button-toggle-group>
   <hr />
-  <div *ngIf="loading && !error">
-    <p id="loadingBikes">Loading,... Please wait.</p>
+  <div *ngIf="loading && !connected">
+    <p id="bikesLoadTxt">Loading,... Please wait.</p>
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   </div>
-  <div *ngIf="error && !loading">
-    <p id="errorBikes">
+  <div *ngIf="!connected && !loading">
+    <p id="bikesConErr">
       There is no connection to the database. Please try again or contact us.
     </p>
   </div>
-  <div id="maintable" *ngIf="!loading && !error">
+  <div id="maintable" *ngIf="!loading && connected">
     <table matSort (matSortChange)="sortData($event)">
       <thead>
         <tr>
