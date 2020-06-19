@@ -1,11 +1,19 @@
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { DeleteDialog } from './';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import {
+  ComponentFixture,
+  TestBed,
+  inject,
+  fakeAsync,
+  tick,
+} from '@angular/core/testing';
 import { NgModule } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { NoopComponent } from '../_helpers';
 import { FormBuilder } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import {
@@ -13,8 +21,15 @@ import {
   HttpClient,
   HttpHandler,
 } from '@angular/common/http';
+import { DlgTestViewContainerDirective } from '../_helpers/dlgTestViewContainerDirective';
+import { DlgTestChildViewContainerComponent } from '../_helpers/dlgTestChildViewContainerComponent';
 
-const TEST_DIRECTIVES = [DeleteDialog, NoopComponent];
+const TEST_DIRECTIVES = [
+  DlgTestViewContainerDirective,
+  DlgTestChildViewContainerComponent,
+  DeleteDialog,
+];
+
 @NgModule({
   imports: [MatDialogModule, NoopAnimationsModule],
   exports: TEST_DIRECTIVES,
@@ -24,8 +39,10 @@ const TEST_DIRECTIVES = [DeleteDialog, NoopComponent];
 class DialogTestModule {}
 describe('Delete Dialog', () => {
   let dialog: MatDialog;
-  let overlayContainerElement: HTMLElement;
-  let noop: ComponentFixture<NoopComponent>;
+  let dialogRef: MatDialogRef<DeleteDialog>;
+  let element: HTMLElement;
+  let fixture: ComponentFixture<DlgTestChildViewContainerComponent>;
+  let mockData = { id: 1, name: 'Testobject' };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -39,35 +56,72 @@ describe('Delete Dialog', () => {
         {
           provide: OverlayContainer,
           useFactory: () => {
-            overlayContainerElement = document.createElement('div');
-            return { getContainerElement: () => overlayContainerElement };
+            element = document.createElement('div');
+            return { getContainerElement: () => element };
           },
         },
       ],
-    });
-
-    dialog = TestBed.get(MatDialog);
-
-    noop = TestBed.createComponent(NoopComponent);
+    }).compileComponents();
   });
 
-  it('should show titel and buttons', () => {
-    const config = {
-      data: {
-        title: '',
-        details: [],
-      },
-    };
-    dialog.open(DeleteDialog, config);
+  beforeEach(inject([MatDialog], (d: MatDialog) => {
+    dialog = d;
+  }));
 
-    noop.detectChanges(); // Updates the dialog in the overlay
+  beforeEach(() => {
+    fixture = TestBed.createComponent(DlgTestChildViewContainerComponent);
+    fixture.detectChanges();
+    dialogRef = dialog.open(DeleteDialog);
+    dialogRef.componentInstance.data = mockData;
+    fixture.detectChanges();
+  });
 
-    const h1 = overlayContainerElement.querySelector('#titelDel');
-    const button = overlayContainerElement.querySelector('#cancelDel');
-    const btnConfirm = overlayContainerElement.querySelector('#confirmDel');
+  it('should be created', fakeAsync(() => {
+    expect(dialogRef.componentInstance instanceof DeleteDialog).toBe(
+      true,
+      'Failed to open'
+    );
+    dialogRef.close();
+    tick(500);
+    fixture.detectChanges();
+  }));
 
-    expect(h1.textContent).toContain('Delete ');
+  it('should show titel, text and buttons', (done) => {
+    const h1 = element.querySelector('#titelDeleteD');
+    const p = element.querySelector('#textDeleteD');
+    const button = element.querySelector('#onCancelDeleteD');
+    const btnConfirm = element.querySelector('#onConfirmDeleteD');
+
+    expect(h1.textContent).toContain('Delete ' + mockData.name);
+    expect(p.textContent).toContain(
+      'Are you sure you want to delete ' + mockData.name
+    );
     expect(button.textContent).toContain('No');
     expect(btnConfirm.textContent).toContain('Yes');
+    done();
+  });
+
+  it('should close when No button pressed', (done) => {
+    const afterCloseCallback = jasmine.createSpy('afterClose callback');
+
+    dialogRef.afterClosed().subscribe(afterCloseCallback);
+    (element.querySelector('#onCancelDeleteD') as HTMLElement).click();
+    fixture.detectChanges();
+
+    fixture.whenStable().then(() => {
+      expect(element.querySelector('mat-dialog-container')).toBeNull(
+        'Dialog box still open'
+      );
+      expect(afterCloseCallback).toHaveBeenCalled();
+    });
+    done();
+  });
+
+  it('should delete when Yes button pressed', (done) => {
+    fixture.detectChanges();
+    spyOn(dialogRef.componentInstance, 'onConfirm');
+    (element.querySelector('#onConfirmDeleteD') as HTMLElement).click();
+    expect(dialogRef.componentInstance.onConfirm).toHaveBeenCalled();
+    done();
   });
 });

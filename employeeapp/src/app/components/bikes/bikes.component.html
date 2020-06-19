@@ -47,6 +47,7 @@
       </thead>
       <tbody>
         <tr
+          id="onSelect"
           *ngFor="let bike of sortedData; let i = index"
           [class.selected]="bike === selectedBike"
           [ngClass]="{ active: bike == selectedBike }"

@@ -22,25 +22,25 @@
           <li>
             <a id="onLoginApp" (click)="onLogin()">
               <mat-icon class="icon">input</mat-icon>
-              <a class="label">Login</a>
+              <a id="label" class="label">Login</a>
             </a>
           </li>
           <li>
             <a>
               <mat-icon class="icon">home</mat-icon>
-              <a class="label">Home</a>
+              <a id="label" class="label">Home</a>
             </a>
           </li>
           <li>
             <a>
               <mat-icon class="icon">dashboard</mat-icon>
-              <a class="label">Dashboard</a>
+              <a id="label" class="label">Dashboard</a>
             </a>
           </li>
           <li *ngIf="currentBackendUser">
             <a id="onLogoutApp" (click)="onLogout()">
               <mat-icon class="icon">input</mat-icon>
-              <a class="label">LogOut</a>
+              <a id="label" class="label">LogOut</a>
             </a>
           </li>
         </ul>

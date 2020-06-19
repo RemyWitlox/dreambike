@@ -156,6 +156,15 @@ describe('BikesComponent', () => {
     done();
   });
 
+  it('should select a bike when clicking in the table', (done) => {
+    fixture.detectChanges();
+    spyOn(component, 'onSelect');
+    element = fixture.debugElement.query(By.css('#onSelect')).nativeElement;
+    element.click();
+    expect(component.onSelect).toHaveBeenCalled();
+    done();
+  });
+
   it('should open the dialog on changing the docking station of the bike', (done) => {
     fixture.detectChanges();
     spyOn(component, 'onDocking');

@@ -13,13 +13,7 @@ import {
   tick,
   async,
 } from '@angular/core/testing';
-import {
-  NgModule,
-  Component,
-  ViewChild,
-  Directive,
-  ViewContainerRef,
-} from '@angular/core';
+import { NgModule } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormBuilder, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
@@ -31,24 +25,8 @@ import {
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MaterialModule } from 'src/material-module';
-
-@Directive({ selector: 'dir-with-view-container' })
-class DlgTestViewContainerDirective {
-  constructor(public viewContainerRef: ViewContainerRef) {}
-}
-
-@Component({
-  selector: 'lpa-arbitrary-component',
-  template: `<dir-with-view-container></dir-with-view-container>`,
-})
-class DlgTestChildViewContainerComponent {
-  @ViewChild(DlgTestViewContainerDirective)
-  childWithViewContainer: DlgTestViewContainerDirective;
-
-  get childViewContainer() {
-    return this.childWithViewContainer.viewContainerRef;
-  }
-}
+import { DlgTestViewContainerDirective } from '../_helpers/dlgTestViewContainerDirective';
+import { DlgTestChildViewContainerComponent } from '../_helpers/dlgTestChildViewContainerComponent';
 
 const TEST_DIRECTIVES = [
   DlgTestViewContainerDirective,
@@ -75,7 +53,7 @@ describe('Login Dialog', () => {
   let dialog: MatDialog;
   let dialogRef: MatDialogRef<LoginDialog>;
   let element: HTMLElement;
-  let viewContainerFixture: ComponentFixture<DlgTestChildViewContainerComponent>;
+  let fixture: ComponentFixture<DlgTestChildViewContainerComponent>;
   const fakeActivatedRoute = {
     snapshot: { data: {} },
   } as ActivatedRoute;
@@ -107,12 +85,10 @@ describe('Login Dialog', () => {
   }));
 
   beforeEach(() => {
-    viewContainerFixture = TestBed.createComponent(
-      DlgTestChildViewContainerComponent
-    );
-    viewContainerFixture.detectChanges();
+    fixture = TestBed.createComponent(DlgTestChildViewContainerComponent);
+    fixture.detectChanges();
     dialogRef = dialog.open(LoginDialog);
-    viewContainerFixture.detectChanges();
+    fixture.detectChanges();
   });
 
   it('should be created', fakeAsync(() => {
@@ -122,7 +98,7 @@ describe('Login Dialog', () => {
     );
     dialogRef.close();
     tick(500);
-    viewContainerFixture.detectChanges();
+    fixture.detectChanges();
   }));
 
   it('should show titel and buttons', (done) => {
@@ -136,14 +112,20 @@ describe('Login Dialog', () => {
     done();
   });
 
+  it('should hide error initialy', (done) => {
+    const error = element.querySelector('#errorLoginD');
+    expect(error).toBeFalsy();
+    done();
+  });
+
   it('should close when cancel button pressed', (done) => {
     const afterCloseCallback = jasmine.createSpy('afterClose callback');
 
     dialogRef.afterClosed().subscribe(afterCloseCallback);
     (element.querySelector('#onCancelLoginD') as HTMLElement).click();
-    viewContainerFixture.detectChanges();
+    fixture.detectChanges();
 
-    viewContainerFixture.whenStable().then(() => {
+    fixture.whenStable().then(() => {
       expect(element.querySelector('mat-dialog-container')).toBeNull(
         'Dialog box still open'
       );
@@ -153,21 +135,21 @@ describe('Login Dialog', () => {
   });
 
   it('should show disabled login-button if there is no password entry', (done) => {
-    viewContainerFixture.detectChanges();
+    fixture.detectChanges();
     const submitBtn = element.querySelector(
       '#onConfirmLoginD'
     ) as HTMLButtonElement;
-    const nameInput = element.querySelector('input[formcontrolname="username"]')
+    const nameInput = element.querySelector('input[formControlName="username"]')
       .parentElement as HTMLInputElement;
     const passwordInput = element.querySelector(
-      'input[formcontrolname="password"]'
+      'input[formControlName="password"]'
     ).parentElement as HTMLInputElement;
     nameInput.value = 'ABC';
     nameInput.dispatchEvent(new Event('input'));
-    viewContainerFixture.detectChanges();
+    fixture.detectChanges();
 
-    viewContainerFixture.whenStable().then(() => {
-      viewContainerFixture.detectChanges();
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
 
       expect(nameInput.value).toEqual('ABC');
       expect(passwordInput.value).toBe(undefined);
@@ -178,21 +160,21 @@ describe('Login Dialog', () => {
   });
 
   it('should show disabled login-button if there is no login entry', (done) => {
-    viewContainerFixture.detectChanges();
+    fixture.detectChanges();
     const submitBtn = element.querySelector(
       '#onConfirmLoginD'
     ) as HTMLButtonElement;
-    const nameInput = element.querySelector('input[formcontrolname="username"]')
+    const nameInput = element.querySelector('input[formControlName="username"]')
       .parentElement as HTMLInputElement;
     const passwordInput = element.querySelector(
-      'input[formcontrolname="password"]'
+      'input[formControlName="password"]'
     ).parentElement as HTMLInputElement;
     passwordInput.value = '123';
     passwordInput.dispatchEvent(new Event('input'));
-    viewContainerFixture.detectChanges();
+    fixture.detectChanges();
 
-    viewContainerFixture.whenStable().then(() => {
-      viewContainerFixture.detectChanges();
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
 
       expect(nameInput.value).toEqual(undefined);
       expect(passwordInput.value).toBe('123');
@@ -203,7 +185,7 @@ describe('Login Dialog', () => {
   });
 
   it('should show login-button if the entries are valid', (done) => {
-    viewContainerFixture.detectChanges();
+    fixture.detectChanges();
     const submitBtn = element.querySelector(
       '#onConfirmLoginD'
     ) as HTMLButtonElement;
@@ -218,12 +200,40 @@ describe('Login Dialog', () => {
     nameInput.dispatchEvent(new Event('input'));
     passwordInput.value = '123';
     passwordInput.dispatchEvent(new Event('input'));
-    viewContainerFixture.detectChanges();
+    fixture.detectChanges();
 
-    viewContainerFixture.whenStable().then(() => {
+    fixture.whenStable().then(() => {
       expect(nameInput.value).toEqual('ABC');
       expect(passwordInput.value).toEqual('123');
       expect(submitBtn.getAttribute('ng-reflect-disabled')).toBe('false');
+    });
+    done();
+  });
+
+  it('should login when login button pressed', (done) => {
+    fixture.detectChanges();
+    spyOn(dialogRef.componentInstance, 'onConfirm');
+    const submitBtn = element.querySelector(
+      '#onConfirmLoginD'
+    ) as HTMLButtonElement;
+    const nameInput = element.querySelector(
+      'input[formControlName="username"]'
+    ) as HTMLInputElement;
+    const passwordInput = element.querySelector(
+      'input[formControlName="password"]'
+    ) as HTMLInputElement;
+
+    nameInput.value = 'ABC';
+    nameInput.dispatchEvent(new Event('input'));
+    passwordInput.value = '123';
+    passwordInput.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    fixture.whenStable().then(() => {
+      expect(nameInput.value).toEqual('ABC');
+      expect(passwordInput.value).toEqual('123');
+      (element.querySelector('#onConfirmDeleteD') as HTMLElement).click();
+      expect(dialogRef.componentInstance.onConfirm).toHaveBeenCalled();
     });
     done();
   });
