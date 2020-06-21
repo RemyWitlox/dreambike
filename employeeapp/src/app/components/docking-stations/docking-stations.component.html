@@ -1,6 +1,6 @@
 <div>
   <mat-tab-group>
-    <mat-tab label="Table" id="tabTable">
+    <mat-tab label="Table">
       <mat-button-toggle-group name="dsBtns">
         <mat-button-toggle
           id="onAddds"
@@ -13,11 +13,11 @@
       </mat-button-toggle-group>
       <hr />
       <div *ngIf="loading && !connected">
-        <p>Loading,... Please wait.</p>
+        <p id="dockLoadTxt">Loading,... Please wait.</p>
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
       </div>
       <div *ngIf="!connected && !loading">
-        <p>
+        <p id="dockConErr">
           There is no connection to the database. Please try again or contact
           us.
         </p>
@@ -53,9 +53,11 @@
           </thead>
           <tbody>
             <tr
+              id="onSelect"
               *ngFor="let ds of sortedData; let i = index"
               [class.selected]="ds === selectedDs"
               [ngClass]="{ active: ds == selectedDs }"
+              (click)="onSelect(ds)"
             >
               <!-- (click)="onSelect(ds)" -->
               <td style="margin-top: -5px; max-width: 65px !important;">
@@ -106,7 +108,7 @@
         </table>
       </div>
     </mat-tab>
-    <mat-tab label="Map" id="tabMap">
+    <mat-tab label="Map">
       <div *ngIf="loading && !connected">
         <p>Loading,... Please wait.</p>
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
@@ -138,7 +140,7 @@
           />
         </div>
         <hr />
-        <div class="wrapper">
+        <div class="wrapper" id="wrapmap">
           <div class="first">
             <agm-map
               [latitude]="lat"

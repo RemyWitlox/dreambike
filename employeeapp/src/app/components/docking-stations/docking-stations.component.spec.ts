@@ -30,7 +30,7 @@ describe('DockingStationsComponent', () => {
   let component: DockingStationsComponent;
   let de: DebugElement;
   let fixture: ComponentFixture<DockingStationsComponent>;
-  let compiled;
+  let ne: HTMLElement;
   const mockDock: DockingStation[] = [
     {
       dockingId: 1,
@@ -83,16 +83,12 @@ describe('DockingStationsComponent', () => {
     fixture = TestBed.createComponent(DockingStationsComponent);
     component = fixture.componentInstance; // The component instantiation
     de = fixture.debugElement;
-    compiled = fixture.nativeElement;
+    ne = fixture.nativeElement;
 
     component.sortedData = mockDock;
     component.dockingStations = mockDock;
     component.connected = true;
     component.loading = false;
-
-    const btn = de.queryAll(By.css('mat-tab'))[0].nativeElement;
-    btn.click();
-    fixture.detectChanges();
   }));
 
   beforeEach(async () => {
@@ -111,9 +107,7 @@ describe('DockingStationsComponent', () => {
   });
 
   it('should have the tabs Table and Map', (done) => {
-    const labels = fixture.debugElement.queryAll(
-      By.css('.mat-tab-label .mat-tab-label-content')
-    );
+    const labels = de.queryAll(By.css('.mat-tab-label .mat-tab-label-content'));
     expect(labels.length).toBe(2);
     expect(labels[0].nativeElement.innerHTML).toContain('Table');
     expect(labels[1].nativeElement.innerHTML).toContain('Map');
@@ -146,7 +140,7 @@ describe('DockingStationsComponent', () => {
   it('should show a table of docking stations', (done) => {
     fixture.detectChanges();
     fixture.whenStable().then(() => {
-      let tableRows = fixture.nativeElement.querySelectorAll('tr');
+      let tableRows = ne.querySelectorAll('tr');
       expect(tableRows.length).toBe(5);
 
       // Header row
@@ -211,11 +205,12 @@ describe('DockingStationsComponent', () => {
     done();
   });
 
-  it('should go to tab Map when clicking on it', async((done) => {
-    compiled.querySelectorAll('mat-tab')[1].click();
+  it('should go to tab Map when clicking on it', (done) => {
     fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      expect(compiled.querySelector('tabMapContent')).toBeTruthy();
-    });
-  }));
+    const map = ne.querySelectorAll('#wrapmap');
+    de.queryAll(By.css('.mat-tab-label'))[1].nativeElement.click();
+    fixture.detectChanges();
+    expect(map).toBeTruthy();
+    done();
+  });
 });
