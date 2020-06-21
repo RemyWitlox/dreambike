@@ -19,7 +19,7 @@ module.exports = function (config) {
       },
     },
     coverageIstanbulReporter: {
-      dir: require("path").join(__dirname, "./coverage/FE-employeeApp"),
+      dir: require("path").join(__dirname, "./coverage/employeeapp"),
       reports: ["html", "lcovonly", "text-summary"],
       fixWebpackSourcePaths: true,
     },

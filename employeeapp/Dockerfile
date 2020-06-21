@@ -1,8 +1,12 @@
-FROM node:11.6.0-alpine AS builder
-COPY . ./employeeapp
-WORKDIR /employeeapp
-RUN npm i
-RUN $(npm bin)/ng build --prod
+#stage 1
+FROM node:latest AS node
+WORKDIR /app
+COPY . .
+RUN npm install
+RUN npm run build --prod
 
-FROM nginx:1.15.8-alpine
-COPY --from=builder /employeeapp/dist/employeeapp/ /usr/share/nginx/html
+#stage 2
+FROM nginx:alpine
+COPY --from=node /app/dist/employeeapp/ /usr/share/nginx/html
+
+# used by: docker build --pull --name employeeapp --rm -f "Dockerfile" -t employeeapp:latest "."

@@ -1,7 +1,6 @@
 <div>
   <mat-tab-group>
     <mat-tab label="Table" id="tabTable">
-    <div id=tabTableContent>
       <mat-button-toggle-group name="dsBtns">
         <mat-button-toggle
           id="onAddds"
@@ -109,7 +108,6 @@
       </div>
     </mat-tab>
     <mat-tab label="Map" id="tabMap">
-      <div id=tabMapContent>
       <div *ngIf="loading && !connected">
         <p>Loading,... Please wait.</p>
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
@@ -213,7 +211,6 @@
           </div>
         </div>
       </div>
-    </div>
     </mat-tab>
   </mat-tab-group>
 </div>

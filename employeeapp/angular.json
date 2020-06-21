@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "FE-employeeApp": {
+    "employeeapp": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/FE-employeeApp",
+            "outputPath": "dist/employeeapp",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -61,19 +61,19 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "FE-employeeApp:build",
+            "browserTarget": "employeeapp:build",
             "proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {
             "production": {
-              "browserTarget": "FE-employeeApp:build:production"
+              "browserTarget": "employeeapp:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "FE-employeeApp:build"
+            "browserTarget": "employeeapp:build"
           }
         },
         "test": {
@@ -104,16 +104,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "FE-employeeApp:serve"
+            "devServerTarget": "Employeeapp:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "FE-employeeApp:serve:production"
+              "devServerTarget": "Employeeapp:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "FE-employeeApp"
+  "defaultProject": "Employeeapp"
 }

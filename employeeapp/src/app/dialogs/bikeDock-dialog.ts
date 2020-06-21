@@ -8,7 +8,7 @@ import { debounceTime, map } from 'rxjs/operators';
 
 @Component({
   selector: 'bikedock-dialog',
-  templateUrl: './bikedockDialog.component.html',
+  templateUrl: './bikeDockDialog.component.html',
 })
 export class BikeDockDialog {
   public model: DockingStation;
@@ -52,7 +52,7 @@ export class BikeDockDialog {
     }
   }
 
-  onCancel(): void {
+  public onCancel(): void {
     this.dialogRef.close();
   }
 
