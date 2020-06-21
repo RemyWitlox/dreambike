@@ -101,10 +101,6 @@ export class DockingStationsComponent {
     this.zoom = 12;
   }
 
-  public clickedMarker(name: string, id: number) {
-    console.log(`clicked the marker: ${name || id}`);
-  }
-
   public setActive(ds: DockingStation) {
     this.newDocking.dockingId = ds.dockingId;
     this.newDocking.name = ds.name;
