@@ -124,9 +124,6 @@ describe('BikesComponent', () => {
   it('should show a table of bikes', (done) => {
     fixture.detectChanges();
     fixture.whenStable().then(() => {
-      component.sortedData = mockBikes;
-      component.bikes = mockBikes;
-
       let tableRows = fixture.nativeElement.querySelectorAll('tr');
       expect(tableRows.length).toBe(5);
 

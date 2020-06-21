@@ -20,7 +20,7 @@ export class DockingStationsComponent {
   public dockingStations: DockingStation[];
   public sortedData: DockingStation[];
   public loading: boolean;
-  public error: boolean;
+  public connected: boolean;
 
   public address: string;
   public lat: number = 51.441262;
@@ -42,7 +42,7 @@ export class DockingStationsComponent {
     private dialog: MatDialog,
     private dockingService: DockingService
   ) {
-    this.error = false;
+    this.connected = false;
     this.loading = false;
   }
 
@@ -61,9 +61,10 @@ export class DockingStationsComponent {
         this.sortedData = this.dockingStations.sort((a, b) => {
           return compare(a.dockingId, b.dockingId, true);
         });
+        this.connected = true;
       },
       (err) => {
-        this.error = true;
+        this.connected = false;
         console.log(err);
       },
       () => {
@@ -119,9 +120,11 @@ export class DockingStationsComponent {
     this.dockingService.updateDockingStation(this.newDocking).subscribe(
       () => {
         this.getDockingStations();
+        this.connected = true;
       },
       (error) => {
         console.error(error);
+        this.connected = false;
       },
       () => {
         this.newDocking = new DockingStation();

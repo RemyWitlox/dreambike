@@ -1,4 +1,4 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { TestBed, ComponentFixture, async } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from 'src/app/router/app-routing.module';
 import { of } from 'rxjs';
@@ -14,6 +14,7 @@ import { By } from '@angular/platform-browser';
 import { MatTabsModule } from '@angular/material/tabs';
 import { DockingStation } from 'src/app/models';
 import { APP_BASE_HREF, DatePipe } from '@angular/common';
+import { DebugElement } from '@angular/core';
 
 export class MatDialogMock {
   // When the component calls this.dialog.open(...) we'll return an object
@@ -27,9 +28,10 @@ export class MatDialogMock {
 
 describe('DockingStationsComponent', () => {
   let component: DockingStationsComponent;
-  let element: HTMLElement;
+  let de: DebugElement;
   let fixture: ComponentFixture<DockingStationsComponent>;
-  const testData: DockingStation[] = [
+  let compiled;
+  const mockDock: DockingStation[] = [
     {
       dockingId: 1,
       name: 'Docking1',
@@ -59,7 +61,7 @@ describe('DockingStationsComponent', () => {
     },
   ];
 
-  beforeEach(() => {
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         MatTabsModule,
@@ -80,20 +82,26 @@ describe('DockingStationsComponent', () => {
 
     fixture = TestBed.createComponent(DockingStationsComponent);
     component = fixture.componentInstance; // The component instantiation
-    element = fixture.nativeElement; // The HTML reference
-    component.sortedData = testData;
-    component.dockingStations = testData;
-    component.error = false;
+    de = fixture.debugElement;
+    compiled = fixture.nativeElement;
+
+    component.sortedData = mockDock;
+    component.dockingStations = mockDock;
+    component.connected = true;
     component.loading = false;
-  });
+
+    const btn = de.queryAll(By.css('mat-tab'))[0].nativeElement;
+    btn.click();
+    fixture.detectChanges();
+  }));
 
   beforeEach(async () => {
     await fixture.whenStable();
     fixture.detectChanges();
 
-    component.sortedData = testData;
-    component.dockingStations = testData;
-    component.error = false;
+    component.sortedData = mockDock;
+    component.dockingStations = mockDock;
+    component.connected = true;
     component.loading = false;
   });
 
@@ -112,14 +120,32 @@ describe('DockingStationsComponent', () => {
     done();
   });
 
+  it('should have a progress bar and text when loading', (done) => {
+    component.connected = false;
+    component.loading = true;
+    fixture.detectChanges();
+    const el = de.query(By.css('mat-progress-bar')).nativeElement;
+    const txt = de.query(By.css('#dockLoadTxt')).nativeElement;
+    expect(el).toBeTruthy();
+    expect(txt.textContent).toContain('Loading,... Please wait.');
+    done();
+  });
+
+  it('should show a message when connection has failed', (done) => {
+    component.connected = false;
+    component.loading = false;
+    fixture.detectChanges();
+    const el = de.query(By.css('#dockConErr')).nativeElement;
+    expect(el).toBeTruthy();
+    expect(el.textContent).toContain(
+      'There is no connection to the database. Please try again or contact us.'
+    );
+    done();
+  });
+
   it('should show a table of docking stations', (done) => {
     fixture.detectChanges();
     fixture.whenStable().then(() => {
-      fixture.detectChanges();
-      component.sortedData = testData;
-      component.dockingStations = testData;
-      fixture.detectChanges();
-
       let tableRows = fixture.nativeElement.querySelectorAll('tr');
       expect(tableRows.length).toBe(5);
 
@@ -152,8 +178,8 @@ describe('DockingStationsComponent', () => {
   it('should open the dialog on add', (done) => {
     fixture.detectChanges();
     spyOn(component, 'onAdd');
-    element = fixture.debugElement.query(By.css('#onAddds')).nativeElement;
-    element.click();
+    const btn = de.query(By.css('#onAddds')).nativeElement;
+    btn.click();
     expect(component.onAdd).toHaveBeenCalled();
     done();
   });
@@ -161,8 +187,8 @@ describe('DockingStationsComponent', () => {
   it('should open the dialog on edit', (done) => {
     fixture.detectChanges();
     spyOn(component, 'onEdit');
-    element = fixture.debugElement.query(By.css('#onEditds')).nativeElement;
-    element.click();
+    const btn = de.query(By.css('#onEditds')).nativeElement;
+    btn.click();
     expect(component.onEdit).toHaveBeenCalled();
     done();
   });
@@ -170,9 +196,26 @@ describe('DockingStationsComponent', () => {
   it('should open the dialog on delete', (done) => {
     fixture.detectChanges();
     spyOn(component, 'onDelete');
-    element = fixture.debugElement.query(By.css('#onDeleteds')).nativeElement;
-    element.click();
+    const btn = de.query(By.css('#onDeleteds')).nativeElement;
+    btn.click();
     expect(component.onDelete).toHaveBeenCalled();
     done();
   });
+
+  it('should select a docking station when clicking in the table', (done) => {
+    fixture.detectChanges();
+    spyOn(component, 'onSelect');
+    const btn = de.query(By.css('#onSelect')).nativeElement;
+    btn.click();
+    expect(component.onSelect).toHaveBeenCalled();
+    done();
+  });
+
+  it('should go to tab Map when clicking on it', async((done) => {
+    compiled.querySelectorAll('mat-tab')[1].click();
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(compiled.querySelector('tabMapContent')).toBeTruthy();
+    });
+  }));
 });

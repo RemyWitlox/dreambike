@@ -1,13 +1,13 @@
 <div class="contentMargin">
-  <p *ngIf="!currentBackendUser">
+  <p id="homeNoUserTxt" *ngIf="!currentBackendUser">
     You are not logged in. Please log in to continue.
   </p>
   <div *ngIf="currentBackendUser">
     <h1 id="welcome">Welcome {{ currentBackendUser?.name }},</h1>
-    <p>
+    <p id="roleTxt">
       Your current role is
       <strong>{{
-        currentBackendUser ? (currentBackendUser?.role)[0] : "No roles"
+        currentBackendUser?.role ? currentBackendUser?.role : "No role"
       }}</strong
       >. Now let's get started!
     </p>
