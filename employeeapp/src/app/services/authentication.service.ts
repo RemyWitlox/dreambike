@@ -31,6 +31,7 @@ export class AuthenticationService {
       map((user) => {
         this.token = user.access_token;
         decoded = jwt_decode(this.token + '/// jwt token');
+        console.log(decoded);
         this.receiveUser = {
           name: decoded.name,
           username: decoded.user_name,

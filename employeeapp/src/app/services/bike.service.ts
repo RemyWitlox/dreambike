@@ -1,15 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Bike } from '../models';
+import { Bike, DockingStation } from '../models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BikeService {
   url: string = 'http://localhost:8181/bike/';
+  urlBd: string = 'http://localhost:8181/bikedocking/';
 
   constructor(private http: HttpClient) {}
+
+  updateBikeDock(bike: Bike, dock: DockingStation): Observable<any> {
+    const url = this.urlBd + 'addBikeToDocking';
+    return this.http.post<any>(url, {
+      params: {
+        bikeId: bike.bikeId,
+        dockingId: dock.dockingId,
+      },
+    });
+  }
 
   getBikes(): Observable<Bike[]> {
     const url = this.url + 'getAll';
