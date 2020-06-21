@@ -17,7 +17,6 @@ export class DockingService {
   }
 
   createDockingStation(ds: DockingStation): Observable<DockingStation> {
-    console.log(ds);
     const url = this.url + 'newDocking';
     return this.http.post<DockingStation>(url, ds);
   }

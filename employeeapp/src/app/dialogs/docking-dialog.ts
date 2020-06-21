@@ -130,10 +130,7 @@ export class DockingDialog {
         this.newDocking.capacity = this.f.capacity.value;
         this.newDocking.lat = this.f.lat.value;
         this.newDocking.active = this.data.active;
-        console.log(this.data.active);
-
         this.newDocking.lng = this.f.lng.value;
-        console.log(this.newDocking);
         this.dockingService.updateDockingStation(this.newDocking).subscribe(
           (succes) => {
             console.log(succes);

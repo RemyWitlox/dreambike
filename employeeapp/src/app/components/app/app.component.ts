@@ -39,14 +39,14 @@ export class AppComponent implements OnInit {
 
   get isAdmin() {
     return (
-      this.currentBackendUser && this.currentBackendUser.role[0] === Role.Admin
+      this.currentBackendUser && this.currentBackendUser.role === Role.Admin
     );
   }
 
   get isManagement() {
     return (
       this.currentBackendUser &&
-      this.currentBackendUser.role[0] === Role.Management
+      this.currentBackendUser.role === Role.Management
     );
   }
 

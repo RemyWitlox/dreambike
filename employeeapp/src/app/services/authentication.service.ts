@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import * as jwt_decode from 'jwt-decode';
 
 import { LoginService } from './login.service';
-import { ReceiveUser } from '../models';
+import { ReceiveUser, Role } from '../models';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -31,11 +31,11 @@ export class AuthenticationService {
       map((user) => {
         this.token = user.access_token;
         decoded = jwt_decode(this.token + '/// jwt token');
-        console.log(decoded);
+        let role = decoded.resource_access.loginapp.roles[0];
         this.receiveUser = {
           name: decoded.name,
           username: decoded.user_name,
-          role: decoded.resource_access.loginapp.roles,
+          role: role,
           access_token: this.token,
         };
         localStorage.setItem(
