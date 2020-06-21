@@ -1,7 +1,7 @@
 import { Component, Inject, NgZone } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { DockingService } from '../services';
+import { DockingService, BikeService } from '../services';
 import { DockingStation, Bike } from '../models';
 import { Observable } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
@@ -25,10 +25,12 @@ export class BikeDockDialog {
     private formBuilder: FormBuilder,
     private dockingService: DockingService,
     private zone: NgZone,
+    private bikeService: BikeService,
     @Inject(MAT_DIALOG_DATA) public data: Bike
   ) {
     this.bike = data;
     this.zone.run(() => this.getDockingStations());
+    this.getDsOnBike(data);
   }
 
   getDockingStations() {
@@ -38,6 +40,17 @@ export class BikeDockDialog {
       },
       (err) => {
         console.log(err);
+      }
+    );
+  }
+
+  getDsOnBike(bike) {
+    this.bikeService.getDsOnBike(bike).subscribe(
+      (ds) => {
+        this.f.docking.setValue(ds);
+      },
+      (error) => {
+        console.error(error);
       }
     );
   }
@@ -72,8 +85,8 @@ export class BikeDockDialog {
 
   public formatter = (ds: DockingStation) => ds.name;
 
-  public selectedItem(location) {
-    this.bikeDockForm.controls.docking.setValue(location);
+  public selectedItem(ds) {
+    this.f.docking.setValue(ds);
   }
 
   // convenience getter for easy access to form fields
@@ -88,11 +101,24 @@ export class BikeDockDialog {
     if (this.f.invalid || this.f.docking.value == '') {
       this.error = 'Form is not complete.';
       return;
-    } else if (this.bikeDockForm.get('docking').value == this.data.docking) {
+    } else if (this.f.docking.value == this.data.docking) {
       this.error =
         "Docking stations is not changed. Press 'cancel' if you would like to cancel.";
+    } else {
       //TODO: send to backend
-      this.dialogRef.close();
+      this.bikeService
+        .updateBikeDock(this.f.bike.value, this.f.docking.value)
+        .subscribe(
+          (succes) => {
+            console.log(succes);
+          },
+          (error) => {
+            console.error(error);
+          },
+          () => {
+            this.dialogRef.close();
+          }
+        );
     }
   }
 }
