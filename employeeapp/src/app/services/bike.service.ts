@@ -13,14 +13,17 @@ export class BikeService {
   constructor(private http: HttpClient) {}
 
   updateBikeDock(bike: Bike, dock: DockingStation): Observable<any> {
-    const url =
-      this.urlBd + 'addBikeToDocking/' + bike.bikeId + '/' + dock.dockingId;
-    return this.http.post<any>(url, '');
+    const url = this.urlBd + 'addBikeToDocking';
+    const dockbike = { dockingId: dock.dockingId, bikeId: bike.bikeId };
+    return this.http.post<any>(url, dockbike);
   }
 
-  getDsOnBike(bike: Bike): Observable<DockingStation> {
+  getDsOnBike(bike: Bike): Observable<any> {
     const url = this.urlBd + 'getDockingId/' + bike.bikeId;
-    return this.http.get<DockingStation>(url);
+    const id: string = bike.bikeId.toString();
+    return this.http.get<any>(url, {
+      params: { bikeId: id },
+    });
   }
 
   getBikes(): Observable<Bike[]> {

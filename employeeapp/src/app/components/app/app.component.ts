@@ -18,6 +18,7 @@ export class AppComponent implements OnInit {
   subtitle = 'DreamBike Employee Application';
   currentBackendUser: ReceiveUser;
   now: Date;
+  interval;
 
   constructor(
     private dialog: MatDialog,
@@ -35,7 +36,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    setInterval(() => {
+    this.interval = setInterval(() => {
       this.onConnect();
     }, 5000);
     this.zone.run(() => this.getCurrentBackendUser());
@@ -59,11 +60,12 @@ export class AppComponent implements OnInit {
       (succes) => {
         this.connected = succes;
         this.now = new Date();
-        console.log('connected', this.now);
       },
       (error) => {
         console.error(error);
+        this.loading = false;
         this.connected = false;
+        clearInterval(this.interval);
       },
       () => {
         this.loading = false;

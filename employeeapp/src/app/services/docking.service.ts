@@ -8,6 +8,7 @@ import { DockingStation } from '../models';
 })
 export class DockingService {
   url: string = 'http://localhost:8181/docking/';
+  urlBd: string = 'http://localhost:8181/bikedocking/';
 
   constructor(private http: HttpClient) {}
 
@@ -19,6 +20,12 @@ export class DockingService {
   createDockingStation(ds: DockingStation): Observable<DockingStation> {
     const url = this.url + 'newDocking';
     return this.http.post<DockingStation>(url, ds);
+  }
+
+  createDsLink(ds: DockingStation): Observable<any> {
+    const sendDs = { dockingId: ds.dockingId, capacity: ds.capacity };
+    const url = this.urlBd + 'addDocking';
+    return this.http.post<any>(url, sendDs);
   }
 
   updateDockingStation(ds: DockingStation): Observable<DockingStation> {

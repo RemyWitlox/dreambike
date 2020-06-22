@@ -152,6 +152,17 @@ export class DockingDialog {
         this.dockingService.createDockingStation(this.newDocking).subscribe(
           (succes) => {
             console.log(succes);
+            this.dockingService.createDsLink(this.newDocking).subscribe(
+              (succes) => {
+                console.log(succes);
+              },
+              (error) => {
+                console.error(error);
+              },
+              () => {
+                this.dialogRef.close();
+              }
+            );
           },
           (error) => {
             console.error(error);

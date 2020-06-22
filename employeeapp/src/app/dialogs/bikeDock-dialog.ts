@@ -29,14 +29,14 @@ export class BikeDockDialog {
     @Inject(MAT_DIALOG_DATA) public data: Bike
   ) {
     this.bike = data;
-    this.zone.run(() => this.getDockingStations());
-    this.getDsOnBike(data);
+    this.getDockingStations();
   }
 
   getDockingStations() {
     this.dockingService.getDockingStations().subscribe(
       (ds) => {
         this.dockingStations = ds;
+        this.getDsOnBike(this.data);
       },
       (err) => {
         console.log(err);
@@ -47,7 +47,10 @@ export class BikeDockDialog {
   getDsOnBike(bike) {
     this.bikeService.getDsOnBike(bike).subscribe(
       (ds) => {
-        this.f.docking.setValue(ds);
+        console.log(ds);
+        this.f.docking.setValue(
+          this.dockingStations.find((x) => x.dockingId === ds)
+        );
       },
       (error) => {
         console.error(error);
