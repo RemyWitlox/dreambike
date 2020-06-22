@@ -72,6 +72,9 @@
   <a routerLinkActive="active" routerLink="settings" *ngIf="isAdmin"
     >Settings</a
   >
+  <p style="bottom: 0; position: absolute; padding-left: 12px;">
+    {{ now | date: "dd-MM-yyyy hh:mm:ss" }}
+  </p>
 </div>
 <div *ngIf="loading">
   <p id="appLoadTxt" style="margin-left: 230px;">Loading,... Please wait.</p>

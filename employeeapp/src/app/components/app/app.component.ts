@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { LoginDialog } from '../../dialogs/login-dialog';
 import { Role } from 'src/app/models';
 import { Router } from '@angular/router';
-import { AuthenticationService } from 'src/app/services';
+import { AuthenticationService, LoginService } from 'src/app/services';
 import { ReceiveUser } from 'src/app/models';
 
 @Component({
@@ -17,11 +17,13 @@ export class AppComponent implements OnInit {
   title = 'Dreambike';
   subtitle = 'DreamBike Employee Application';
   currentBackendUser: ReceiveUser;
+  now: Date;
 
   constructor(
     private dialog: MatDialog,
     private router: Router,
     private authenticationService: AuthenticationService,
+    private loginService: LoginService,
     private zone: NgZone
   ) {}
 
@@ -32,9 +34,11 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loading = true;
+    setInterval(() => {
+      this.onConnect();
+    }, 5000);
     this.zone.run(() => this.getCurrentBackendUser());
-    this.loading = false;
-    this.connected = true;
   }
 
   get isAdmin() {
@@ -47,6 +51,23 @@ export class AppComponent implements OnInit {
     return (
       this.currentBackendUser &&
       this.currentBackendUser.role === Role.Management
+    );
+  }
+
+  onConnect() {
+    this.loginService.testConnection().subscribe(
+      (succes) => {
+        this.connected = succes;
+        this.now = new Date();
+        console.log('connected', this.now);
+      },
+      (error) => {
+        console.error(error);
+        this.connected = false;
+      },
+      () => {
+        this.loading = false;
+      }
     );
   }
 
