@@ -80,9 +80,9 @@ span {
   margin-left: 215px;
   /* Height and width fallback for older browsers. */
   height: calc(100% -64px);
-  width: calc(100% - 235px);
+  width: calc(100% - 215px);
 
   /* Set the height/width to match that of the viewport. */
   height: calc(100vh - 64px);
-  width: calc(100vw - 235px);
+  width: calc(100vw - 215px);
 }

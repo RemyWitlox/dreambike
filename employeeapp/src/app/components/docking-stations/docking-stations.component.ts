@@ -16,6 +16,10 @@ import { DockingService } from 'src/app/services/docking.service';
   providers: [NgbTypeaheadConfig],
 })
 export class DockingStationsComponent {
+  // ADD [iconUrl]="ds.active ? green : red" to agm-marker
+  public red = '../../../assets/red.png';
+  public blue = '../../../assets/blue.png';
+  public green = '../../../assets/green.png';
   public model: DockingStation;
   public dockingStations: DockingStation[];
   public sortedData: DockingStation[];
@@ -99,6 +103,14 @@ export class DockingStationsComponent {
     this.lat = lat;
     this.lng = lng;
     this.zoom = 12;
+  }
+
+  checkMag(ds) {
+    if (ds.name.contains('Magazijn')) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   public setActive(ds: DockingStation) {

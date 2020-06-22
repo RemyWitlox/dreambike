@@ -30,6 +30,10 @@ export class HomeComponent {
     }
   }
 
+  getUrl() {
+    return '../../../assets/bigcity.png';
+  }
+
   goDocking() {
     this.router.navigate(['/dockingStations']);
   }

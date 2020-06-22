@@ -38,6 +38,8 @@ export class AuthenticationService {
           role: role,
           access_token: this.token,
         };
+        console.log(this.token);
+
         localStorage.setItem(
           'currentBackendUser',
           JSON.stringify(this.receiveUser)
