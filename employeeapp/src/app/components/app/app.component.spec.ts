@@ -83,31 +83,46 @@ describe('AppComponent', () => {
 
   it('should have a titel and subtitle', (done) => {
     // * arrange
-    const title = 'Dreambike';
-    const subtitle = 'DreamBike Employee Application';
+    component.connected = true;
+    component.loading = false;
+    fixture.detectChanges();
     const titleElement = de.query(By.css('h1')).nativeElement;
     const subtitleElement = de.query(By.css('span')).nativeElement;
-    // * act
-    component.title = title;
-    component.subtitle = subtitle;
-    fixture.detectChanges();
-    // * assert
-    expect(titleElement.textContent).toContain(title);
-    expect(subtitleElement.textContent).toContain(subtitle);
+    expect(titleElement.textContent).toContain('Dreambike');
+    expect(subtitleElement.textContent).toContain(
+      'DreamBike Employee Application'
+    );
     done();
   });
 
   it('should have a horizontal menu with login if not loged in', (done) => {
+    // * act
+    component.connected = true;
+    component.loading = false;
+    component.currentBackendUser = null;
+    fixture.detectChanges();
     // * arrange
     const menu = de.queryAll(By.css('#horizontalMenu ul li'));
-    // * act
-    component.currentBackendUser = mockUserAdmin;
-    component.loading = false;
-    fixture.detectChanges();
     // * assert
     expect(menu[0].nativeElement.innerText).toContain('Login', 'login');
     expect(menu[1].nativeElement.innerText).toContain('Home', 'home');
     expect(menu[2].nativeElement.innerText).toContain('Dashboard', 'dash');
+    expect(menu[3]).toBe(undefined);
+    done();
+  });
+
+  it('should have a horizontal menu with logout if loged in', (done) => {
+    // * act
+    component.connected = true;
+    component.loading = false;
+    component.currentBackendUser = mockUserAdmin;
+    fixture.detectChanges();
+    // * arrange
+    const menu = de.queryAll(By.css('#horizontalMenu ul li'));
+    // * assert
+    expect(menu[0].nativeElement.innerText).toContain('Home', 'home');
+    expect(menu[1].nativeElement.innerText).toContain('Dashboard', 'dash');
+    expect(menu[2].nativeElement.innerText).toContain('LogOut', 'logout');
     expect(menu[3]).toBe(undefined);
     done();
   });
@@ -118,15 +133,14 @@ describe('AppComponent', () => {
     component.loading = false;
     fixture.detectChanges();
     const menu = de.queryAll(By.css('#verticalMenu a'));
-    fixture.whenStable().then(() => {
-      fixture.detectChanges();
-      expect(menu[0].nativeElement.innerText).toContain('Home');
-      expect(menu[1].nativeElement.innerText).toContain('Docking Stations');
-      expect(menu[2].nativeElement.innerText).toContain('Bikes');
-      expect(menu[3].nativeElement.innerText).toContain('Repairs');
-      expect(menu[4].nativeElement.innerText).toContain('Analytics');
-      expect(menu[5].nativeElement.innerText).toContain('Settings');
-    });
+    fixture.detectChanges();
+    expect(menu[0].nativeElement.innerText).toContain('Home');
+    expect(menu[1].nativeElement.innerText).toContain('Docking Stations');
+    expect(menu[2].nativeElement.innerText).toContain('Bikes');
+    expect(menu[3].nativeElement.innerText).toContain('Repairs');
+    expect(menu[4].nativeElement.innerText).toContain('Analytics');
+    expect(menu[5].nativeElement.innerText).toContain('Settings');
+
     done();
   });
 
@@ -136,15 +150,12 @@ describe('AppComponent', () => {
     component.loading = false;
     fixture.detectChanges();
     const menu = de.queryAll(By.css('#verticalMenu a'));
-    fixture.whenStable().then(() => {
-      fixture.detectChanges();
-      expect(menu[0].nativeElement.innerText).toContain('Home');
-      expect(menu[1].nativeElement.innerText).toContain('Docking Stations');
-      expect(menu[2].nativeElement.innerText).toContain('Bikes');
-      expect(menu[3].nativeElement.innerText).toContain('Repairs');
-      expect(menu[4].nativeElement).toBeFalsy();
-      expect(menu[5].nativeElement).toBeFalsy();
-    });
+    expect(menu[0].nativeElement.innerText).toContain('Home');
+    expect(menu[1].nativeElement.innerText).toContain('Docking Stations');
+    expect(menu[2].nativeElement.innerText).toContain('Bikes');
+    expect(menu[3].nativeElement.innerText).toContain('Repairs');
+    expect(menu[4].nativeElement).toBeFalsy();
+    expect(menu[5].nativeElement).toBeFalsy();
     done();
   });
   it('should have a vertical menu without analytics when loged in as Manager', (done) => {
@@ -153,15 +164,12 @@ describe('AppComponent', () => {
     component.loading = false;
     fixture.detectChanges();
     const menu = de.queryAll(By.css('#verticalMenu a'));
-    fixture.whenStable().then(() => {
-      fixture.detectChanges();
-      expect(menu[0].nativeElement.innerText).toContain('Home');
-      expect(menu[1].nativeElement.innerText).toContain('Docking Stations');
-      expect(menu[2].nativeElement.innerText).toContain('Bikes');
-      expect(menu[3].nativeElement.innerText).toContain('Repairs');
-      expect(menu[4].nativeElement.innerText).toContain('Analytics');
-      expect(menu[5].nativeElement).toBeFalsy();
-    });
+    expect(menu[0].nativeElement.innerText).toContain('Home');
+    expect(menu[1].nativeElement.innerText).toContain('Docking Stations');
+    expect(menu[2].nativeElement.innerText).toContain('Bikes');
+    expect(menu[3].nativeElement.innerText).toContain('Repairs');
+    expect(menu[4].nativeElement.innerText).toContain('Analytics');
+    expect(menu[5].nativeElement).toBeFalsy();
     done();
   });
 
@@ -172,11 +180,9 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const el = de.query(By.css('mat-progress-bar')).nativeElement;
     const txt = de.query(By.css('#appLoadTxt')).nativeElement;
-    fixture.whenStable().then(() => {
-      fixture.detectChanges();
-      expect(el).toBeTruthy();
-      expect(txt.textContent).toContain('Loading,... Please wait.');
-    });
+    fixture.detectChanges();
+    expect(el).toBeTruthy();
+    expect(txt.textContent).toContain('Loading,... Please wait.');
     done();
   });
 
@@ -186,13 +192,11 @@ describe('AppComponent', () => {
     component.loading = false;
     fixture.detectChanges();
     const el = de.query(By.css('#conErr')).nativeElement;
-    fixture.whenStable().then(() => {
-      fixture.detectChanges();
-      expect(el).toBeTruthy();
-      expect(el.textContent).toContain(
-        'There is no connection with the database, please contact the IT crowd!'
-      );
-    });
+    fixture.detectChanges();
+    expect(el).toBeTruthy();
+    expect(el.textContent).toContain(
+      'There is no connection with the database, please contact the IT crowd!'
+    );
     done();
   });
 
@@ -202,14 +206,14 @@ describe('AppComponent', () => {
     component.loading = false;
     fixture.detectChanges();
     const el = de.query(By.css('router-outlet')).nativeElement;
-    fixture.whenStable().then(() => {
-      fixture.detectChanges();
-      expect(el).toBeTruthy();
-    });
+    fixture.detectChanges();
+    expect(el).toBeTruthy();
     done();
   });
 
   it('should open the Login dialog', (done) => {
+    component.connected = true;
+    component.loading = false;
     component.currentBackendUser = null;
     fixture.detectChanges();
     spyOn(component, 'onLogin');
@@ -220,8 +224,9 @@ describe('AppComponent', () => {
   });
 
   it('should logout a user when logout button pressed', (done) => {
+    component.connected = true;
+    component.loading = false;
     component.currentBackendUser = mockUserAdmin;
-
     fixture.detectChanges();
     spyOn(component, 'onLogout');
     const btn = de.query(By.css('#onLogoutApp')).nativeElement;

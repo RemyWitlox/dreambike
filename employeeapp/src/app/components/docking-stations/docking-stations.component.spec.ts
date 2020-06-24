@@ -139,34 +139,32 @@ describe('DockingStationsComponent', () => {
 
   it('should show a table of docking stations', (done) => {
     fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      let tableRows = ne.querySelectorAll('tr');
-      expect(tableRows.length).toBe(5);
+    let tableRows = ne.querySelectorAll('tr');
+    expect(tableRows.length).toBe(5);
 
-      // Header row
-      let headerRow = tableRows[0];
-      expect(headerRow.cells[0].innerHTML).toBe('');
-      expect(headerRow.cells[1].innerHTML).toContain('Id');
-      expect(headerRow.cells[2].innerHTML).toContain('Name');
-      expect(headerRow.cells[3].innerHTML).toContain('Active');
-      expect(headerRow.cells[4].innerHTML).toContain('Bikes');
-      expect(headerRow.cells[5].innerHTML).toContain('Space');
-      expect(headerRow.cells[6].innerHTML).toContain('Capacity');
-      expect(headerRow.cells[7].innerHTML).toContain('Latitude');
-      expect(headerRow.cells[8].innerHTML).toContain('Longitude');
-      // Data rows
-      //{ dockingId: 1, name: "Docking1", bikes: 1, capacity: 2, active: true, lat: 51.6456, lng: 61.55492 },
-      let row1 = tableRows[1];
-      expect(row1.cells[1].innerHTML).toContain('1');
-      expect(row1.cells[2].innerHTML).toContain('Docking1');
-      expect(row1.cells[3].innerHTML).toContain('true');
-      expect(row1.cells[4].innerHTML).toContain('1');
-      expect(row1.cells[5].innerHTML).toContain('1');
-      expect(row1.cells[6].innerHTML).toContain('2');
-      expect(row1.cells[7].innerHTML).toContain('51.6456');
-      expect(row1.cells[8].innerHTML).toContain('61.55492');
-      done();
-    });
+    // Header row
+    let headerRow = tableRows[0];
+    expect(headerRow.cells[0].innerHTML).toBe('');
+    expect(headerRow.cells[1].innerHTML).toContain('Id');
+    expect(headerRow.cells[2].innerHTML).toContain('Name');
+    expect(headerRow.cells[3].innerHTML).toContain('Active');
+    expect(headerRow.cells[4].innerHTML).toContain('Bikes');
+    expect(headerRow.cells[5].innerHTML).toContain('Space');
+    expect(headerRow.cells[6].innerHTML).toContain('Capacity');
+    expect(headerRow.cells[7].innerHTML).toContain('Latitude');
+    expect(headerRow.cells[8].innerHTML).toContain('Longitude');
+    // Data rows
+    //{ dockingId: 1, name: "Docking1", bikes: 1, capacity: 2, active: true, lat: 51.6456, lng: 61.55492 },
+    let row1 = tableRows[1];
+    expect(row1.cells[1].innerHTML).toContain('1');
+    expect(row1.cells[2].innerHTML).toContain('Docking1');
+    expect(row1.cells[3].innerHTML).toContain('true');
+    expect(row1.cells[4].innerHTML).toContain('1');
+    expect(row1.cells[5].innerHTML).toContain('1');
+    expect(row1.cells[6].innerHTML).toContain('2');
+    expect(row1.cells[7].innerHTML).toContain('51.6456');
+    expect(row1.cells[8].innerHTML).toContain('61.55492');
+    done();
   });
 
   it('should open the dialog on add', (done) => {

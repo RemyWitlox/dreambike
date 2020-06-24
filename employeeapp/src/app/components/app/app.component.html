@@ -1,6 +1,6 @@
 <h1 hidden>{{ title }}</h1>
 <mat-sidenav-container class="horizontalMenu">
-  <mat-sidenav-content id="horizontalMenu">
+  <mat-sidenav-content>
     <mat-toolbar color="primary">
       <div style="padding-left: 15px;">
         <img
@@ -16,6 +16,7 @@
         fxFlex
         fxLayout
         fxLayoutAlign="flex-end"
+        id="horizontalMenu"
         *ngIf="connected && !loading"
       >
         <ul fxLayout fxLayoutGap="20px" class="navigation-items">
