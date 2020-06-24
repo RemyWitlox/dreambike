@@ -154,8 +154,8 @@ describe('AppComponent', () => {
     expect(menu[1].nativeElement.innerText).toContain('Docking Stations');
     expect(menu[2].nativeElement.innerText).toContain('Bikes');
     expect(menu[3].nativeElement.innerText).toContain('Repairs');
-    expect(menu[4].nativeElement).toBeFalsy();
-    expect(menu[5].nativeElement).toBeFalsy();
+    expect(menu[4]).toBe(undefined);
+    expect(menu[5]).toBe(undefined);
     done();
   });
   it('should have a vertical menu without analytics when loged in as Manager', (done) => {
@@ -169,7 +169,7 @@ describe('AppComponent', () => {
     expect(menu[2].nativeElement.innerText).toContain('Bikes');
     expect(menu[3].nativeElement.innerText).toContain('Repairs');
     expect(menu[4].nativeElement.innerText).toContain('Analytics');
-    expect(menu[5].nativeElement).toBeFalsy();
+    expect(menu[5]).toBe(undefined);
     done();
   });
 

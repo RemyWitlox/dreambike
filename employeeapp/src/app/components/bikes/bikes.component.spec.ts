@@ -123,31 +123,29 @@ describe('BikesComponent', () => {
 
   it('should show a table of bikes', (done) => {
     fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      let tableRows = fixture.nativeElement.querySelectorAll('tr');
-      expect(tableRows.length).toBe(5);
+    let tableRows = fixture.nativeElement.querySelectorAll('tr');
+    expect(tableRows.length).toBe(5);
 
-      // Header row
-      let headerRow = tableRows[0];
-      expect(headerRow.cells[0].innerHTML).toBe('');
-      expect(headerRow.cells[1].innerHTML).toContain('Id');
-      expect(headerRow.cells[2].innerHTML).toContain('Name');
-      expect(headerRow.cells[3].innerHTML).toContain('Type');
-      expect(headerRow.cells[4].innerHTML).toContain('Driver');
-      expect(headerRow.cells[5].innerHTML).toContain('Size');
-      expect(headerRow.cells[6].innerHTML).toContain('Broken');
-      expect(headerRow.cells[7].innerHTML).toContain('Created');
-      // Data rows
-      let row1 = tableRows[1];
-      expect(row1.cells[1].innerHTML).toContain('1');
-      expect(row1.cells[2].innerHTML).toContain('Bike1');
-      expect(row1.cells[3].innerHTML).toContain(' ');
-      expect(row1.cells[4].innerHTML).toContain(' ');
-      expect(row1.cells[5].innerHTML).toContain('24');
-      expect(row1.cells[6].innerHTML).toContain('true');
-      expect(row1.cells[7].innerHTML).toContain('14-07-2019');
-      done();
-    });
+    // Header row
+    let headerRow = tableRows[0];
+    expect(headerRow.cells[0].innerHTML).toBe('');
+    expect(headerRow.cells[1].innerHTML).toContain('Id');
+    expect(headerRow.cells[2].innerHTML).toContain('Name');
+    expect(headerRow.cells[3].innerHTML).toContain('Type');
+    expect(headerRow.cells[4].innerHTML).toContain('Driver');
+    expect(headerRow.cells[5].innerHTML).toContain('Size');
+    expect(headerRow.cells[6].innerHTML).toContain('Broken');
+    expect(headerRow.cells[7].innerHTML).toContain('Created');
+    // Data rows
+    let row1 = tableRows[1];
+    expect(row1.cells[1].innerHTML).toContain('1');
+    expect(row1.cells[2].innerHTML).toContain('Bike1');
+    expect(row1.cells[3].innerHTML).toContain(' ');
+    expect(row1.cells[4].innerHTML).toContain(' ');
+    expect(row1.cells[5].innerHTML).toContain('24');
+    expect(row1.cells[6].innerHTML).toContain('true');
+    expect(row1.cells[7].innerHTML).toContain('14-07-2019');
+    done();
   });
 
   it('should open the dialog on add', (done) => {
