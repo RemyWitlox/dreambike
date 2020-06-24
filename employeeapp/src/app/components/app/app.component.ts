@@ -5,6 +5,8 @@ import { Role } from 'src/app/models';
 import { Router } from '@angular/router';
 import { AuthenticationService, LoginService } from 'src/app/services';
 import { ReceiveUser } from 'src/app/models';
+import { tick } from '@angular/core/testing';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +17,7 @@ export class AppComponent implements OnInit {
   loading: boolean;
   connected: boolean;
   title = 'Dreambike';
+  currentApplicationVersion = environment.appVersion;
   subtitle = 'DreamBike Employee Application';
   currentBackendUser: ReceiveUser;
   now: Date;
@@ -75,7 +78,8 @@ export class AppComponent implements OnInit {
 
   onLogout(): void {
     this.authenticationService.logout();
-    this.router.navigate(['']);
+    tick(2000);
+    this.router.navigate(['home']);
   }
 
   onLogin(): void {

@@ -66,13 +66,12 @@ export class DockingStationsComponent {
           return compare(a.dockingId, b.dockingId, true);
         });
         this.connected = true;
+        this.loading = false;
       },
       (err) => {
         this.connected = false;
-        console.log(err);
-      },
-      () => {
         this.loading = false;
+        console.log(err);
       }
     );
     this.selectedDs = new DockingStation();

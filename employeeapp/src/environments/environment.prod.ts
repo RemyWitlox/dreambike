@@ -1,4 +1,5 @@
 export const environment = {
+  appVersion: require('../../package.json').version,
   production: true,
   // for fake backend:
   apiUrl: 'http://localhost:4000',
